@@ -13,6 +13,12 @@
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
+		7157DCB311EEFDEB00E36675 /* PLImageRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7157DCB211EEFDEB00E36675 /* PLImageRequest.m */; };
+		7157DD6511EF301100E36675 /* PLHttpQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 7157DD6411EF301100E36675 /* PLHttpQueue.m */; };
+		7157DD7011EF3B9200E36675 /* PLImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 7157DD6F11EF3B9200E36675 /* PLImageCache.m */; };
+		7157DDC111EF474500E36675 /* PLHttpClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 7157DDC011EF474500E36675 /* PLHttpClient.m */; };
+		7157DDC411EF47B100E36675 /* PLImageLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7157DDC311EF47B100E36675 /* PLImageLoader.m */; };
+		7157DDD411EF53A400E36675 /* UIImageView+Http.m in Sources */ = {isa = PBXBuildFile; fileRef = 7157DDD311EF53A400E36675 /* UIImageView+Http.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +31,18 @@
 		28AD733E0D9D9553002E5188 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* PlutoLand_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlutoLand_Prefix.pch; sourceTree = "<group>"; };
+		7157DCB111EEFDEB00E36675 /* PLImageRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLImageRequest.h; sourceTree = "<group>"; };
+		7157DCB211EEFDEB00E36675 /* PLImageRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLImageRequest.m; sourceTree = "<group>"; };
+		7157DD6311EF301100E36675 /* PLHttpQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLHttpQueue.h; sourceTree = "<group>"; };
+		7157DD6411EF301100E36675 /* PLHttpQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLHttpQueue.m; sourceTree = "<group>"; };
+		7157DD6E11EF3B9200E36675 /* PLImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLImageCache.h; sourceTree = "<group>"; };
+		7157DD6F11EF3B9200E36675 /* PLImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLImageCache.m; sourceTree = "<group>"; };
+		7157DDBF11EF474500E36675 /* PLHttpClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLHttpClient.h; sourceTree = "<group>"; };
+		7157DDC011EF474500E36675 /* PLHttpClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLHttpClient.m; sourceTree = "<group>"; };
+		7157DDC211EF47B100E36675 /* PLImageLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLImageLoader.h; sourceTree = "<group>"; };
+		7157DDC311EF47B100E36675 /* PLImageLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLImageLoader.m; sourceTree = "<group>"; };
+		7157DDD211EF53A400E36675 /* UIImageView+Http.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Http.h"; sourceTree = "<group>"; };
+		7157DDD311EF53A400E36675 /* UIImageView+Http.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Http.m"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* PlutoLand-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "PlutoLand-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -62,6 +80,8 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				7157DD6211EF2FB800E36675 /* PlutoLand */,
+				7157DCB011EEFDCD00E36675 /* HttpClient */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -97,6 +117,40 @@
 				288765FC0DF74451002DB57D /* CoreGraphics.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7157DCB011EEFDCD00E36675 /* HttpClient */ = {
+			isa = PBXGroup;
+			children = (
+				7157DCD111EF224300E36675 /* test */,
+				7157DCB111EEFDEB00E36675 /* PLImageRequest.h */,
+				7157DCB211EEFDEB00E36675 /* PLImageRequest.m */,
+				7157DD6E11EF3B9200E36675 /* PLImageCache.h */,
+				7157DD6F11EF3B9200E36675 /* PLImageCache.m */,
+				7157DDBF11EF474500E36675 /* PLHttpClient.h */,
+				7157DDC011EF474500E36675 /* PLHttpClient.m */,
+				7157DDC211EF47B100E36675 /* PLImageLoader.h */,
+				7157DDC311EF47B100E36675 /* PLImageLoader.m */,
+				7157DDD211EF53A400E36675 /* UIImageView+Http.h */,
+				7157DDD311EF53A400E36675 /* UIImageView+Http.m */,
+			);
+			name = HttpClient;
+			sourceTree = "<group>";
+		};
+		7157DCD111EF224300E36675 /* test */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = test;
+			sourceTree = "<group>";
+		};
+		7157DD6211EF2FB800E36675 /* PlutoLand */ = {
+			isa = PBXGroup;
+			children = (
+				7157DD6311EF301100E36675 /* PLHttpQueue.h */,
+				7157DD6411EF301100E36675 /* PLHttpQueue.m */,
+			);
+			name = PlutoLand;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -154,6 +208,12 @@
 			files = (
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* PlutoLandAppDelegate.m in Sources */,
+				7157DCB311EEFDEB00E36675 /* PLImageRequest.m in Sources */,
+				7157DD6511EF301100E36675 /* PLHttpQueue.m in Sources */,
+				7157DD7011EF3B9200E36675 /* PLImageCache.m in Sources */,
+				7157DDC111EF474500E36675 /* PLHttpClient.m in Sources */,
+				7157DDC411EF47B100E36675 /* PLImageLoader.m in Sources */,
+				7157DDD411EF53A400E36675 /* UIImageView+Http.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

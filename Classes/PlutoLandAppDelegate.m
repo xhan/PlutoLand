@@ -7,6 +7,7 @@
 //
 
 #import "PlutoLandAppDelegate.h"
+#import "PLImageRequest.h"
 
 @implementation PlutoLandAppDelegate
 
@@ -18,7 +19,7 @@
     // Override point for customization after application launch
 	
     [window makeKeyAndVisible];
-	
+	[self performSelector:@selector(testHttpRequest)];
 	return YES;
 }
 
@@ -28,5 +29,12 @@
     [super dealloc];
 }
 
+
+- (void)testHttpRequest
+{
+	PLImageRequest* client = [[PLImageRequest alloc] initWithURL:@"http://douban.fm/j/mine/playlist"];
+	[client start];
+	
+}
 
 @end
