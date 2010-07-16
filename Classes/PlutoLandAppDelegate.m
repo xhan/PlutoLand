@@ -7,38 +7,39 @@
 //
 
 #import "PlutoLandAppDelegate.h"
+#import "RootViewController.h"
 
 
-#import "PLImageRequest.h"
-#import "ImageLoaderBasicVC.h"
+
 
 @implementation PlutoLandAppDelegate
 
+@synthesize rootVC;
 @synthesize window;
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
 
-    // Override point for customization after application launch
-	ImageLoaderBasicVC* vc = [[ImageLoaderBasicVC alloc] init];
-	[window addSubview:vc.view];
+	rootVC = [[RootViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    navVC = [[UINavigationController alloc] initWithRootViewController:rootVC];
+	
+
+	[window addSubview:navVC.view];
     [window makeKeyAndVisible];
-//	[self performSelector:@selector(testHttpRequest)];
+
 	return YES;
 }
 
 
 - (void)dealloc {
+    [rootVC release], rootVC = nil;
+	[navVC release] , navVC = nil;
     [window release];
     [super dealloc];
 }
 
 
-- (void)testHttpRequest
-{
-//	PLImageRequest* client = [[PLImageRequest alloc] initWithURL:@"http://douban.fm/j/mine/playlist"];
-//	[client start];
-	
-}
+
 
 @end
+

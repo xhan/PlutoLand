@@ -6,15 +6,13 @@
 //  Copyright 2010 xu han. All rights reserved.
 //
 
+#import "PLGlobal.h"
 #import "PLImageRequest.h"
+
 
 #define PL_DEBUG 1
 
-#if PL_DEBUG 
-#define PLLOG_STR(_obj_,_str_) NSLog(@"%@ %@",_obj_,_str_)
-#else
-#define PLLOG_STR(_obj_,_str_)
-#endif
+
 
 @implementation PLImageRequest
 

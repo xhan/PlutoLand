@@ -22,6 +22,11 @@
 		71BCAD5911EFFF4500191293 /* ImageLoaderBasicVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 71BCAD5711EFFF4500191293 /* ImageLoaderBasicVC.m */; };
 		71BCAD5A11EFFF4500191293 /* ImageLoaderBasicVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71BCAD5811EFFF4500191293 /* ImageLoaderBasicVC.xib */; };
 		71BCAD6111F000B800191293 /* notify_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 71BCAD6011F000B800191293 /* notify_arrow.png */; };
+		71BCADD711F02CD700191293 /* T.m in Sources */ = {isa = PBXBuildFile; fileRef = 71BCADD611F02CD700191293 /* T.m */; };
+		71BCAE1711F02F4F00191293 /* PLGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = 71BCAE1611F02F4F00191293 /* PLGlobal.m */; };
+		71BCAE2011F0307700191293 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71BCAE1F11F0307700191293 /* RootViewController.m */; };
+		71BCAE2511F0386500191293 /* ImageLoaderSpecial.m in Sources */ = {isa = PBXBuildFile; fileRef = 71BCAE2411F0386500191293 /* ImageLoaderSpecial.m */; };
+		71BCAE5D11F0427400191293 /* images.plist in Resources */ = {isa = PBXBuildFile; fileRef = 71BCAE5C11F0427400191293 /* images.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +55,15 @@
 		71BCAD5711EFFF4500191293 /* ImageLoaderBasicVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageLoaderBasicVC.m; sourceTree = "<group>"; };
 		71BCAD5811EFFF4500191293 /* ImageLoaderBasicVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageLoaderBasicVC.xib; sourceTree = "<group>"; };
 		71BCAD6011F000B800191293 /* notify_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notify_arrow.png; sourceTree = "<group>"; };
+		71BCADD511F02CD700191293 /* T.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = T.h; sourceTree = "<group>"; };
+		71BCADD611F02CD700191293 /* T.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = T.m; sourceTree = "<group>"; };
+		71BCAE1511F02F4F00191293 /* PLGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLGlobal.h; sourceTree = "<group>"; };
+		71BCAE1611F02F4F00191293 /* PLGlobal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLGlobal.m; sourceTree = "<group>"; };
+		71BCAE1E11F0307700191293 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
+		71BCAE1F11F0307700191293 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
+		71BCAE2311F0386500191293 /* ImageLoaderSpecial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageLoaderSpecial.h; sourceTree = "<group>"; };
+		71BCAE2411F0386500191293 /* ImageLoaderSpecial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageLoaderSpecial.m; sourceTree = "<group>"; };
+		71BCAE5C11F0427400191293 /* images.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = images.plist; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* PlutoLand-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "PlutoLand-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -75,6 +89,10 @@
 				71BCAD5611EFFF4500191293 /* ImageLoaderBasicVC.h */,
 				71BCAD5711EFFF4500191293 /* ImageLoaderBasicVC.m */,
 				71BCAD5811EFFF4500191293 /* ImageLoaderBasicVC.xib */,
+				71BCAE1E11F0307700191293 /* RootViewController.h */,
+				71BCAE1F11F0307700191293 /* RootViewController.m */,
+				71BCAE2311F0386500191293 /* ImageLoaderSpecial.h */,
+				71BCAE2411F0386500191293 /* ImageLoaderSpecial.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -116,6 +134,7 @@
 				71BCAD6011F000B800191293 /* notify_arrow.png */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* PlutoLand-Info.plist */,
+				71BCAE5C11F0427400191293 /* images.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -158,10 +177,22 @@
 		7157DD6211EF2FB800E36675 /* PlutoLand */ = {
 			isa = PBXGroup;
 			children = (
+				71BCADD411F02CB900191293 /* Global */,
 				7157DD6311EF301100E36675 /* PLHttpQueue.h */,
 				7157DD6411EF301100E36675 /* PLHttpQueue.m */,
 			);
 			name = PlutoLand;
+			sourceTree = "<group>";
+		};
+		71BCADD411F02CB900191293 /* Global */ = {
+			isa = PBXGroup;
+			children = (
+				71BCADD511F02CD700191293 /* T.h */,
+				71BCADD611F02CD700191293 /* T.m */,
+				71BCAE1511F02F4F00191293 /* PLGlobal.h */,
+				71BCAE1611F02F4F00191293 /* PLGlobal.m */,
+			);
+			name = Global;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -209,6 +240,7 @@
 				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
 				71BCAD5A11EFFF4500191293 /* ImageLoaderBasicVC.xib in Resources */,
 				71BCAD6111F000B800191293 /* notify_arrow.png in Resources */,
+				71BCAE5D11F0427400191293 /* images.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -228,6 +260,10 @@
 				7157DDC411EF47B100E36675 /* PLImageLoader.m in Sources */,
 				7157DDD411EF53A400E36675 /* UIImageView+Http.m in Sources */,
 				71BCAD5911EFFF4500191293 /* ImageLoaderBasicVC.m in Sources */,
+				71BCADD711F02CD700191293 /* T.m in Sources */,
+				71BCAE1711F02F4F00191293 /* PLGlobal.m in Sources */,
+				71BCAE2011F0307700191293 /* RootViewController.m in Sources */,
+				71BCAE2511F0386500191293 /* ImageLoaderSpecial.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
