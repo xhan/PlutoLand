@@ -10,7 +10,7 @@
 #import "RootViewController.h"
 
 
-
+#import "PLImageCache.h"
 
 @implementation PlutoLandAppDelegate
 
@@ -20,6 +20,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
 
+	[[PLImageCache sharedCache] removeAll:YES];
+	
 	rootVC = [[RootViewController alloc] initWithStyle:UITableViewStyleGrouped];
     navVC = [[UINavigationController alloc] initWithRootViewController:rootVC];
 	

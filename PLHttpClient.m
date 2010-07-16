@@ -11,4 +11,11 @@
 
 @implementation PLHttpClient
 
+
++ (NSData*)simpleSyncGet:(NSString*)urlStr
+{
+	NSURLRequest* request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlStr]];
+	return [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+}
+
 @end

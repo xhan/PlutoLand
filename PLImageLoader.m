@@ -9,7 +9,7 @@
 //TODO: add cache function at fetch method and store method(succeeded on fetching img data)
 
 #import "PLImageLoader.h"
-
+#import "PLImageCache.h"
 
 @implementation PLImageLoader
 
@@ -49,6 +49,9 @@
 	if (_imageView) {
 		_imageView.image = img;
 	}
+	
+	//TODO: add more condition here
+	[[PLImageCache sharedCache] storeData:request.imageData forURL:[self.url absoluteString]];
 	
 	[[NSNotificationCenter defaultCenter] postNotificationName:NOTICE_IMAGE_LOADER_SUCCEEDED object:_imageView userInfo:_info];
 }

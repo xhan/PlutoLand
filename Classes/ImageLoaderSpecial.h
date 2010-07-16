@@ -10,7 +10,13 @@
 
 
 @interface ImageLoaderSpecial : UITableViewController {
-
+	NSOperationQueue *queue;
+	NSMutableArray* entries;
 }
 
+@property (nonatomic, copy) NSMutableArray *entries;
+@property (nonatomic, retain) NSOperationQueue *queue;
+
 @end
+
+

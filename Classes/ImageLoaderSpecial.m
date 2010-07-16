@@ -7,66 +7,78 @@
 //
 
 #import "ImageLoaderSpecial.h"
+#import "UIImageView+Http.h"
+#import "AppRecord.h"
+#import "ParseOperation.h"
+#import "PLHttpClient.h"
+#import "PLImageLoader.h"
 
+
+static NSString *const TopPaidAppsFeed =
+@"http://phobos.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/toppaidapplications/limit=75/xml";
 
 @implementation ImageLoaderSpecial
 
+@synthesize entries;
+@synthesize queue;
 
 #pragma mark -
-#pragma mark Initialization
+#pragma mark NSNotificationCenter observer
 
-/*
-- (id)initWithStyle:(UITableViewStyle)style {
-    // Override initWithStyle: if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
-    if ((self = [super initWithStyle:style])) {
-    }
-    return self;
+- (void)onGetNotificationImageSucceeded:(NSNotification*)notify
+{
+	NSDictionary* info = [notify userInfo];
+	NSIndexPath* indexpath = [info objectForKey:@"indexPath"];
+	NSLog(@"at index %d",indexpath.row);
+	
+//	int row 
 }
-*/
-
 
 #pragma mark -
 #pragma mark View lifecycle
 
-/*
+- (void)viewDidAppear:(BOOL)animated
+{
+	[super viewDidAppear:animated];
+	
+	NSLog(@"loading top list ...");	
+	NSData* appListData = [PLHttpClient simpleSyncGet:TopPaidAppsFeed];
+	
+	NSLog(@"- top list loaded");
+	self.title = @"Top Paied Apps";
+	
+	ParseOperation *parser = [[ParseOperation alloc] initWithData:appListData delegate:self];	
+	queue = [[NSOperationQueue alloc] init];
+	[queue addOperation:parser];
+	[parser release];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+	
+	self.entries = [NSMutableArray array];
+	self.title = @"loading top list";
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onGetNotificationImageSucceeded:) name:NOTICE_IMAGE_LOADER_SUCCEEDED object:nil];
+}
 
-    // Uncomment the following line to preserve selection between presentations.
-    self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-}
-*/
 
-/*
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+- (void)handleLoadedApps:(NSArray *)loadedApps
+{
+	//NSLog(@"finished load :%d",[loadedApps count]);	
+	self.entries = [NSMutableArray arrayWithArray:loadedApps];
+    [self.tableView reloadData];
 }
-*/
-/*
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
+
+#pragma mark -
+#pragma mark ParseOperation delegate
+
+- (void)didFinishParsing:(NSArray *)appList
+{
+    [self performSelectorOnMainThread:@selector(handleLoadedApps:) withObject:appList waitUntilDone:NO];
+    
+    self.queue = nil;   // we are finished with the queue and our ParseOperation
 }
-*/
-/*
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-}
-*/
-/*
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-}
-*/
-/*
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-*/
 
 
 #pragma mark -
@@ -80,7 +92,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    return 0;
+    return [entries count];
 }
 
 
@@ -91,68 +103,19 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
+		cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
-    // Configure the cell...
-    
+    AppRecord *appRecord = [self.entries objectAtIndex:indexPath.row];
+	cell.textLabel.text = appRecord.appName;
+	cell.detailTextLabel.text = appRecord.artist;
+	NSDictionary* dic = [NSDictionary dictionaryWithObject:indexPath forKey:@"indexPath"];
+	[cell.imageView fetchImageFromURL:appRecord.imageURLString userInfo:dic];
     return cell;
 }
 
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-
-#pragma mark -
-#pragma mark Table view delegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Navigation logic may go here. Create and push another view controller.
-	/*
-	 <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-	 [self.navigationController pushViewController:detailViewController animated:YES];
-	 [detailViewController release];
-	 */
-}
 
 
 #pragma mark -
@@ -172,6 +135,8 @@
 
 
 - (void)dealloc {
+    [entries release], entries = nil;
+    [queue release], queue = nil;
     [super dealloc];
 }
 

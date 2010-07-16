@@ -31,5 +31,8 @@
 //- (void)fetchForImageView:(UIImageView*)imageView URL:(NSString*)url cacheEnable:(BOOL)cacheEnable typeID:(int)typeID uniqueID:(int)uid;
 - (void)fetchForImageView:(UIImageView*)imageView URL:(NSString*)url cacheEnable:(BOOL)cacheEnable userInfo:(NSDictionary*)info;
 
+
+
 @end
+
 

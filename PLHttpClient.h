@@ -13,4 +13,7 @@
 
 }
 
+// return response by sync fetch
++ (NSData*)simpleSyncGet:(NSString*)urlStr;
+   
 @end

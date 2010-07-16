@@ -10,7 +10,7 @@
 #import "PLImageRequest.h"
 
 
-#define PL_DEBUG 1
+#define PL_DEBUG 0
 
 
 
