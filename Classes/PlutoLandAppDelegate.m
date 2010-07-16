@@ -7,7 +7,10 @@
 //
 
 #import "PlutoLandAppDelegate.h"
+
+
 #import "PLImageRequest.h"
+#import "ImageLoaderBasicVC.h"
 
 @implementation PlutoLandAppDelegate
 
@@ -17,9 +20,10 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
 
     // Override point for customization after application launch
-	
+	ImageLoaderBasicVC* vc = [[ImageLoaderBasicVC alloc] init];
+	[window addSubview:vc.view];
     [window makeKeyAndVisible];
-	[self performSelector:@selector(testHttpRequest)];
+//	[self performSelector:@selector(testHttpRequest)];
 	return YES;
 }
 
@@ -32,8 +36,8 @@
 
 - (void)testHttpRequest
 {
-	PLImageRequest* client = [[PLImageRequest alloc] initWithURL:@"http://douban.fm/j/mine/playlist"];
-	[client start];
+//	PLImageRequest* client = [[PLImageRequest alloc] initWithURL:@"http://douban.fm/j/mine/playlist"];
+//	[client start];
 	
 }
 

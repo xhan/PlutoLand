@@ -44,6 +44,7 @@
 
 - (void)imageRequestSucceeded:(PLImageRequest*)request
 {
+//	NSLog(@"image getted");
 	UIImage* img = [UIImage imageWithData:request.imageData];
 	if (_imageView) {
 		_imageView.image = img;

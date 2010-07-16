@@ -9,12 +9,13 @@
 #import "PLHttpQueue.h"
 
 #define DEFAULT_CAPACITY 1000
-#define DEFAULT_PARELLEL_CAPACITY 1
+#define DEFAULT_PARELLEL_CAPACITY 2
 #define DEFAULT_ACTIVE_STATE YES
 
 @interface PLHttpQueue(Private)
 
 - (void)runNextAction;
+- (void)actionFinished:(id)task;
 @end
 
 @implementation PLHttpQueue
@@ -121,7 +122,7 @@ static NSMutableDictionary* gSharedDictionary;
                         change:(NSDictionary *)change
                        context:(void *)context
 {
-	
+	NSLog(@"%@",keyPath);
 	if ([keyPath isEqualToString:@"isFinished"]) {
 		[self actionFinished:object];	
 	}

@@ -86,7 +86,11 @@ static const int timeOutSec = 30;
 
 - (NSData*)imageData
 {
-	if (!isFinished || [_receivedData length] == 0) {
+	
+	//!isFinished || remove check isFinished bcz after delegate (succeeded load)method the value
+	// will be set to true. and mostly we need get this data at the delegate method
+	// TODO: shall i add new property as taskFinished to work with HttpQueue ?
+	if ( [_receivedData length] == 0) {
 		return nil;
 	}
 	return _receivedData;
@@ -112,7 +116,7 @@ static const int timeOutSec = 30;
 	}	
 	PLLOG_STR(@"finished",nil);
 	
-	isFinished = YES;
+	self.isFinished = YES;
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)aresponse {
