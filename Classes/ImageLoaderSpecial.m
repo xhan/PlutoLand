@@ -29,9 +29,10 @@ static NSString *const TopPaidAppsFeed =
 {
 	NSDictionary* info = [notify userInfo];
 	NSIndexPath* indexpath = [info objectForKey:@"indexPath"];
-	NSLog(@"at index %d",indexpath.row);
+//	NSLog(@"at index %d",indexpath.row);
+	[self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexpath] 
+						  withRowAnimation:UITableViewRowAnimationNone];
 	
-//	int row 
 }
 
 #pragma mark -
@@ -58,7 +59,7 @@ static NSString *const TopPaidAppsFeed =
 	
 	self.entries = [NSMutableArray array];
 	self.title = @"loading top list";
-	
+	self.tableView.rowHeight = 60;
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onGetNotificationImageSucceeded:) name:NOTICE_IMAGE_LOADER_SUCCEEDED object:nil];
 }
 
@@ -110,8 +111,9 @@ static NSString *const TopPaidAppsFeed =
     AppRecord *appRecord = [self.entries objectAtIndex:indexPath.row];
 	cell.textLabel.text = appRecord.appName;
 	cell.detailTextLabel.text = appRecord.artist;
+	cell.imageView.image = [UIImage imageNamed:@"placeHolder.png"];
 	NSDictionary* dic = [NSDictionary dictionaryWithObject:indexPath forKey:@"indexPath"];
-	[cell.imageView fetchImageFromURL:appRecord.imageURLString userInfo:dic];
+	[cell.imageView fetchByURL:appRecord.imageURLString userInfo:dic freshOnSucceed:NO];
     return cell;
 }
 

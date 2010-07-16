@@ -20,6 +20,8 @@
 	if (self = [super init]) {
 		self.delegate = self;
 		_imageView = nil;
+		_isCacheEnable = YES;
+		_isFreshOnSucceed = YES;
 	}
 	return self;
 }
@@ -28,12 +30,22 @@
 {
 	_imageView = imageView;
 	_isCacheEnable = cacheEnable;
-//	_typeID = typeID;
-//	_uID = uid;
+
 	self.info = info;
 	[super requestGet:url];
 }
 
+
+- (void)fetchForImageView:(UIImageView *)imageView URL:(NSString *)url  freshOnSucceed:(BOOL)isFresh cacheEnable:(BOOL)cacheEnable userInfo:(NSDictionary *)info
+{
+	_imageView = imageView;
+	_isCacheEnable = cacheEnable;
+	_isFreshOnSucceed = isFresh;
+	
+	self.info = info;
+	[super requestGet:url];
+	
+}
 
 #pragma mark -
 #pragma mark PLImageRequestDelegate
@@ -46,7 +58,7 @@
 {
 //	NSLog(@"image getted");
 	UIImage* img = [UIImage imageWithData:request.imageData];
-	if (_imageView) {
+	if (_isFreshOnSucceed && _imageView) {
 		_imageView.image = img;
 	}
 	

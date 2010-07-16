@@ -15,6 +15,11 @@
 
 //TODO: add activeIndicater on the status bar
 
+
+//TODO: add different sharedQueue:identify: for different status ,(as imageCache dose)
+
+//TODO: need avoid a situation that same url request should only one instance at the queue
+
 @interface PLHttpQueue : NSObject {
 	int _capacity;
 	int _parellelCapacity;

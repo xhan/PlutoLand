@@ -15,19 +15,25 @@
 
 @implementation UIImageView(Http)
 
-- (void) fetchImageFromURL:(NSString*)urlstr userInfo:(NSDictionary*)info
+
+- (void)fetchByURL:(NSString*)urlstr userInfo:(NSDictionary*)info freshOnSucceed:(BOOL)isFresh
 {
 	UIImage* aimage = nil;
 	if (aimage = [[PLImageCache sharedCache] getImageByURL:urlstr]) {
 		self.image = aimage;
-		NSLog(@"load from cache");
+		NSLog(@"cache :%@",urlstr);
 		return;
 		
 	}
-	PLImageLoader* loader = [[PLImageLoader alloc] init];
-	[loader fetchForImageView:self URL:urlstr cacheEnable:NO userInfo:info];
+	PLImageLoader* loader = [[PLImageLoader alloc] init];	
+	[loader fetchForImageView:self URL:urlstr freshOnSucceed:isFresh cacheEnable:YES userInfo:info];
 	[[PLHttpQueue sharedQueue] addQueueItem:loader];
-	[loader release];
+	[loader release];	
+}
+
+- (void)fetchByURL:(NSString*)urlstr
+{
+	return [self fetchByURL:urlstr userInfo:nil freshOnSucceed:YES];
 }
 
 @end

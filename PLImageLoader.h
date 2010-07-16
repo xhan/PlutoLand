@@ -20,18 +20,16 @@
 	UIControlState _buttonState;
 	
 	BOOL _isCacheEnable;
-	
-	int _typeID;
-	int _uID;
+	BOOL _isFreshOnSucceed;
+
 	NSDictionary* _info;
 }
 
 @property (nonatomic, copy) NSDictionary *info;
 
-//- (void)fetchForImageView:(UIImageView*)imageView URL:(NSString*)url cacheEnable:(BOOL)cacheEnable typeID:(int)typeID uniqueID:(int)uid;
 - (void)fetchForImageView:(UIImageView*)imageView URL:(NSString*)url cacheEnable:(BOOL)cacheEnable userInfo:(NSDictionary*)info;
 
-
+- (void)fetchForImageView:(UIImageView *)imageView URL:(NSString *)url  freshOnSucceed:(BOOL)isFresh cacheEnable:(BOOL)cacheEnable userInfo:(NSDictionary *)info;
 
 @end
 
