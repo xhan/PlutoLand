@@ -18,4 +18,11 @@
 	return [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
 }
 
++ (NSString*)syncGet:(NSURL*)url
+{
+	NSURLRequest* request = [NSURLRequest requestWithURL:url];
+	NSData* responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+	return [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]; 
+}
+
 @end

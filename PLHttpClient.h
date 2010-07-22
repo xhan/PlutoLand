@@ -13,7 +13,10 @@
 
 }
 
-// return response by sync fetch
+// (deprecated) return response by sync fetch  
 + (NSData*)simpleSyncGet:(NSString*)urlStr;
    
+// return response string by sync fetch
++ (NSString*)syncGet:(NSURL*)url;
+
 @end

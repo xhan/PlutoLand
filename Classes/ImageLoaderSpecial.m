@@ -17,6 +17,12 @@
 static NSString *const TopPaidAppsFeed =
 @"http://phobos.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/toppaidapplications/limit=75/xml";
 
+@interface ImageLoaderSpecial(private)<ParseOperationDelegate>
+
+@end
+
+
+
 @implementation ImageLoaderSpecial
 
 @synthesize entries;

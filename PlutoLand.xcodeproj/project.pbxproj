@@ -13,6 +13,12 @@
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
+		713B274911F81BB800E2036D /* UIView-ModalAnimationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 713B274811F81BB800E2036D /* UIView-ModalAnimationHelper.m */; };
+		713B274C11F81C5900E2036D /* UIViewAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 713B274B11F81C5900E2036D /* UIViewAdditions.m */; };
+		713B276611F8224300E2036D /* XFPageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 713B276511F8224300E2036D /* XFPageController.m */; };
+		713B276911F823BE00E2036D /* PLSegmentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 713B276811F823BE00E2036D /* PLSegmentCell.m */; };
+		713B276E11F82C2800E2036D /* PLSegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 713B276D11F82C2800E2036D /* PLSegmentView.m */; };
+		713B277A11F83C4800E2036D /* PLTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 713B277911F83C4800E2036D /* PLTabBarController.m */; };
 		7157DCB311EEFDEB00E36675 /* PLImageRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7157DCB211EEFDEB00E36675 /* PLImageRequest.m */; };
 		7157DD6511EF301100E36675 /* PLHttpQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 7157DD6411EF301100E36675 /* PLHttpQueue.m */; };
 		7157DD7011EF3B9200E36675 /* PLImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 7157DD6F11EF3B9200E36675 /* PLImageCache.m */; };
@@ -41,6 +47,19 @@
 		28AD733E0D9D9553002E5188 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* PlutoLand_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlutoLand_Prefix.pch; sourceTree = "<group>"; };
+		713B273B11F81ACF00E2036D /* vendors.readme.mdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = vendors.readme.mdown; sourceTree = "<group>"; };
+		713B274711F81BB800E2036D /* UIView-ModalAnimationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView-ModalAnimationHelper.h"; sourceTree = "<group>"; };
+		713B274811F81BB800E2036D /* UIView-ModalAnimationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView-ModalAnimationHelper.m"; sourceTree = "<group>"; };
+		713B274A11F81C5900E2036D /* UIViewAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewAdditions.h; sourceTree = "<group>"; };
+		713B274B11F81C5900E2036D /* UIViewAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewAdditions.m; sourceTree = "<group>"; };
+		713B276411F8224300E2036D /* XFPageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XFPageController.h; sourceTree = "<group>"; };
+		713B276511F8224300E2036D /* XFPageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XFPageController.m; sourceTree = "<group>"; };
+		713B276711F823BE00E2036D /* PLSegmentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLSegmentCell.h; sourceTree = "<group>"; };
+		713B276811F823BE00E2036D /* PLSegmentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLSegmentCell.m; sourceTree = "<group>"; };
+		713B276C11F82C2800E2036D /* PLSegmentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLSegmentView.h; sourceTree = "<group>"; };
+		713B276D11F82C2800E2036D /* PLSegmentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLSegmentView.m; sourceTree = "<group>"; };
+		713B277811F83C4800E2036D /* PLTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLTabBarController.h; sourceTree = "<group>"; };
+		713B277911F83C4800E2036D /* PLTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLTabBarController.m; sourceTree = "<group>"; };
 		7157DCB111EEFDEB00E36675 /* PLImageRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLImageRequest.h; sourceTree = "<group>"; };
 		7157DCB211EEFDEB00E36675 /* PLImageRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLImageRequest.m; sourceTree = "<group>"; };
 		7157DD6311EF301100E36675 /* PLHttpQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLHttpQueue.h; sourceTree = "<group>"; };
@@ -147,6 +166,33 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		713B271811F818D500E2036D /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				713B276411F8224300E2036D /* XFPageController.h */,
+				713B276511F8224300E2036D /* XFPageController.m */,
+				713B276711F823BE00E2036D /* PLSegmentCell.h */,
+				713B276811F823BE00E2036D /* PLSegmentCell.m */,
+				713B276C11F82C2800E2036D /* PLSegmentView.h */,
+				713B276D11F82C2800E2036D /* PLSegmentView.m */,
+				713B277811F83C4800E2036D /* PLTabBarController.h */,
+				713B277911F83C4800E2036D /* PLTabBarController.m */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		713B273A11F81A8400E2036D /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				713B274A11F81C5900E2036D /* UIViewAdditions.h */,
+				713B274B11F81C5900E2036D /* UIViewAdditions.m */,
+				713B274711F81BB800E2036D /* UIView-ModalAnimationHelper.h */,
+				713B274811F81BB800E2036D /* UIView-ModalAnimationHelper.m */,
+				713B273B11F81ACF00E2036D /* vendors.readme.mdown */,
+			);
+			name = Vendor;
+			sourceTree = "<group>";
+		};
 		7157DCB011EEFDCD00E36675 /* HttpClient */ = {
 			isa = PBXGroup;
 			children = (
@@ -169,6 +215,8 @@
 		7157DD6211EF2FB800E36675 /* PlutoLand */ = {
 			isa = PBXGroup;
 			children = (
+				713B273A11F81A8400E2036D /* Vendor */,
+				713B271811F818D500E2036D /* UI */,
 				7157DCB011EEFDCD00E36675 /* HttpClient */,
 				71BCADD411F02CB900191293 /* Global */,
 			);
@@ -298,6 +346,12 @@
 				71BCAE2511F0386500191293 /* ImageLoaderSpecial.m in Sources */,
 				8CD6583511F04D28009D906E /* AppRecord.m in Sources */,
 				8CD6583611F04D28009D906E /* ParseOperation.m in Sources */,
+				713B274911F81BB800E2036D /* UIView-ModalAnimationHelper.m in Sources */,
+				713B274C11F81C5900E2036D /* UIViewAdditions.m in Sources */,
+				713B276611F8224300E2036D /* XFPageController.m in Sources */,
+				713B276911F823BE00E2036D /* PLSegmentCell.m in Sources */,
+				713B276E11F82C2800E2036D /* PLSegmentView.m in Sources */,
+				713B277A11F83C4800E2036D /* PLTabBarController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
