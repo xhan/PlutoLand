@@ -21,11 +21,11 @@
 @interface PLSegmentCell : UIControl {
 	UIImageView *imageNormal;
 	UIImageView *imageHover;
-	BOOL _isCellSelected;
 }
 
 
 -(id)initWithNormalImage:(UIImage*)anormal selectedImage:(UIImage*)ahover frame:(CGRect)aframe;
+
 -(id)initWithNormalImage:(UIImage *)anormal selectedImage:(UIImage *)ahover startPoint:(CGPoint)apoint;
 
 

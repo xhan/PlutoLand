@@ -12,10 +12,9 @@
 /////////////////////////////////////////////////////////////////////////////////////
 @interface PLSegmentView(private)
 
-
-- (void)addCell:(PLSegmentCell*)cell;
-
 - (void)onCellClicked:(PLSegmentCell*)cell;
+
+
 
 @end
 
@@ -35,7 +34,7 @@
 		[self addSubview:_backgroundImageView];
 		
 //		_isMultyCellSelectable = NO;
-		_items = [NSMutableArray array];
+		_items = [[NSMutableArray array] retain];
 		_selectedIndex = -1;
     }
     return self;
@@ -51,13 +50,18 @@
 #pragma mark -
 #pragma mark public
 
-//- (void)setupCellsByImagesName:(NSArray*)images selectedImagesName:(NSArray*)selectedImages offset:(CGSize)offset;
-//{
-//	NSAssert([images count] == [selectedImages count], @"two arrays should have same items count");
-//	for (int cnt = 0; cnt < [images count]; cnt++) {
-//		CGRect rect = CGRectMake(offset.width * cnt, offset.height * cnt, <#CGFloat width#>, <#CGFloat height#>)
-//	}
-//}
+- (void)setupCellsByImagesName:(NSArray*)images selectedImagesName:(NSArray*)selectedImages offset:(CGSize)offset;
+{
+	NSAssert([images count] == [selectedImages count], @"two arrays should have same items count");
+	for (int cnt = 0; cnt < [images count]; cnt++) {
+		CGPoint origin = CGPointMake(offset.width * cnt, offset.height * cnt);
+		PLSegmentCell* cell = [[PLSegmentCell alloc] initWithNormalImage:[UIImage imageNamed:[images objectAtIndex:cnt]]
+														   selectedImage:[UIImage imageNamed:[selectedImages objectAtIndex:cnt]] 
+															  startPoint:origin];
+		[self addCell:cell];
+		[cell release];
+	}
+}
 
 
 - (void)addCells:(NSArray*)cells
@@ -67,10 +71,7 @@
 	}
 }
 
-- (void)resetState
-{
-	
-}
+
 
 - (int)selectedIndex
 {
@@ -101,6 +102,7 @@
 	[_items addObject:cell];
 	[self addSubview:cell];
 }
+
 
 - (void)onCellClicked:(PLSegmentCell*)cell
 {

@@ -11,7 +11,53 @@
 #import "ImageLoaderBasicVC.h"
 #import "ImageLoaderSpecial.h"
 
+#import "SegmentDemoViewController.h"
+
+
+@interface SectionItem : NSObject
+{
+	NSString* title;
+	NSArray* contents;
+	NSArray* classes;
+}
+
+@property (nonatomic, copy) NSArray *classes;
+@property (nonatomic, copy) NSArray *contents;
+@property (nonatomic, copy) NSString *title;
+
++ (id)section;
+@end
+
+@implementation SectionItem
+
+@synthesize classes;
+@synthesize contents;
+@synthesize title;
+
+
++ (id)section
+{
+	return [[SectionItem new] autorelease];
+}
+
+- (void)dealloc
+{
+	[title release], title = nil;
+	[classes release], classes = nil;
+	[contents release], contents = nil;
+	[super dealloc];
+}
+
+
+@end
+
+
+
+
+
 @implementation RootViewController
+
+
 
 
 
@@ -26,8 +72,19 @@
 
     self.title = @"Pluto Land";
 	
-	contents = [@"Normal^^Special" componentsSeparatedByString:@"^^"];
-	klasses = [[NSArray arrayWithObjects:[ImageLoaderBasicVC class],[ImageLoaderSpecial class],nil] retain];
+
+	
+	SectionItem* ImageLoaderSection = [SectionItem section];
+	ImageLoaderSection.title = @"Image Loader";
+	ImageLoaderSection.contents = [@"Normal^^Special" componentsSeparatedByString:@"^^"];
+	ImageLoaderSection.classes = [NSArray arrayWithObjects:[ImageLoaderBasicVC class],[ImageLoaderSpecial class],nil];  
+	
+	SectionItem* SegmentSection = [SectionItem section];
+	SegmentSection.title = @"Segement Demo";
+	SegmentSection.contents = [@"Segment View||PLTabBarController" componentsSeparatedByString:@"||"];
+	SegmentSection.classes = [NSArray arrayWithObjects:[SegmentDemoViewController class],[SegmentDemoViewController class],nil];
+	
+	sections = [[NSArray arrayWithObjects:ImageLoaderSection,SegmentSection,nil] retain];
 }
 
 
@@ -38,16 +95,16 @@
 #pragma mark Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return [sections count];
 }
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 2;
+    return [[(SectionItem*)[sections objectAtIndex:section] contents] count];
 }
 
 - (NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-	return @"Image Loader";
+	return [(SectionItem*)[sections objectAtIndex:section] title];
 }
 				
 				
@@ -63,7 +120,8 @@
     }
     
     // Configure the cell...
-    cell.textLabel.text = [contents objectAtIndex:indexPath.row];
+    cell.textLabel.text = [[(SectionItem*)[sections objectAtIndex:indexPath.section] contents] objectAtIndex:indexPath.row];
+
     return cell;
 }
 
@@ -76,7 +134,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
-	Class klass = [klasses objectAtIndex:indexPath.row];
+	Class klass = [[(SectionItem*)[sections objectAtIndex:indexPath.section] classes] objectAtIndex:indexPath.row];
+
 	
 	 UIViewController *detailViewController = [[klass alloc] init];
 	 [self.navigationController pushViewController:detailViewController animated:YES];
@@ -102,9 +161,13 @@
 
 
 - (void)dealloc {
+
     [super dealloc];
 }
 
 
 @end
+
+
+
 

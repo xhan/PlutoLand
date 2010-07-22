@@ -10,8 +10,11 @@
 
 
 @interface RootViewController : UITableViewController {
-	NSArray* contents;
-	NSArray* klasses;
+	
+	NSArray* sections;
+	
 }
 
 @end
+
+

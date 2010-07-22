@@ -31,12 +31,11 @@
 @property (nonatomic, assign) int selectedIndex;
 @property (nonatomic, assign) id<PLSegmentViewDelegate> delegate;
 
-//- (void)setupCellsByImagesName:(NSArray*)images selectedImagesName:(NSArray*)selectedImages offset:(CGSize)offset;
+- (void)setupCellsByImagesName:(NSArray*)images selectedImagesName:(NSArray*)selectedImages offset:(CGSize)offset;
 
 - (void)addCells:(NSArray*)cells;
 
-- (void)resetState;
-
+- (void)addCell:(PLSegmentCell*)cell;
 
 
 @end
