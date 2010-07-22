@@ -12,7 +12,7 @@
 #import "ImageLoaderSpecial.h"
 
 #import "SegmentDemoViewController.h"
-
+#import "TabBarVCDemoViewController.h"
 
 @interface SectionItem : NSObject
 {
@@ -51,15 +51,10 @@
 
 @end
 
-
-
+/////////////////////////////////////////////////////////////////////////////////////
 
 
 @implementation RootViewController
-
-
-
-
 
 
 
@@ -82,7 +77,7 @@
 	SectionItem* SegmentSection = [SectionItem section];
 	SegmentSection.title = @"Segement Demo";
 	SegmentSection.contents = [@"Segment View||PLTabBarController" componentsSeparatedByString:@"||"];
-	SegmentSection.classes = [NSArray arrayWithObjects:[SegmentDemoViewController class],[SegmentDemoViewController class],nil];
+	SegmentSection.classes = [NSArray arrayWithObjects:[SegmentDemoViewController class],[TabBarVCDemoViewController class],nil];
 	
 	sections = [[NSArray arrayWithObjects:ImageLoaderSection,SegmentSection,nil] retain];
 }

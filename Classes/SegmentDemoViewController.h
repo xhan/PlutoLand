@@ -16,5 +16,10 @@
 
 @property (nonatomic, retain) PLSegmentView *segmentDemo1;
 
+
++ (PLSegmentView*)segmentDemo1TabBar;
+
+
+
 @end
 

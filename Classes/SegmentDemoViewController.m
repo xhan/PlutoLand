@@ -19,11 +19,9 @@
 - (void)loadView {
 	[super loadView];
 	self.view.backgroundColor =[UIColor viewFlipsideBackgroundColor];
-	segmentDemo1 = [[PLSegmentView alloc] initWithFrame:CGRectMake(0, 0, 320, 52)];
 
-	NSArray* imageNormalArray = [@"nav1.png nav2.png nav3.png nav4.png" componentsSeparatedByString:@" "];
-	NSArray* imageSelectedArray = [@"nav1_1.png nav2_1.png nav3_1.png nav4_1.png" componentsSeparatedByString:@" "];
-	[segmentDemo1 setupCellsByImagesName:imageNormalArray selectedImagesName:imageSelectedArray offset:CGSizeMake(80, 0)];
+	segmentDemo1 = [[[self class] segmentDemo1TabBar] retain];
+	
 	[self.view addSubview:segmentDemo1];
 }
 
@@ -46,6 +44,19 @@
     [segmentDemo1 release], segmentDemo1 = nil;
     [super dealloc];
 }
+
+/////////////////////////////////////////////////////////////////////////////////////
+
++ (PLSegmentView*)segmentDemo1TabBar
+{
+	PLSegmentView* segmentDemo = [[PLSegmentView alloc] initWithFrame:CGRectMake(0, 0, 320, 52)];
+	
+	NSArray* imageNormalArray = [@"nav1.png nav2.png nav3.png nav4.png" componentsSeparatedByString:@" "];
+	NSArray* imageSelectedArray = [@"nav1_1.png nav2_1.png nav3_1.png nav4_1.png" componentsSeparatedByString:@" "];
+	[segmentDemo setupCellsByImagesName:imageNormalArray selectedImagesName:imageSelectedArray offset:CGSizeMake(80, 0)];
+	return [segmentDemo autorelease]; 
+}
+
 
 
 @end

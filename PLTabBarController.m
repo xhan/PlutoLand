@@ -19,6 +19,8 @@
 
 @implementation PLTabBarController
 
+@synthesize tabBarView;
+
 @dynamic selectedVC;
 @synthesize selectedIndex = _selectedIndex;
 
@@ -28,7 +30,7 @@
 		tabBarView = [tabBar retain];
 		tabBarView.delegate = self;
 		viewControllers = [aviewControllers retain];
-		[self setWantsFullScreenLayout:YES];
+//		[self setWantsFullScreenLayout:YES];
 		containerView = nil;
 		_selectedIndex = -1;
 	}
@@ -47,6 +49,12 @@
 
 - (void)loadView {
 	[super loadView];
+	
+	// make sub Vc's ignore 20pix offset
+	for (UIViewController* vc in viewControllers) {
+		[vc setWantsFullScreenLayout:YES];
+	}
+	
 	[self.view insertSubview:tabBarView atIndex:NSIntegerMax];
 	
 	[self updateViewAndTabBarToIndex:0];
@@ -97,11 +105,11 @@
 - (void)changeViewToIndex:(int)index
 {
 	if (index == _selectedIndex) 	return;
-
+	_selectedIndex = index;
 	
 	[containerView removeFromSuperview];
 	containerView = [(UIViewController*)[viewControllers objectAtIndex:_selectedIndex] view];
-	[self.view insertSubview:containerView atIndex:1];
+	[self.view insertSubview:containerView atIndex:0];
 	
 }
 
@@ -114,3 +122,4 @@
 }
 
 @end
+

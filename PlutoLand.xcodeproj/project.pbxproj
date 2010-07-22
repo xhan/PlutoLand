@@ -42,6 +42,7 @@
 		8C1F4CD611F85AF700FEF83E /* nav4_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C1F4CCE11F85AF700FEF83E /* nav4_1.png */; };
 		8C1F4CD711F85AF700FEF83E /* nav4.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C1F4CCF11F85AF700FEF83E /* nav4.png */; };
 		8C1F4CDB11F85B5100FEF83E /* SegmentDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C1F4CDA11F85B5100FEF83E /* SegmentDemoViewController.m */; };
+		8C1F4D3411F86B7300FEF83E /* TabBarVCDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C1F4D3311F86B7300FEF83E /* TabBarVCDemoViewController.m */; };
 		8CD6583511F04D28009D906E /* AppRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CD6583211F04D28009D906E /* AppRecord.m */; };
 		8CD6583611F04D28009D906E /* ParseOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CD6583411F04D28009D906E /* ParseOperation.m */; };
 /* End PBXBuildFile section */
@@ -104,6 +105,8 @@
 		8C1F4CCF11F85AF700FEF83E /* nav4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nav4.png; sourceTree = "<group>"; };
 		8C1F4CD911F85B5100FEF83E /* SegmentDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SegmentDemoViewController.h; sourceTree = "<group>"; };
 		8C1F4CDA11F85B5100FEF83E /* SegmentDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SegmentDemoViewController.m; sourceTree = "<group>"; };
+		8C1F4D3211F86B7300FEF83E /* TabBarVCDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarVCDemoViewController.h; sourceTree = "<group>"; };
+		8C1F4D3311F86B7300FEF83E /* TabBarVCDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarVCDemoViewController.m; sourceTree = "<group>"; };
 		8CD6583111F04D28009D906E /* AppRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppRecord.h; sourceTree = "<group>"; };
 		8CD6583211F04D28009D906E /* AppRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppRecord.m; sourceTree = "<group>"; };
 		8CD6583311F04D28009D906E /* ParseOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseOperation.h; sourceTree = "<group>"; };
@@ -299,6 +302,8 @@
 			children = (
 				8C1F4CD911F85B5100FEF83E /* SegmentDemoViewController.h */,
 				8C1F4CDA11F85B5100FEF83E /* SegmentDemoViewController.m */,
+				8C1F4D3211F86B7300FEF83E /* TabBarVCDemoViewController.h */,
+				8C1F4D3311F86B7300FEF83E /* TabBarVCDemoViewController.m */,
 			);
 			name = "Segment View";
 			sourceTree = "<group>";
@@ -407,6 +412,7 @@
 				713B276E11F82C2800E2036D /* PLSegmentView.m in Sources */,
 				713B277A11F83C4800E2036D /* PLTabBarController.m in Sources */,
 				8C1F4CDB11F85B5100FEF83E /* SegmentDemoViewController.m in Sources */,
+				8C1F4D3411F86B7300FEF83E /* TabBarVCDemoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

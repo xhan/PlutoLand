@@ -27,6 +27,7 @@
 	int _selectedIndex;
 }
 
+@property (nonatomic, retain) PLSegmentView *tabBarView;
 @property(nonatomic,readonly) int selectedIndex;
 @property(nonatomic,readonly) UIViewController* selectedVC;
 
