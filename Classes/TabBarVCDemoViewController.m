@@ -59,39 +59,19 @@
 		UIColor* color = [UIColor colorWithWhite:i*0.25 alpha:1];
 		[vcArray addObject:[[[DemoColorfulVC alloc] initWithColor:color] autorelease]];
 	} 
-	self = [super initWithTabBar:[SegmentDemoViewController segmentDemo1TabBar] viewControllers:vcArray];
-	
+#ifdef USING_UITABBAR_CONTROLLER_SUBCLASS
+	self = [super init];
+	self.title = @"fixed tabBar";
+	self.viewControllers = vcArray;
+	self.tabBarView = [SegmentDemoViewController segmentDemo1TabBar];
+#else	
+	self = [super initWithTabBar:[SegmentDemoViewController segmentDemo1TabBar] viewControllers:vcArray];	
+	self.title = @"origin tabBar";
 	self.tabBarView.bottom = 480 - 44 - 20;
+#endif
 	return self;
 }
 
-/*
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
-    [super viewDidLoad];
-}
-*/
-
-/*
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-*/
-
-- (void)didReceiveMemoryWarning {
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
-}
-
-- (void)viewDidUnload {
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
 
 
 - (void)dealloc {

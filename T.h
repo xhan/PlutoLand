@@ -28,4 +28,11 @@
 
 + (UIButton*)createBtnfromPoint:(CGPoint)point imageStr:(NSString*)imgstr highlightImgStr:(NSString*)himgstr target:(id)target selector:(SEL)selector; 
 
+
+// each value comes from 0 to 255
++ (UIColor*)colorR:(float)r g:(float)g b:(float)b;
+
+//alpha from 0 to 1
++ (UIColor*)colorR:(float)r g:(float)g b:(float)b a:(float)a;
+
 @end

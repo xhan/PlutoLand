@@ -7,7 +7,10 @@
 //
 
 #import "PLTabBarController.h"
+#import "PLGlobal.h"
+#import "UIViewAdditions.h"
 
+#ifndef USING_UITABBAR_CONTROLLER_SUBCLASS
 
 @interface PLTabBarController(Private)
 
@@ -123,3 +126,44 @@
 
 @end
 
+
+#else
+
+@implementation PLTabBarController
+
+@synthesize tabBarView = _plTabbar;
+
+- (void)setTabBarView:(PLSegmentView *)tabbarView{
+	if (_plTabbar != tabbarView) {
+		[_plTabbar release];
+		_plTabbar = [tabbarView retain];
+		_plTabbar.delegate = self;
+	}
+	_plTabbar.origin = CGPointZero;
+	float offset = _plTabbar.height - self.tabBar.height;
+	if(offset > 0){
+		self.tabBar.top -= 	offset;
+		self.tabBar.height += offset;
+	}
+	[self.tabBar addSubview:_plTabbar];
+}
+
+- (void)dealloc{
+	[_plTabbar release], _plTabbar = nil;
+	[super dealloc];
+}
+
+
+#pragma mark -
+#pragma mark delegate of segment view
+
+- (void)segmentClickedAtIndex:(int)index onCurrentCell:(BOOL)isCurrent
+{
+	//[self changeViewToIndex:index];
+	self.selectedIndex = index;
+}
+
+@end
+
+
+#endif

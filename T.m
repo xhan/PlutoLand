@@ -46,4 +46,16 @@
 	return abtn;	
 }
 
+
++ (UIColor*)colorR:(float)r g:(float)g b:(float)b
+{
+	return [self colorR:r g:g b:b a:1];
+}
+
+//alpha from 0 to 1
++ (UIColor*)colorR:(float)r g:(float)g b:(float)b a:(float)a
+{
+	return [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a];
+}
+
 @end
