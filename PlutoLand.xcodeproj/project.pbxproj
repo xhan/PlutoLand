@@ -43,6 +43,9 @@
 		8C1F4CD711F85AF700FEF83E /* nav4.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C1F4CCF11F85AF700FEF83E /* nav4.png */; };
 		8C1F4CDB11F85B5100FEF83E /* SegmentDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C1F4CDA11F85B5100FEF83E /* SegmentDemoViewController.m */; };
 		8C1F4D3411F86B7300FEF83E /* TabBarVCDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C1F4D3311F86B7300FEF83E /* TabBarVCDemoViewController.m */; };
+		8C469C5812127D54001A5245 /* WebViewCombineController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C469C5712127D54001A5245 /* WebViewCombineController.m */; };
+		8C469C5A12127E05001A5245 /* webViewCombine.html in Resources */ = {isa = PBXBuildFile; fileRef = 8C469C5912127E05001A5245 /* webViewCombine.html */; };
+		8C469C951212A01E001A5245 /* TapDetectingWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C469C941212A01E001A5245 /* TapDetectingWindow.m */; };
 		8CD6583511F04D28009D906E /* AppRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CD6583211F04D28009D906E /* AppRecord.m */; };
 		8CD6583611F04D28009D906E /* ParseOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CD6583411F04D28009D906E /* ParseOperation.m */; };
 /* End PBXBuildFile section */
@@ -107,6 +110,11 @@
 		8C1F4CDA11F85B5100FEF83E /* SegmentDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SegmentDemoViewController.m; sourceTree = "<group>"; };
 		8C1F4D3211F86B7300FEF83E /* TabBarVCDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarVCDemoViewController.h; sourceTree = "<group>"; };
 		8C1F4D3311F86B7300FEF83E /* TabBarVCDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarVCDemoViewController.m; sourceTree = "<group>"; };
+		8C469C5612127D54001A5245 /* WebViewCombineController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewCombineController.h; sourceTree = "<group>"; };
+		8C469C5712127D54001A5245 /* WebViewCombineController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewCombineController.m; sourceTree = "<group>"; };
+		8C469C5912127E05001A5245 /* webViewCombine.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = webViewCombine.html; sourceTree = "<group>"; };
+		8C469C931212A01E001A5245 /* TapDetectingWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapDetectingWindow.h; sourceTree = "<group>"; };
+		8C469C941212A01E001A5245 /* TapDetectingWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapDetectingWindow.m; sourceTree = "<group>"; };
 		8CD6583111F04D28009D906E /* AppRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppRecord.h; sourceTree = "<group>"; };
 		8CD6583211F04D28009D906E /* AppRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppRecord.m; sourceTree = "<group>"; };
 		8CD6583311F04D28009D906E /* ParseOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseOperation.h; sourceTree = "<group>"; };
@@ -132,6 +140,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				8C469C5512127D2D001A5245 /* WebViewCombine */,
 				8C1F4CD811F85B0C00FEF83E /* Segment View */,
 				71BCAEAA11F068D700191293 /* image loader */,
 				71BCAEA911F068B900191293 /* AppDelegate */,
@@ -310,6 +319,18 @@
 			name = "Segment View";
 			sourceTree = "<group>";
 		};
+		8C469C5512127D2D001A5245 /* WebViewCombine */ = {
+			isa = PBXGroup;
+			children = (
+				8C469C5912127E05001A5245 /* webViewCombine.html */,
+				8C469C5612127D54001A5245 /* WebViewCombineController.h */,
+				8C469C5712127D54001A5245 /* WebViewCombineController.m */,
+				8C469C931212A01E001A5245 /* TapDetectingWindow.h */,
+				8C469C941212A01E001A5245 /* TapDetectingWindow.m */,
+			);
+			name = WebViewCombine;
+			sourceTree = "<group>";
+		};
 		8CD6582311F04B46009D906E /* LazyTableImages */ = {
 			isa = PBXGroup;
 			children = (
@@ -382,6 +403,7 @@
 				8C1F4CD511F85AF700FEF83E /* nav3.png in Resources */,
 				8C1F4CD611F85AF700FEF83E /* nav4_1.png in Resources */,
 				8C1F4CD711F85AF700FEF83E /* nav4.png in Resources */,
+				8C469C5A12127E05001A5245 /* webViewCombine.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -415,6 +437,8 @@
 				713B277A11F83C4800E2036D /* PLTabBarController.m in Sources */,
 				8C1F4CDB11F85B5100FEF83E /* SegmentDemoViewController.m in Sources */,
 				8C1F4D3411F86B7300FEF83E /* TabBarVCDemoViewController.m in Sources */,
+				8C469C5812127D54001A5245 /* WebViewCombineController.m in Sources */,
+				8C469C951212A01E001A5245 /* TapDetectingWindow.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -431,6 +455,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = PlutoLand_Prefix.pch;
 				INFOPLIST_FILE = "PlutoLand-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 3.1;
 				PRODUCT_NAME = PlutoLand;
 			};
 			name = Debug;
@@ -443,6 +468,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = PlutoLand_Prefix.pch;
 				INFOPLIST_FILE = "PlutoLand-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 3.1;
 				PRODUCT_NAME = PlutoLand;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -458,6 +484,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
 				SDKROOT = iphonesimulator4.1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -471,7 +498,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PREBINDING = NO;
-				SDKROOT = iphonesimulator4.1;
+				SDKROOT = iphoneos4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

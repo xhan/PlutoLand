@@ -13,6 +13,7 @@
 
 #import "SegmentDemoViewController.h"
 #import "TabBarVCDemoViewController.h"
+#import "WebViewCombineController.h"
 
 @interface SectionItem : NSObject
 {
@@ -78,8 +79,14 @@
 	SegmentSection.title = @"Segement Demo";
 	SegmentSection.contents = [@"Segment View||PLTabBarController" componentsSeparatedByString:@"||"];
 	SegmentSection.classes = [NSArray arrayWithObjects:[SegmentDemoViewController class],[TabBarVCDemoViewController class],nil];
+
 	
-	sections = [[NSArray arrayWithObjects:ImageLoaderSection,SegmentSection,nil] retain];
+	SectionItem* webViewSection = [SectionItem section];
+	webViewSection.title = @"WebView Combined";
+	webViewSection.contents = [NSArray arrayWithObject:@"Demo1"];
+	webViewSection.classes = [NSArray arrayWithObject:[WebViewCombineController class]];
+	
+	sections = [[NSArray arrayWithObjects:ImageLoaderSection,SegmentSection,webViewSection,nil] retain];
 }
 
 
