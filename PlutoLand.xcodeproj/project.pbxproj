@@ -43,6 +43,7 @@
 		8C1F4CD711F85AF700FEF83E /* nav4.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C1F4CCF11F85AF700FEF83E /* nav4.png */; };
 		8C1F4CDB11F85B5100FEF83E /* SegmentDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C1F4CDA11F85B5100FEF83E /* SegmentDemoViewController.m */; };
 		8C1F4D3411F86B7300FEF83E /* TabBarVCDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C1F4D3311F86B7300FEF83E /* TabBarVCDemoViewController.m */; };
+		8CC27B6F121A219400C5CBDB /* UIImageExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CC27B6E121A219400C5CBDB /* UIImageExtras.m */; };
 		8CD6583511F04D28009D906E /* AppRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CD6583211F04D28009D906E /* AppRecord.m */; };
 		8CD6583611F04D28009D906E /* ParseOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CD6583411F04D28009D906E /* ParseOperation.m */; };
 /* End PBXBuildFile section */
@@ -107,6 +108,8 @@
 		8C1F4CDA11F85B5100FEF83E /* SegmentDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SegmentDemoViewController.m; sourceTree = "<group>"; };
 		8C1F4D3211F86B7300FEF83E /* TabBarVCDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarVCDemoViewController.h; sourceTree = "<group>"; };
 		8C1F4D3311F86B7300FEF83E /* TabBarVCDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarVCDemoViewController.m; sourceTree = "<group>"; };
+		8CC27B6D121A219400C5CBDB /* UIImageExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIImageExtras.h; sourceTree = "<group>"; };
+		8CC27B6E121A219400C5CBDB /* UIImageExtras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIImageExtras.m; sourceTree = "<group>"; };
 		8CD6583111F04D28009D906E /* AppRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppRecord.h; sourceTree = "<group>"; };
 		8CD6583211F04D28009D906E /* AppRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppRecord.m; sourceTree = "<group>"; };
 		8CD6583311F04D28009D906E /* ParseOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseOperation.h; sourceTree = "<group>"; };
@@ -209,6 +212,8 @@
 		713B273A11F81A8400E2036D /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				8CC27B6D121A219400C5CBDB /* UIImageExtras.h */,
+				8CC27B6E121A219400C5CBDB /* UIImageExtras.m */,
 				713B274A11F81C5900E2036D /* UIViewAdditions.h */,
 				713B274B11F81C5900E2036D /* UIViewAdditions.m */,
 				713B274711F81BB800E2036D /* UIView-ModalAnimationHelper.h */,
@@ -415,6 +420,7 @@
 				713B277A11F83C4800E2036D /* PLTabBarController.m in Sources */,
 				8C1F4CDB11F85B5100FEF83E /* SegmentDemoViewController.m in Sources */,
 				8C1F4D3411F86B7300FEF83E /* TabBarVCDemoViewController.m in Sources */,
+				8CC27B6F121A219400C5CBDB /* UIImageExtras.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
