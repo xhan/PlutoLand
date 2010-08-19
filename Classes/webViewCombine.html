@@ -4,22 +4,60 @@
 <html lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title>WebViewCombine</title>
+	<title>PlutoLand WebView</title>
 	<meta name="generator" content="TextMate http://macromates.com/">
 	<meta name="author" content="xhan">
 	<!-- Date: 2010-08-11 -->
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; minimum-scale=1.0; user-scalable=false;"/>
+
+	<link rel="stylesheet" href="touch.css" type="text/css">
 </head>
+
+<script type="text/javascript">
+window.plaction = function(url) {
+	window.location.href = url;
+	// window.location = url;
+};
+</script>
+
 <body>
-<h2>Hello</h2>
-<a href="#pl://values">Link text #1</a> 
-</br>
-<p>
-come to the bridge
-</p>
-<a href="#pl://values2">Link text #2</a> 
-</br>
-<a href="http://ixhan.com">ixhan.com</a> 
-</br>
-<a href="plurl://ixhan.com">custom</a> 
+	
+	<div id="wrapper">
+		<div id="main">
+			<h3>周边地点 <a onclick="plaction('pl:changecity')" class="changeCity">北京</a></h3>
+			
+			
+			<div class="row loadSpot visited" href="">
+			  <div class="icon">
+			    <img class="spot" src="pin.png">
+			  </div>
+			  <div class="info">
+
+			    <p onclick="plaction('pl:abcde')" class="name">
+			    	    	    	东单体育中心</p>
+			    <p class="addresslist">崇文区崇文门内大街108号(东单十字路口西南角)&nbsp;&nbsp;</p>
+			  </div>
+			</div>
+			
+			
+		</div>		
+	</div>
+
+	<div id="footer">
+	        <div onclick="" id="location-bar">已找到您的位置</div>
+	        <div onclick="" id="city-bar" style="display: none;">北京</div>
+	        <p>&copy; 2010 街旁 - <span style="display: inline;" id="logouttext"><a onclick="ajaxReplace('action.php?a=feedback');return false;" href="#">用户反馈</a> 
+	        |
+	        <a onclick="logout();return false;" href="#">退出登录</a> 
+	        | </span>
+	        <a href="http://jiepang.com/m/">普通移动版</a>
+	        
+	        </p>
+	        <p>
+	        <a onclick="return false" href="#">简体中文</a> <a onclick="return false" href="#">繁體中文</a>
+	        </p>
+	    </div>
+	
+
 </body>
 </html>

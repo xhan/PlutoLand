@@ -13,7 +13,6 @@
 
 @synthesize webView;
 
-[[[UIDevice currentDevice] systemVersion] floatValue]; 
 
 - (void)loadView {
 	[super loadView];
@@ -22,8 +21,8 @@
 	webView.delegate = self;
 
 	TapDetectingWindow* mWindow = (TapDetectingWindow *)[[UIApplication sharedApplication].windows objectAtIndex:0];
-    mWindow.viewToObserve = webView;
-    mWindow.controllerThatObserves = self;
+//    mWindow.viewToObserve = webView;
+//    mWindow.controllerThatObserves = self;
 
 	
 	
@@ -34,17 +33,20 @@
 	[webView loadRequest:[NSURLRequest requestWithURL:url]];
 	 */
 	NSString* htmlStr = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-	[webView loadHTMLString:htmlStr baseURL:nil];
+	
+	NSString *mpath = [[NSBundle mainBundle] bundlePath];
+	NSURL *baseURL = [NSURL fileURLWithPath:mpath];
+	
+	
+	[webView loadHTMLString:htmlStr baseURL:baseURL];
 	
 	
 
 }
 
 - (void)viewDidLoad{
-//	for (id object in [webView subviews]) {
-//		NSLog(@"%@",NSStringFromClass([object class])); 
-//	}
-	[self debugSubViewAtIndex:1 view:webView];
+
+//	[self debugSubViewAtIndex:1 view:webView];
 }
 
 - (void)debugSubViewAtIndex:(int)index view:(UIView*)aview{
@@ -68,27 +70,27 @@
 {
 	NSString *url = [[request URL] absoluteString];
 	NSLog(@"%@",url);
-	NSArray *seperatedStr = [url componentsSeparatedByString:@":"];
-	if ([seperatedStr count] >0 && [[seperatedStr objectAtIndex:0] isEqualToString:@"plurl"]) {
-		return NO;
-	}
+//	NSArray *seperatedStr = [url componentsSeparatedByString:@":"];
+//	if ([seperatedStr count] >0 && [[seperatedStr objectAtIndex:0] isEqualToString:@"plurl"]) {
+//		return NO;
+//	}
 	return YES;
 	
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
-	
+	NSLog(@"loading");
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-	
+	NSLog(@"finished");
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
-	
+	NSLog(@"failed with error:%@",[error localizedDescription]);
 }
 
 
@@ -96,7 +98,7 @@
 
 - (void)userDidTapWebView:(id)tapPoint
 {
-	NSLog(@"tapped!");
+//	NSLog(@"tapped!");
 }
 
 @end

@@ -43,7 +43,7 @@
     if ([touch.view isDescendantOfView:viewToObserve] == NO)
         return;
     CGPoint tapPoint = [touch locationInView:viewToObserve];
-    NSLog(@"TapPoint = %f, %f", tapPoint.x, tapPoint.y);
+//    NSLog(@"TapPoint = %f, %f", tapPoint.x, tapPoint.y);
     NSArray *pointArray = [NSArray arrayWithObjects:[NSString stringWithFormat:@"%f", tapPoint.x],[NSString stringWithFormat:@"%f", tapPoint.y], nil];
 //	[NSValue valueWithCGPoint:<#(CGPoint)point#>]
     if (touch.tapCount == 1) {
