@@ -21,9 +21,8 @@
 	UIImage* aimage = nil;
 	if (aimage = [[PLImageCache sharedCache] getImageByURL:urlstr]) {
 		self.image = aimage;
-		NSLog(@"cache :%@",urlstr);
-		return;
-		
+		NSLog(@"- loaded cached image :%@",urlstr);
+		return;		
 	}
 	PLImageLoader* loader = [[PLImageLoader alloc] init];	
 	[loader fetchForImageView:self URL:urlstr freshOnSucceed:isFresh cacheEnable:YES userInfo:info];

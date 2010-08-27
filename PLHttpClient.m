@@ -16,10 +16,20 @@
 
 
 static const int timeOutSec = 30;
-
+static NSStringEncoding _gEncoding;
 
 #pragma mark -
 #pragma mark CLass methods
+
++ (void)initialize
+{
+	_gEncoding = NSUTF8StringEncoding;
+}
+
++ (void)setGlobalEncoding:(NSStringEncoding)encoding
+{
+	_gEncoding = encoding;
+}
 
 + (NSData*)simpleSyncGet:(NSString*)urlStr
 {
@@ -31,7 +41,7 @@ static const int timeOutSec = 30;
 {
 	NSURLRequest* request = [NSURLRequest requestWithURL:url];
 	NSData* responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-	return [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]; 
+	return [[[NSString alloc] initWithData:responseData encoding:_gEncoding] autorelease]; 
 }
 
 #pragma mark -

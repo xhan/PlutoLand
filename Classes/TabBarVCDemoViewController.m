@@ -37,9 +37,27 @@
 
 - (void)loadView
 {
+	NSLog(@"load View");
 	[super loadView];
-//	[self setWantsFullScreenLayout:YES];
 	self.view.backgroundColor = self.bgColor;
+	
+}
+
+- (void)viewDidLoad{
+	[super viewDidLoad];
+	/*
+	[UIView beginAnimations:nil context:nil];
+	[UIView setAnimationDelay:2];
+	[UIView setAnimationDuration:0.5];
+	self.tabBarController.tabBar.top += 40;
+	[UIView commitAnimations];
+
+	[UIView beginAnimations:nil context:nil];
+	[UIView setAnimationDelay:2.6];
+	[UIView setAnimationDuration:0.5];
+	self.tabBarController.tabBar.top -= 40;
+	[UIView commitAnimations];
+	 */
 }
 
 @end

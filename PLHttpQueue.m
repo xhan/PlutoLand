@@ -9,8 +9,9 @@
 #import "PLHttpQueue.h"
 
 #define DEFAULT_CAPACITY 1000
-#define DEFAULT_PARELLEL_CAPACITY 2
+#define DEFAULT_PARELLEL_CAPACITY 5
 #define DEFAULT_ACTIVE_STATE YES
+#define DEFAULT_SHOW_ACTIVE_INCIDATER YES
 
 @interface PLHttpQueue(Private)
 
@@ -61,6 +62,7 @@ static NSMutableDictionary* gSharedDictionary;
 		_runningQueues = [[NSMutableArray alloc] init];
 		_currentActiveTaskCount = 0;
 		_isActived = DEFAULT_ACTIVE_STATE;
+		_isShowActiveIndicaterWhileRunning = DEFAULT_SHOW_ACTIVE_INCIDATER;
 	}
 	return self;
 }
@@ -68,8 +70,7 @@ static NSMutableDictionary* gSharedDictionary;
 - (BOOL)addQueueItem:(id)item
 {
 	//TODO: check item validation
-	[_queues addObject:item];
-	
+	[_queues addObject:item];	
 	
 	[self runNextAction]; // the only condition is that queue is empty 
 	
@@ -105,6 +106,7 @@ static NSMutableDictionary* gSharedDictionary;
 	if(idleCount <= 0 ) return;
 	id task = nil;
 	
+	
 	//add idle task into running queue and run it's task
 	for (int i = 0; (i < idleCount) && [_queues count] ; i++ ) {
 		task = [_queues objectAtIndex:0];
@@ -115,6 +117,9 @@ static NSMutableDictionary* gSharedDictionary;
 		_currentActiveTaskCount += 1; 
 	}
 	
+	if (_currentActiveTaskCount >0 && _isShowActiveIndicaterWhileRunning) {
+		[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+	}
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath
@@ -122,7 +127,7 @@ static NSMutableDictionary* gSharedDictionary;
                         change:(NSDictionary *)change
                        context:(void *)context
 {
-	NSLog(@"%@",keyPath);
+//	NSLog(@"%@",keyPath);
 	if ([keyPath isEqualToString:@"isFinished"]) {
 		[self actionFinished:object];	
 	}
@@ -139,6 +144,11 @@ static NSMutableDictionary* gSharedDictionary;
 	/* run next action or nothing */
 	[self runNextAction];
 	
+	if (_isShowActiveIndicaterWhileRunning) {
+		if (_currentActiveTaskCount == 0) {
+			[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+		}
+	}
 }
 
 @end

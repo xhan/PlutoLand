@@ -26,7 +26,7 @@ extern NSString * const PLINFO_HC_IMAGE;
 	
 	NSMutableDictionary* _info;
 	
-	id<PLImageFetcherProtocol> _imageContainer;
+	id _fetcherObject;
 }
 
 @property (nonatomic, retain) NSMutableDictionary *info;
@@ -40,29 +40,21 @@ extern NSString * const PLINFO_HC_IMAGE;
 
 - (void)fetchForObject:(id<PLImageFetcherProtocol>)fetcher URL:(NSString *)url  freshOnSucceed:(BOOL)isFresh cacheEnable:(BOOL)cacheEnable userInfo:(NSDictionary *)info;
 
-@end
 
-
-
-@interface NSObject(PLHttpImageFetcher)
-
-- (void)fetchByURL:(NSString*)urlstr userInfo:(NSDictionary*)info freshOnSucceed:(BOOL)isFresh;
-
-- (void)fetchByURL:(NSString*)urlstr;
+//Public method, the object mush implement the PLImageFetcherProtocol delegate
+//default cache
++ (void)fetchURL:(NSString*)url object:(id)object userInfo:(NSDictionary *)info;
 
 @end
+
+
+
 
 
 @protocol PLImageFetcherProtocol <NSObject>
-
-
 @optional
 
 // @property(nonatomic,readwrite) UIImage *image;
-
-//- (void)fetchByURL:(NSString*)urlstr userInfo:(NSDictionary*)info freshOnSucceed:(BOOL)isFresh;
-
-//- (void)fetchByURL:(NSString*)urlstr;
 
 - (void)fetchedSuccessed:(UIImage*)image userInfo:(NSDictionary*)info;
 

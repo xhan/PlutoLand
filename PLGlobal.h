@@ -33,6 +33,7 @@
 #define HEIGHT_OF_TABBAR 49
 #define HEIGHT_OF_NAVIGATION_BAR 44
 
+#define PLSafeRelease(_obj_) [_obj_ release], _obj_ = nil;
 
 
 @interface PLGlobal : NSObject {

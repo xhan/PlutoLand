@@ -10,7 +10,6 @@
 #import "PLImageRequest.h"
 
 
-#define PL_DEBUG 0
 
 
 
@@ -112,8 +111,8 @@ static const int timeOutSec = 30;
 	if ([self.delegate respondsToSelector:self.didFinishSelector] ) {
 		[self.delegate performSelector:self.didFinishSelector withObject:self];
 	}	
-	PLLOG_STR(@"finished",nil);
-	
+	//PLLOG_STR(@"finished",nil);
+	printf("image load finished\n");
 	self.isFinished = YES;
 }
 

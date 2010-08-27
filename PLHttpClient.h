@@ -29,6 +29,7 @@
 @property (nonatomic, assign) SEL didFinishSelector;
 @property (nonatomic, assign) id<PLHttpClientDelegate> delegate;
 
++ (void)setGlobalEncoding:(NSStringEncoding)encoding;
 
 // (deprecated) return response by sync fetch  
 + (NSData*)simpleSyncGet:(NSString*)urlStr;

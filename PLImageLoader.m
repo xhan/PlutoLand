@@ -48,7 +48,7 @@ NSString* const PLINFO_HC_IMAGE = @"PLINFO_HC_IMAGE";
 
 - (void)fetchForObject:(id<PLImageFetcherProtocol>)fetcher URL:(NSString *)url  freshOnSucceed:(BOOL)isFresh cacheEnable:(BOOL)cacheEnable userInfo:(NSDictionary *)info
 {
-	_imageContainer = fetcher;
+	_fetcherObject = fetcher;
 	
 	_isCacheEnable = cacheEnable;
 	_isFreshOnSucceed = isFresh;	
@@ -57,16 +57,35 @@ NSString* const PLINFO_HC_IMAGE = @"PLINFO_HC_IMAGE";
 	[super requestGet:url];
 }
 
++ (void)fetchURL:(NSString*)url object:(id)object userInfo:(NSDictionary *)info
+{
+	//we don't use notification here
+	UIImage* cachedImg = [[PLImageCache sharedCache] getImageByURL:url];
+	if (cachedImg) {
+		if ([object respondsToSelector:@selector(fetchedSuccessed:userInfo:)]) {
+			[object fetchedSuccessed:cachedImg userInfo:info];
+		}		
+	}else {
+		PLImageLoader* loader = [[PLImageLoader alloc] init];	
+		[loader fetchForObject:object URL:url freshOnSucceed:NO cacheEnable:YES userInfo:info];
+		[[PLHttpQueue sharedQueue] addQueueItem:loader];
+		[loader release];	
+	}
+
+}
+
 #pragma mark -
 #pragma mark PLImageRequestDelegate
 - (void)imageRequestFailed:(PLImageRequest*)request withError:(NSError*)error
 {
-	NSLog(@"error on fetch image: ",self.url);
+	NSLog(@"error on fetch image: %@, msg: %@",self.url,[error localizedDescription]);
+	//we don't need clean stuffs bcz LoadInstance only works for one URL
 }
 
 - (void)imageRequestSucceeded:(PLImageRequest*)request
 {
-	
+	//TODO: add request costs time
+	NSLog(@"image fetched: %@",self.url);
 	UIImage* img = [UIImage imageWithData:request.imageData];
 	
 	
@@ -79,10 +98,9 @@ NSString* const PLINFO_HC_IMAGE = @"PLINFO_HC_IMAGE";
 	
 	[self.info setObject:img forKey:PLINFO_HC_IMAGE];
 	[[NSNotificationCenter defaultCenter] postNotificationName:NOTICE_IMAGE_LOADER_SUCCEEDED object:_imageView userInfo:self.info];
-	
-	
-	if (_imageContainer && [_imageContainer respondsToSelector:@selector(fetchedSuccessed:userInfo:)]) {
-		[_imageContainer fetchedSuccessed:img userInfo:self.info];
+		
+	if ([_fetcherObject respondsToSelector:@selector(fetchedSuccessed:userInfo:)]) {
+		[_fetcherObject fetchedSuccessed:img userInfo:self.info];
 	}
 }
 
@@ -95,30 +113,3 @@ NSString* const PLINFO_HC_IMAGE = @"PLINFO_HC_IMAGE";
 
 
 
-#pragma mark -
-@implementation NSObject(PLHttpImageFetcher)
-
-- (void)fetchByURL:(NSString*)urlstr userInfo:(NSDictionary*)info freshOnSucceed:(BOOL)isFresh
-{
-	id<PLImageFetcherProtocol> obj = self;
-	UIImage* aimage = nil;
-	if (aimage = [[PLImageCache sharedCache] getImageByURL:urlstr]) {
-		//self.image = aimage;
-		//NSLog(@"cache :%@",urlstr);
-		[obj fetchedSuccessed:aimage userInfo:info];
-		return;
-		
-	}
-	PLImageLoader* loader = [[PLImageLoader alloc] init];	
-	//	[loader fetchForImageView:self URL:urlstr freshOnSucceed:isFresh cacheEnable:YES userInfo:info];
-	[loader fetchForObject:obj URL:urlstr freshOnSucceed:isFresh cacheEnable:YES userInfo:info];
-	[[PLHttpQueue sharedQueue] addQueueItem:loader];
-	[loader release];	
-}
-
-- (void)fetchByURL:(NSString*)urlstr
-{
-	return [self fetchByURL:urlstr userInfo:nil freshOnSucceed:YES];
-}
-
-@end

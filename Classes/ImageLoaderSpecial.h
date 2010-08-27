@@ -29,6 +29,8 @@
 @interface ImageLoaderSpecial : UITableViewController {
 	NSOperationQueue *queue;
 	NSMutableArray* entries;
+	
+	NSMutableArray* images;
 }
 
 @property (nonatomic, copy) NSMutableArray *entries;

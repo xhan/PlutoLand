@@ -13,6 +13,9 @@
 #import "PLHttpClient.h"
 #import "PLImageLoader.h"
 
+#define USING_FETCH_METHOD_COMMON
+
+
 
 static NSString *const TopPaidAppsFeed =
 @"http://phobos.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/toppaidapplications/limit=75/xml";
@@ -21,25 +24,26 @@ static NSString *const TopPaidAppsFeed =
 
 @end
 
-
-
 @implementation ImageLoaderSpecial
 
 @synthesize entries;
 @synthesize queue;
 
+
+
 #pragma mark -
-#pragma mark NSNotificationCenter observer
+#pragma mark NSNotificationCenter observer fro ImageLoader 
 
 - (void)onGetNotificationImageSucceeded:(NSNotification*)notify
 {
+	NSLog(@"notified me");
 	NSDictionary* info = [notify userInfo];
 	NSIndexPath* indexpath = [info objectForKey:@"indexPath"];
-//	NSLog(@"at index %d",indexpath.row);
 	[self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexpath] 
-						  withRowAnimation:UITableViewRowAnimationNone];
-	
+						  withRowAnimation:UITableViewRowAnimationNone];	
 }
+
+
 
 #pragma mark -
 #pragma mark View lifecycle
@@ -66,7 +70,10 @@ static NSString *const TopPaidAppsFeed =
 	self.entries = [NSMutableArray array];
 	self.title = @"loading top list";
 	self.tableView.rowHeight = 60;
+#ifndef USING_FETCH_METHOD_COMMON	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onGetNotificationImageSucceeded:) name:NOTICE_IMAGE_LOADER_SUCCEEDED object:nil];
+#endif
+	
 }
 
 
@@ -74,6 +81,8 @@ static NSString *const TopPaidAppsFeed =
 {
 	//NSLog(@"finished load :%d",[loadedApps count]);	
 	self.entries = [NSMutableArray arrayWithArray:loadedApps];
+	images = [[NSMutableArray arrayWithCapacity:[loadedApps count]] retain];	
+	for(int i =0; i< [loadedApps count]; i++)  [images addObject:[NSNull null]];
     [self.tableView reloadData];
 }
 
@@ -91,14 +100,10 @@ static NSString *const TopPaidAppsFeed =
 #pragma mark -
 #pragma mark Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    // Return the number of sections.
-    return 1;
-}
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView { return 1; }
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // Return the number of rows in the section.
     return [entries count];
 }
 
@@ -117,9 +122,25 @@ static NSString *const TopPaidAppsFeed =
     AppRecord *appRecord = [self.entries objectAtIndex:indexPath.row];
 	cell.textLabel.text = appRecord.appName;
 	cell.detailTextLabel.text = appRecord.artist;
+	
+#ifdef USING_FETCH_METHOD_COMMON
+	
+//	NSLog(@"%d",[images count]);
+//	id obj = [images objectAtIndex:indexPath.row];
+//	NSLog(@"%@ class:%@",obj,NSStringFromClass(obj));
+	if ([images objectAtIndex:indexPath.row] != [NSNull null]) {
+		cell.imageView.image = [images objectAtIndex:indexPath.row]; 
+	}else {
+		NSDictionary* dic = [NSDictionary dictionaryWithObject:indexPath forKey:@"indexPath"];	
+		[PLImageLoader fetchURL:appRecord.imageURLString object:self userInfo:dic];
+		cell.imageView.image = [UIImage imageNamed:@"placeHolder.png"];
+	}
+
+#else
 	cell.imageView.image = [UIImage imageNamed:@"placeHolder.png"];
-	NSDictionary* dic = [NSDictionary dictionaryWithObject:indexPath forKey:@"indexPath"];
+	NSDictionary* dic = [NSDictionary dictionaryWithObject:indexPath forKey:@"indexPath"];	
 	[cell.imageView fetchByURL:appRecord.imageURLString userInfo:dic freshOnSucceed:NO];
+#endif
     return cell;
 }
 
@@ -132,13 +153,8 @@ static NSString *const TopPaidAppsFeed =
 - (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
-    
+    NSLog(@"memory warning");
     // Relinquish ownership any cached data, images, etc that aren't in use.
-}
-
-- (void)viewDidUnload {
-    // Relinquish ownership of anything that can be recreated in viewDidLoad or on demand.
-    // For example: self.myOutlet = nil;
 }
 
 
@@ -148,6 +164,17 @@ static NSString *const TopPaidAppsFeed =
     [super dealloc];
 }
 
+
+#pragma mark - ImageLoader delegate
+
+- (void)fetchedSuccessed:(UIImage*)image userInfo:(NSDictionary*)info
+{
+//	NSDictionary* info = [notify userInfo];
+	NSIndexPath* indexpath = [info objectForKey:@"indexPath"];
+	[images replaceObjectAtIndex:indexpath.row withObject:image];
+	[self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexpath] 
+						  withRowAnimation:UITableViewRowAnimationNone];		
+}
 
 @end
 

@@ -29,6 +29,7 @@
 	
 	BOOL _isActived; // response to start && pause
 	
+	BOOL _isShowActiveIndicaterWhileRunning;
 }
 
 @property (nonatomic, assign) int parellelCapacity;

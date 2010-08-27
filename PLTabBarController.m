@@ -153,6 +153,11 @@
 	[super dealloc];
 }
 
+- (void)setSelectedIndex:(NSUInteger)index{
+	[super setSelectedIndex:index];
+	_plTabbar.selectedIndex = index;
+}
+
 
 #pragma mark -
 #pragma mark delegate of segment view
