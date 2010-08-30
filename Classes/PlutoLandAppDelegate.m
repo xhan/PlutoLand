@@ -11,6 +11,7 @@
 
 
 #import "PLImageCache.h"
+#import "PLOG.h"
 
 @implementation PlutoLandAppDelegate
 
@@ -29,6 +30,13 @@
 	[window addSubview:navVC.view];
     [window makeKeyAndVisible];
 
+//	printf("%d,%d",PLOG_FORMAT_DATE,PLOG_FORMAT_FILE);
+	
+//	[PLOG_ setLog:0 State:NO];
+//	[PLOG env:0 log:@"hello,%d",5];
+//	[PLOG env:1 log:@"env 1 hello,%d",5];
+//	[PLOG env:4 log:@"aaa"];
+	PLOG(@"hello %d",56);
 	return YES;
 }
 

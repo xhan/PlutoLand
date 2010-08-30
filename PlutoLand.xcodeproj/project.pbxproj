@@ -33,6 +33,7 @@
 		71BCAE2011F0307700191293 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71BCAE1F11F0307700191293 /* RootViewController.m */; };
 		71BCAE2511F0386500191293 /* ImageLoaderSpecial.m in Sources */ = {isa = PBXBuildFile; fileRef = 71BCAE2411F0386500191293 /* ImageLoaderSpecial.m */; };
 		71BCAEAE11F06AF500191293 /* placeHolder.png in Resources */ = {isa = PBXBuildFile; fileRef = 71BCAEAD11F06AF500191293 /* placeHolder.png */; };
+		8C1BB37B122B57EA00ACE8CC /* PLOG.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C1BB37A122B57EA00ACE8CC /* PLOG.m */; };
 		8C1F4CD011F85AF700FEF83E /* nav1_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C1F4CC811F85AF700FEF83E /* nav1_1.png */; };
 		8C1F4CD111F85AF700FEF83E /* nav1.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C1F4CC911F85AF700FEF83E /* nav1.png */; };
 		8C1F4CD211F85AF700FEF83E /* nav2_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C1F4CCA11F85AF700FEF83E /* nav2_1.png */; };
@@ -96,6 +97,8 @@
 		71BCAE2311F0386500191293 /* ImageLoaderSpecial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageLoaderSpecial.h; sourceTree = "<group>"; };
 		71BCAE2411F0386500191293 /* ImageLoaderSpecial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageLoaderSpecial.m; sourceTree = "<group>"; };
 		71BCAEAD11F06AF500191293 /* placeHolder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeHolder.png; sourceTree = "<group>"; };
+		8C1BB379122B57EA00ACE8CC /* PLOG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLOG.h; sourceTree = "<group>"; };
+		8C1BB37A122B57EA00ACE8CC /* PLOG.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLOG.m; sourceTree = "<group>"; };
 		8C1F4CC811F85AF700FEF83E /* nav1_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nav1_1.png; sourceTree = "<group>"; };
 		8C1F4CC911F85AF700FEF83E /* nav1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nav1.png; sourceTree = "<group>"; };
 		8C1F4CCA11F85AF700FEF83E /* nav2_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nav2_1.png; sourceTree = "<group>"; };
@@ -256,6 +259,8 @@
 		71BCADD411F02CB900191293 /* Global */ = {
 			isa = PBXGroup;
 			children = (
+				8C1BB379122B57EA00ACE8CC /* PLOG.h */,
+				8C1BB37A122B57EA00ACE8CC /* PLOG.m */,
 				8CD6B4FF1209057000768A70 /* PlutoLand.h */,
 				71BCADD511F02CD700191293 /* T.h */,
 				71BCADD611F02CD700191293 /* T.m */,
@@ -421,6 +426,7 @@
 				8C1F4CDB11F85B5100FEF83E /* SegmentDemoViewController.m in Sources */,
 				8C1F4D3411F86B7300FEF83E /* TabBarVCDemoViewController.m in Sources */,
 				8CC27B6F121A219400C5CBDB /* UIImageExtras.m in Sources */,
+				8C1BB37B122B57EA00ACE8CC /* PLOG.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

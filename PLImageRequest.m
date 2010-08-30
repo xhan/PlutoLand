@@ -8,7 +8,7 @@
 
 #import "PLGlobal.h"
 #import "PLImageRequest.h"
-
+#import "PLOG.h"
 
 
 
@@ -102,7 +102,7 @@ static const int timeOutSec = 30;
 	if ([self.delegate respondsToSelector:self.didFailSelector] ) {
 		[self.delegate performSelector:self.didFailSelector withObject:self withObject:error];
 	}
-	PLLOG_STR(@"failed",nil);
+	PLOG(@"failed");
 	isFinished = YES;
 }
 
