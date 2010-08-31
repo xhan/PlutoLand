@@ -40,34 +40,20 @@
 	NSLog(@"load View");
 	[super loadView];
 	self.view.backgroundColor = self.bgColor;
-	
+//	self.title = [self.bgColor description];
+	//self.tabBarItem.badgeValue = @"5";
+//	self.tabBarItem.title = nil;
+	self.navigationItem.title = [self.bgColor description];
 }
 
-- (void)viewDidLoad{
-	[super viewDidLoad];
-	/*
-	[UIView beginAnimations:nil context:nil];
-	[UIView setAnimationDelay:2];
-	[UIView setAnimationDuration:0.5];
-	self.tabBarController.tabBar.top += 40;
-	[UIView commitAnimations];
 
-	[UIView beginAnimations:nil context:nil];
-	[UIView setAnimationDelay:2.6];
-	[UIView setAnimationDuration:0.5];
-	self.tabBarController.tabBar.top -= 40;
-	[UIView commitAnimations];
-	 */
-}
 
 @end
 
 /////////////////////////////////////////////////////////////////////////////////////
 
 
-
 @implementation TabBarVCDemoViewController
-
 
 
 - (id)init
@@ -86,6 +72,7 @@
 	self = [super initWithTabBar:[SegmentDemoViewController segmentDemo1TabBar] viewControllers:vcArray];	
 	self.title = @"origin tabBar";
 	self.tabBarView.bottom = 480 - 44 - 20;
+	self.selectedIndex = 0;
 #endif
 	return self;
 }

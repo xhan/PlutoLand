@@ -15,12 +15,14 @@ const int PLOG_ENV_GLOBAL = 871015;
 static NSMutableDictionary* _gDictionary;
 static unsigned int _gFormatSetting;
 static BOOL  _gEnabled;
+static PLOG_STYLE _gStyle;
 
 + (void)initialize
 {
 	_gDictionary = [[NSMutableDictionary alloc] init];
-	_gFormatSetting = ~0;
+	_gFormatSetting = ~0; // default outputs everything
 	_gEnabled = YES;
+	_gStyle = PLOG_STYLE_MIDDLE;
 	[self addEnv:0 name:@"Info"];
 	[self addEnv:1 name:@"Warning"];
 	[self addEnv:2 name:@"Error"];
@@ -34,6 +36,16 @@ static BOOL  _gEnabled;
 + (void)configFormatkey:(PLOG_FORMAT)key enable:(BOOL)isEnable
 {
 	
+}
+
++ (void)configFormatByKeys:(unsigned int)keys
+{
+	_gFormatSetting = keys;
+}
+
++ (void)setLogStyle:(PLOG_STYLE)style
+{
+	_gStyle = style;
 }
 
 + (void)logForEnv:(PLOG_ENV)env file:(const char*)fileName line:(int)line method:(const char*)method message:(NSString *)format,...
@@ -55,8 +67,16 @@ static BOOL  _gEnabled;
 		NSString* message = [[NSString alloc] initWithFormat:format arguments:ap];
 		va_end(ap);
 		
-		//[] fileName:line [class method] message
-		NSString* logStr = [NSString stringWithFormat:@"[%@]%s:%d %s %@",[dic objectForKey:@"name"], [[file lastPathComponent] UTF8String],  line , method, message];
+		
+		NSString* logStr;
+		if (_gStyle == PLOG_STYLE_SHORT) {
+			logStr = [NSString stringWithFormat:@"[%@] %@",[dic objectForKey:@"name"],message];
+		}else if (_gStyle == PLOG_STYLE_MIDDLE) {
+			logStr = [NSString stringWithFormat:@"[%@] %@\n  %s",[dic objectForKey:@"name"],message,method];
+		}else if (_gStyle == PLOG_STYLE_FULL) {
+			logStr = [NSString stringWithFormat:@"[%@]%s:%d %s %@",[dic objectForKey:@"name"], [[file lastPathComponent] UTF8String],  line , method, message];			
+		}
+		
 		[file release];
 		[message release];
 		printf("%s\n",[logStr UTF8String]);
@@ -75,7 +95,7 @@ static BOOL  _gEnabled;
 	
 	NSMutableDictionary* dic = [_gDictionary objectForKey:[NSNumber numberWithUnsignedInt:env]];
 	NSAssert1(dic != nil ,@"PLOG env %d not exists",env);
-
+	
 	[dic setObject:[NSNumber numberWithBool:enable] forKey:@"enabled"];
 }
 

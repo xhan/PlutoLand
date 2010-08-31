@@ -9,6 +9,18 @@
 #import <UIKit/UIKit.h>
 #import "PLSegmentView.h"
 
+/*
+ TODO: some issues: need hidden title of sub view controllers.
+ custom tabbar item set hoverd not instantly, called at viewDidLoad
+ =============== current fix way ========
+ 1. call self.tabBarItem.title = nil after set title
+ 2. or set self.navigationItem.title
+ 3. issue 2 don't have better fix method yet.
+ 
+ */
+ 
+
+
 #define USING_UITABBAR_CONTROLLER_SUBCLASS
 
 #ifndef USING_UITABBAR_CONTROLLER_SUBCLASS

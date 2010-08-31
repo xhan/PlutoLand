@@ -155,7 +155,25 @@
 
 - (void)setSelectedIndex:(NSUInteger)index{
 	[super setSelectedIndex:index];
+	[self.tabBar bringSubviewToFront:_plTabbar];
 	_plTabbar.selectedIndex = index;
+}
+
+/*  not works, title of item still appears
+- (void)viewWillAppear:(BOOL)animated
+{
+	[super viewWillAppear:animated];
+	for (UITabBarItem* item in self.tabBar.items) {
+		item.title = nil;
+	} 
+}
+ */
+
+// not works as expected, will see title for a short time.
+- (void)viewDidAppear:(BOOL)animated
+{
+	[super viewDidAppear:animated];
+	self.selectedIndex = self.selectedIndex;
 }
 
 
@@ -164,7 +182,6 @@
 
 - (void)segmentClickedAtIndex:(int)index onCurrentCell:(BOOL)isCurrent
 {
-	//[self changeViewToIndex:index];
 	self.selectedIndex = index;
 }
 

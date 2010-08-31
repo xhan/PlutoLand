@@ -37,6 +37,7 @@
 //	[PLOG env:1 log:@"env 1 hello,%d",5];
 //	[PLOG env:4 log:@"aaa"];
 	PLOG(@"hello %d",56);
+	
 	return YES;
 }
 

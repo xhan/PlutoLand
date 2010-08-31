@@ -18,7 +18,7 @@
 
 - (IBAction)onBtnFetchPressed:(id)sender
 {
-	[imageView1 fetchByURL:@"http://c0043312.cdn.cloudfiles.rackspacecloud.com/iwl/iwl.png"];						 
+	[imageView1 fetchByURL:@"http://c0043312.cdn.cloudfiles.rackspacecloud.com/iwl/iwl.png"];		
 	[imageView2 fetchByURL:@"http://tctechcrunch.files.wordpress.com/2010/07/a2.jpg?w=119" ];
 	[imageView3 fetchByURL:@"http://tctechcrunch.files.wordpress.com/2010/07/annn.png?w=119" ];
 	[imageView4 fetchByURL:@"http://www.javaeye.com/upload/logo/user/39790/cf70eb66-c7d0-3a94-9082-fa0701346847.jpg?1236834109" ];

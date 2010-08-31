@@ -8,7 +8,7 @@
 
 /*
  some codes & ideas borrowed from  http://borkware.com/rants/agentm/mlog/
-*/
+ */
 
 
 #import <Foundation/Foundation.h>
@@ -45,6 +45,18 @@ typedef enum{
 	PLOG_FORMAT_ENV = 1<<5
 }PLOG_FORMAT;
 
+enum {
+	PLOG_ENV_INFO = 0,
+	PLOG_ENV_WARNING,
+	PLOG_ENV_ERROR
+};
+
+typedef enum  {
+	PLOG_STYLE_SHORT,  // message
+	PLOG_STYLE_MIDDLE, //[env] message \n  method
+	PLOG_STYLE_FULL	// [env] fileName:line [class method] message
+}PLOG_STYLE;
+
 typedef unsigned int PLOG_ENV ;
 
 extern const int PLOG_ENV_GLOBAL; 
@@ -54,8 +66,13 @@ extern const int PLOG_ENV_GLOBAL;
 //not works at first version
 + (void)configForEnv:(PLOG_ENV)env key:(PLOG_FORMAT)key enable:(BOOL)isEnable;
 
+// not works too.
 + (void)configFormatkey:(PLOG_FORMAT)key enable:(BOOL)isEnable;
 
+//currently date & time not works.
+//+ (void)configFormatByKeys:(unsigned int)keys;
+
++ (void)setLogStyle:(PLOG_STYLE)style;
 
 + (void)logForEnv:(PLOG_ENV)env file:(const char*)fileName line:(int)line method:(const char*)method message:(NSString *)format, ...; 
 

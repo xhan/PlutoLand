@@ -9,8 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "PLTabBarController.h"
 
-@interface TabBarVCDemoViewController : PLTabBarController {
-	
-}
+@interface TabBarVCDemoViewController : PLTabBarController
 
 @end
