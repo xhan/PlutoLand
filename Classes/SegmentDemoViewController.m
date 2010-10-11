@@ -3,7 +3,7 @@
 //  PlutoLand
 //
 //  Created by xhan on 10-7-22.
-//  Copyright 2010 Baidu.com. All rights reserved.
+//  Copyright 2010 ixHan.com. All rights reserved.
 //
 
 #import "SegmentDemoViewController.h"

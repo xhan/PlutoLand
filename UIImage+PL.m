@@ -3,7 +3,7 @@
 //  Apollo
 //
 //  Created by xhan on 10-8-27.
-//  Copyright 2010 Baidu.com. All rights reserved.
+//  Copyright 2010 ixHan.com. All rights reserved.
 //
 
 #import "UIImage+PL.h"

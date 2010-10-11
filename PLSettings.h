@@ -3,7 +3,7 @@
 //  
 //
 //  Created by xhan on 10-10-8.
-//  Copyright 2010 Baidu.com. All rights reserved.
+//  Copyright 2010 ixHan.com. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
