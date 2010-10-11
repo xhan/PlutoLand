@@ -52,6 +52,9 @@
 		8C8258521262F3FC0078E094 /* UIImage+PL.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C82583B1262F3FC0078E094 /* UIImage+PL.m */; };
 		8C8258531262F3FC0078E094 /* NSString+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C82583D1262F3FC0078E094 /* NSString+Addition.m */; };
 		8C82585C1262F4470078E094 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C82585B1262F4470078E094 /* QuartzCore.framework */; };
+		8C82588A1262F9FE0078E094 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C8258881262F9FE0078E094 /* SettingViewController.m */; };
+		8C82588B1262F9FE0078E094 /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C8258891262F9FE0078E094 /* SettingViewController.xib */; };
+		8C82588E1262FA1E0078E094 /* SettingTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C82588D1262FA1E0078E094 /* SettingTestCase.m */; };
 		8CD6583511F04D28009D906E /* AppRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CD6583211F04D28009D906E /* AppRecord.m */; };
 		8CD6583611F04D28009D906E /* ParseOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CD6583411F04D28009D906E /* ParseOperation.m */; };
 /* End PBXBuildFile section */
@@ -136,6 +139,11 @@
 		8C82583C1262F3FC0078E094 /* NSString+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Addition.h"; sourceTree = "<group>"; };
 		8C82583D1262F3FC0078E094 /* NSString+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Addition.m"; sourceTree = "<group>"; };
 		8C82585B1262F4470078E094 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		8C8258871262F9FE0078E094 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
+		8C8258881262F9FE0078E094 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
+		8C8258891262F9FE0078E094 /* SettingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingViewController.xib; sourceTree = "<group>"; };
+		8C82588C1262FA1E0078E094 /* SettingTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingTestCase.h; sourceTree = "<group>"; };
+		8C82588D1262FA1E0078E094 /* SettingTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingTestCase.m; sourceTree = "<group>"; };
 		8CD6583111F04D28009D906E /* AppRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppRecord.h; sourceTree = "<group>"; };
 		8CD6583211F04D28009D906E /* AppRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppRecord.m; sourceTree = "<group>"; };
 		8CD6583311F04D28009D906E /* ParseOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseOperation.h; sourceTree = "<group>"; };
@@ -161,6 +169,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				8C8258861262F9D60078E094 /* PLSettings */,
 				8C1F4CD811F85B0C00FEF83E /* Segment View */,
 				71BCAEAA11F068D700191293 /* image loader */,
 				71BCAEA911F068B900191293 /* AppDelegate */,
@@ -358,6 +367,18 @@
 			name = Categories;
 			sourceTree = "<group>";
 		};
+		8C8258861262F9D60078E094 /* PLSettings */ = {
+			isa = PBXGroup;
+			children = (
+				8C8258871262F9FE0078E094 /* SettingViewController.h */,
+				8C8258881262F9FE0078E094 /* SettingViewController.m */,
+				8C8258891262F9FE0078E094 /* SettingViewController.xib */,
+				8C82588C1262FA1E0078E094 /* SettingTestCase.h */,
+				8C82588D1262FA1E0078E094 /* SettingTestCase.m */,
+			);
+			name = PLSettings;
+			sourceTree = "<group>";
+		};
 		8CD6582311F04B46009D906E /* LazyTableImages */ = {
 			isa = PBXGroup;
 			children = (
@@ -394,6 +415,9 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = ixHan.com;
+			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "PlutoLand" */;
 			compatibilityVersion = "Xcode 3.1";
 			hasScannedForEncodings = 1;
@@ -429,6 +453,7 @@
 				8C1F4CD511F85AF700FEF83E /* nav3.png in Resources */,
 				8C1F4CD611F85AF700FEF83E /* nav4_1.png in Resources */,
 				8C1F4CD711F85AF700FEF83E /* nav4.png in Resources */,
+				8C82588B1262F9FE0078E094 /* SettingViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -470,6 +495,8 @@
 				8C8258511262F3FC0078E094 /* UIView-ModalAnimationHelper.m in Sources */,
 				8C8258521262F3FC0078E094 /* UIImage+PL.m in Sources */,
 				8C8258531262F3FC0078E094 /* NSString+Addition.m in Sources */,
+				8C82588A1262F9FE0078E094 /* SettingViewController.m in Sources */,
+				8C82588E1262FA1E0078E094 /* SettingTestCase.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -14,6 +14,8 @@
 #import "SegmentDemoViewController.h"
 #import "TabBarVCDemoViewController.h"
 
+#import "SettingViewController.h"
+
 @interface SectionItem : NSObject
 {
 	NSString* title;
@@ -79,7 +81,14 @@
 	SegmentSection.contents = [@"Segment View||PLTabBarController" componentsSeparatedByString:@"||"];
 	SegmentSection.classes = [NSArray arrayWithObjects:[SegmentDemoViewController class],[TabBarVCDemoViewController class],nil];
 	
-	sections = [[NSArray arrayWithObjects:ImageLoaderSection,SegmentSection,nil] retain];
+	
+	SectionItem* coreFundationSection = [SectionItem section];
+	coreFundationSection.title = @"Core Fundations";
+	coreFundationSection.contents = [@"EasySettings" componentsSeparatedByString:@"||"];
+	coreFundationSection.classes = [NSArray arrayWithObjects:[SettingViewController class],nil];
+	
+	
+	sections = [[NSArray arrayWithObjects:ImageLoaderSection,SegmentSection,coreFundationSection,nil] retain];
 }
 
 
