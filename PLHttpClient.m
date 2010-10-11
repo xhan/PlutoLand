@@ -11,6 +11,8 @@
 
 @implementation PLHttpClient
 
+@synthesize userInfo = _userInfo;
+@synthesize enableGzipEncoding = _enableGzipEncoding;
 @synthesize startImmediately = _startImmediately;
 
 
@@ -61,11 +63,14 @@ static NSStringEncoding _gEncoding;
 		_didFailSelector = @selector(httpClient:failed:);
 		_didFinishSelector = @selector(httpClient:successed:);
 		_startImmediately = YES;
+		_enableGzipEncoding = NO;
 	}
 	return self;
 }
 
 - (void)dealloc {
+	[self cancel];
+	[_userInfo release], _userInfo = nil;
 	PLSafeRelease(_url);
 	PLSafeRelease(_response);
 	PLSafeRelease(_connection);
@@ -80,20 +85,30 @@ static NSStringEncoding _gEncoding;
 	PLSafeRelease(_connection);
 	PLSafeRelease(_receivedData);		
 	_receivedData = [[NSMutableData alloc] init];
+	self.userInfo = nil;
 }
 
 #pragma mark -
 #pragma mark public
 
-- (void)get:(NSURL*)url
+- (void)get:(NSURL *)url{
+	[self get:url userInfo:nil];
+}
+
+- (void)get:(NSURL *)url userInfo:(NSDictionary*)info;
 {
 	[self clean];
+	self.userInfo = info;
 	if(_url != url ){
 		PLSafeRelease(_url);
 		_url = [url retain];
 	}
-	NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:_url];
+	NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:_url];	
 	[request setTimeoutInterval:timeOutSec];
+	if (_enableGzipEncoding) {
+		[request setValue:@"gzip" forHTTPHeaderField:@"Accept-Encoding"];
+	}
+	
 	_connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:_startImmediately];
 	[request release];	
 }
@@ -109,6 +124,14 @@ static NSStringEncoding _gEncoding;
 		[_connection scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
 		[_connection start];		
 	}
+}
+
+- (NSString*)stringValue
+{
+	if (_receivedData) {
+		return [[[NSString alloc] initWithData:_receivedData encoding:_gEncoding] autorelease];
+	}
+	return nil;
 }
 
 #pragma mark -
@@ -142,4 +165,6 @@ static NSStringEncoding _gEncoding;
 }
 
 @end
+
+
 

@@ -35,4 +35,7 @@
 //alpha from 0 to 1
 + (UIColor*)colorR:(float)r g:(float)g b:(float)b a:(float)a;
 
+//load image by contents of file
++ (UIImage*)imageNamed:(NSString*)fileName;
+
 @end

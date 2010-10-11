@@ -3,6 +3,14 @@
 
 @implementation UIView (TTCategory)
 
+- (BOOL)visible{
+	return !self.hidden;
+}
+
+- (void)setVisible:(BOOL)visible{
+	self.hidden = !visible;
+}
+
 - (CGFloat)left {
   return self.frame.origin.x;
 }

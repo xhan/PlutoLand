@@ -1,4 +1,4 @@
-    //
+//
 //  PLTabBarController.m
 //  PlutoLand
 //
@@ -33,7 +33,7 @@
 		tabBarView = [tabBar retain];
 		tabBarView.delegate = self;
 		viewControllers = [aviewControllers retain];
-//		[self setWantsFullScreenLayout:YES];
+		//		[self setWantsFullScreenLayout:YES];
 		containerView = nil;
 		_selectedIndex = -1;
 	}
@@ -153,35 +153,25 @@
 	[super dealloc];
 }
 
-- (void)setSelectedIndex:(NSUInteger)index{
+- (void)setSelectedIndex:(NSUInteger)index
+{
 	[super setSelectedIndex:index];
 	[self.tabBar bringSubviewToFront:_plTabbar];
 	_plTabbar.selectedIndex = index;
 }
-
-/*  not works, title of item still appears
-- (void)viewWillAppear:(BOOL)animated
-{
-	[super viewWillAppear:animated];
-	for (UITabBarItem* item in self.tabBar.items) {
-		item.title = nil;
-	} 
-}
- */
-
-// not works as expected, will see title for a short time.
+/*
 - (void)viewDidAppear:(BOOL)animated
 {
 	[super viewDidAppear:animated];
 	self.selectedIndex = self.selectedIndex;
-}
-
+}*/
 
 #pragma mark -
 #pragma mark delegate of segment view
 
 - (void)segmentClickedAtIndex:(int)index onCurrentCell:(BOOL)isCurrent
 {
+	//[self changeViewToIndex:index];
 	self.selectedIndex = index;
 }
 

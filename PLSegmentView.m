@@ -14,6 +14,8 @@
 
 - (void)onCellClicked:(PLSegmentCell*)cell;
 
+
+
 @end
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -86,6 +88,8 @@
 			((PLSegmentCell*)[_items objectAtIndex:previousIndex]).selected = NO;
 		((PLSegmentCell*)[_items objectAtIndex:_selectedIndex]).selected = YES;
 	}		
+	
+
 	
 }
 

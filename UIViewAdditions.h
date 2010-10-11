@@ -23,6 +23,7 @@
 @property(nonatomic) CGPoint origin;
 @property(nonatomic) CGSize size;
 
+@property(nonatomic) BOOL visible;
 
 /**
  * Finds the first descendant view (including this view) that is a member of a particular class.

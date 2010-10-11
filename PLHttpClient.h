@@ -21,7 +21,13 @@
 	SEL _didFailSelector;
 	id<PLHttpClientDelegate> _delegate;	
 	BOOL _startImmediately;
+	
+	BOOL _enableGzipEncoding;
+	NSDictionary* _userInfo;
 }
+
+@property (nonatomic, copy) NSDictionary *userInfo;
+@property (nonatomic, assign) BOOL enableGzipEncoding; //default value is NO. set value to YES to enable Gzip decoding of http contents
 
 @property (nonatomic, assign) BOOL startImmediately;
 @property (nonatomic, readonly) NSURL *url;
@@ -39,6 +45,7 @@
 
 
 - (void)get:(NSURL*)url;
+- (void)get:(NSURL *)url userInfo:(NSDictionary*)info;
 
 - (void)cancel;
 
@@ -46,6 +53,9 @@
 - (void)start;
 
 - (void)clean;
+
+//return string value with default encoding
+- (NSString*)stringValue;
 
 @end
 
@@ -56,4 +66,6 @@
 - (void)httpClient:(PLHttpClient*)hc successed:(NSData*)data;
 
 @end
+
+
 

@@ -8,7 +8,7 @@
 
 #import "PLGlobal.h"
 #import "PLImageRequest.h"
-#import "PLOG.h"
+
 
 
 
@@ -102,8 +102,8 @@ static const int timeOutSec = 30;
 	if ([self.delegate respondsToSelector:self.didFailSelector] ) {
 		[self.delegate performSelector:self.didFailSelector withObject:self withObject:error];
 	}
-	PLOG(@"failed");
-	isFinished = YES;
+	//PLLOG_STR(@"failed",nil);
+	self.isFinished = YES;
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
@@ -112,7 +112,7 @@ static const int timeOutSec = 30;
 		[self.delegate performSelector:self.didFinishSelector withObject:self];
 	}	
 	//PLLOG_STR(@"finished",nil);
-	printf("image load finished\n");
+//	printf("image load finished\n");
 	self.isFinished = YES;
 }
 

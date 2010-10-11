@@ -58,4 +58,10 @@
 	return [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a];
 }
 
++ (UIImage*)imageNamed:(NSString*)fileName
+{
+	NSString* path = [[NSBundle mainBundle] pathForResource:fileName ofType:nil];
+	return [UIImage imageWithContentsOfFile:path];
+}
+
 @end

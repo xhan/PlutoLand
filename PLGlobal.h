@@ -18,15 +18,18 @@
  */
 #define ccp(__X__,__Y__) CGPointMake(__X__,__Y__)
 
+#define DOCUMENT_PATH [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]
+
+
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
-#define HEIGHT_OF_TABBAR 49
-#define HEIGHT_OF_NAVIGATION_BAR 44
+#if PL_DEBUG 
+#define PLLOG_STR(_obj_,_str_) NSLog(@"%@ %@",_obj_,_str_)
+#else
+#define PLLOG_STR(_obj_,_str_)
+#endif
 
 #define PLSafeRelease(_obj_) [_obj_ release], _obj_ = nil;
 

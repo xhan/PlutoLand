@@ -13,7 +13,6 @@
  implement method 'start' and has a property named 'isFinished'
  */
 
-//TODO: add activeIndicater on the status bar
 
 
 //TODO: add different sharedQueue:identify: for different status ,(as imageCache dose)

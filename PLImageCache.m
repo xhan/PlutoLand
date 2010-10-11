@@ -84,10 +84,10 @@ cachePath = _cachePath, maxPixelCount = _maxPixelCount, invalidationAge = _inval
 	NSString* cachePath = [cachesPath stringByAppendingPathComponent:name];
 	NSFileManager* fm = [NSFileManager defaultManager];
 	if (![fm fileExistsAtPath:cachesPath]) {
-		[fm createDirectoryAtPath:cachesPath attributes:nil];
+		[fm createDirectoryAtPath:cachesPath withIntermediateDirectories:YES attributes:nil error:nil];
 	}
 	if (![fm fileExistsAtPath:cachePath]) {
-		[fm createDirectoryAtPath:cachePath attributes:nil];
+		[fm createDirectoryAtPath:cachePath withIntermediateDirectories:YES attributes:nil error:nil];
 	}
 	return cachePath;
 }
@@ -408,7 +408,7 @@ cachePath = _cachePath, maxPixelCount = _maxPixelCount, invalidationAge = _inval
 	if (fromDisk) {
 		NSFileManager* fm = [NSFileManager defaultManager];
 		[fm removeItemAtPath:_cachePath error:nil];
-		[fm createDirectoryAtPath:_cachePath attributes:nil];
+		[fm createDirectoryAtPath:_cachePath withIntermediateDirectories:YES attributes:nil error:nil];
 	}
 }
 
@@ -425,7 +425,8 @@ cachePath = _cachePath, maxPixelCount = _maxPixelCount, invalidationAge = _inval
 		NSDictionary* attrs = [NSDictionary dictionaryWithObject:invalidDate
 														  forKey:NSFileModificationDate];
 		
-		[fm changeFileAttributes:attrs atPath:filePath];
+		//		[fm changeFileAttributes:attrs atPath:filePath];
+		[fm setAttributes:attrs ofItemAtPath:filePath error:nil];
 	}
 }
 
@@ -438,7 +439,8 @@ cachePath = _cachePath, maxPixelCount = _maxPixelCount, invalidationAge = _inval
 	NSDirectoryEnumerator* e = [fm enumeratorAtPath:_cachePath];
 	for (NSString* fileName; fileName = [e nextObject]; ) {
 		NSString* filePath = [_cachePath stringByAppendingPathComponent:fileName];
-		[fm changeFileAttributes:attrs atPath:filePath];
+		//		[fm changeFileAttributes:attrs atPath:filePath];
+		[fm setAttributes:attrs ofItemAtPath:filePath error:nil];
 	}
 }
 

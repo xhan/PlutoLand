@@ -1,7 +1,0 @@
->NOTE: all the files inside Vendor folder are ported from other open-source projects
-
->TODO: (1)add a script to check specify file if up to date.
->TODO: (2)split by necessary and optional
-
-File Lists
-===============

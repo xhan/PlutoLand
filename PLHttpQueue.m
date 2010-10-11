@@ -145,6 +145,8 @@ static NSMutableDictionary* gSharedDictionary;
 	[self runNextAction];
 	
 	if (_isShowActiveIndicaterWhileRunning) {
+		NSAssert(_currentActiveTaskCount>=0,@"task count should GE 0");
+		_currentActiveTaskCount = MAX(0,_currentActiveTaskCount);
 		if (_currentActiveTaskCount == 0) {
 			[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 		}

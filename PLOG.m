@@ -67,8 +67,8 @@ static PLOG_STYLE _gStyle;
 		NSString* message = [[NSString alloc] initWithFormat:format arguments:ap];
 		va_end(ap);
 		
-		
-		NSString* logStr;
+
+		NSString* logStr = nil;
 		if (_gStyle == PLOG_STYLE_SHORT) {
 			logStr = [NSString stringWithFormat:@"[%@] %@",[dic objectForKey:@"name"],message];
 		}else if (_gStyle == PLOG_STYLE_MIDDLE) {

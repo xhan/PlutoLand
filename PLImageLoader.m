@@ -78,14 +78,15 @@ NSString* const PLINFO_HC_IMAGE = @"PLINFO_HC_IMAGE";
 #pragma mark PLImageRequestDelegate
 - (void)imageRequestFailed:(PLImageRequest*)request withError:(NSError*)error
 {
-	NSLog(@"error on fetch image: %@, msg: %@",self.url,[error localizedDescription]);
+	PLOGERROR(@"error on fetch image: %@, msg: %@",self.url,[error localizedDescription]);
 	//we don't need clean stuffs bcz LoadInstance only works for one URL
 }
 
 - (void)imageRequestSucceeded:(PLImageRequest*)request
 {
 	//TODO: add request costs time
-	NSLog(@"image fetched: %@",self.url);
+//	NSLog(@"image fetched: %@",self.url);
+//	PLOG(@"fetched %@",self.url);
 	UIImage* img = [UIImage imageWithData:request.imageData];
 	
 	
@@ -99,7 +100,7 @@ NSString* const PLINFO_HC_IMAGE = @"PLINFO_HC_IMAGE";
 	[self.info setObject:img forKey:PLINFO_HC_IMAGE];
 	[[NSNotificationCenter defaultCenter] postNotificationName:NOTICE_IMAGE_LOADER_SUCCEEDED object:_imageView userInfo:self.info];
 		
-	if ([_fetcherObject respondsToSelector:@selector(fetchedSuccessed:userInfo:)]) {
+	if (_fetcherObject!= nil && [_fetcherObject respondsToSelector:@selector(fetchedSuccessed:userInfo:)]) {
 		[_fetcherObject fetchedSuccessed:img userInfo:self.info];
 	}
 }
