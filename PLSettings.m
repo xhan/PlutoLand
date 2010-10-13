@@ -99,11 +99,11 @@
 @interface PLSettings(Private)
 
 - (NSString*)stringForFirstLoadCheck;
-- (void)loadDefaults;
-+ (void)setupRoutes;
 - (BOOL)checkIfDataAvailable;
 - (BOOL)isSetterProperty:(SEL)selector;
 - (void)markAsLoaded;
+- (void)versionCheck;
+- (void)loadDefaults;
 @end
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -117,7 +117,7 @@ NSMutableArray* _gPropertiesList;
 	return @"PLSettings";
 }
 
-- (void)loadDefaults
+- (void)setupDefaults
 {
 	//implement by subclass, this method will only be invoked once
 }
@@ -125,6 +125,18 @@ NSMutableArray* _gPropertiesList;
 + (void)setupRoutes
 {
 	//implement by subclass
+}
+
+- (int)version
+{
+	return 1;
+}
+
+- (void)migrateFromOldVersion:(int)oldVersion
+{
+	// implemented by subclass
+	// you also need to handle oldVersion might is greater than current version. (happens uninstall and reinstall an older version apps)
+
 }
 
 
@@ -156,7 +168,7 @@ NSMutableArray* _gPropertiesList;
 - (void)reset
 {
 	[NSUserDefaults resetStandardUserDefaults];
-	[self loadDefaults];
+	[self setupDefaults];
 	[self markAsLoaded];
 	
 }
@@ -165,10 +177,7 @@ NSMutableArray* _gPropertiesList;
 	self = [super init];
 	_defaults = [[NSUserDefaults standardUserDefaults] retain];
 	
-	if (![self checkIfDataAvailable]) {
-		[self loadDefaults];
-		[self markAsLoaded];
-	}
+	[self loadDefaults];
 	
 	return self;
 }
@@ -181,9 +190,24 @@ NSMutableArray* _gPropertiesList;
 #pragma mark -
 #pragma mark private
 
+- (void)loadDefaults
+{
+	if (![self checkIfDataAvailable]) {
+		[self setupDefaults];		
+	}else {
+		//[self versionCheck];
+		int oldVersion = [_defaults integerForKey:[self stringForFirstLoadCheck]];
+		int currentVersion = [self version];
+		if (oldVersion != currentVersion) {
+			[self migrateFromOldVersion:oldVersion];
+		}
+	}
+	[self markAsLoaded];
+}
+
 - (void)markAsLoaded
 {
-	[_defaults setObject:@"active" forKey:[self stringForFirstLoadCheck]];
+	[_defaults setObject:[NSNumber numberWithInt:[self version]] forKey:[self stringForFirstLoadCheck]];
 #ifndef DEBUG_MODE	
 	[self synchronize];
 #endif

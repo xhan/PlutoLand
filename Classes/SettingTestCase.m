@@ -21,7 +21,7 @@ SettingTestCase* _gInstance;
 	return _gInstance;
 }
 
-- (void)loadDefaults{
+- (void)setupDefaults{
 	self.name = @"xhan";
 	self.age = 23;
 	self.score = 87.5;

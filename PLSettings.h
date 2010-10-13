@@ -93,7 +93,18 @@ typedef enum {
 
 
 + (void)setupRoutes;
-- (void)loadDefaults;
+- (void)setupDefaults;
+
 - (NSString*)stringForFirstLoadCheck;
+
+/** 
+ migration support, default version is 1 
+ */
+- (int)version;
+
+/**
+ method will be invoked while version is not matched
+ */
+- (void)migrateFromOldVersion:(int)oldVersion;
 
 @end
