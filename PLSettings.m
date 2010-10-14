@@ -63,7 +63,12 @@
 
 + (NSString*)setterNameSEL:(NSString*)sel
 {
-	return [NSString stringWithFormat:@"set%@:",[sel capitalizedString]];
+//	return [NSString stringWithFormat:@"set%@:",];
+	unichar upcaseCapitalized = [[sel capitalizedString] characterAtIndex:0];
+//	const* originChar = [sel UTF8String];
+	return [NSString stringWithFormat:@"set%c%@:",upcaseCapitalized,
+			[sel substringFromIndex:1]];
+	
 }
 
 - (NSMethodSignature*)signatureForGetter

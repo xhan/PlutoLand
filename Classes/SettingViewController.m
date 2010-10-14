@@ -25,6 +25,14 @@
     [super viewDidLoad];
 	[self onLoadAction:nil];
 	self.title = @"EasySettings";
+	
+	
+	SettingTestCase* s= [SettingTestCase singleton];
+	s.testFailedBool = YES;
+	
+//	BOOL a = ;
+//	PLOG(@"test should be 1: %d",s.testFailedBool);
+	
 }
 
 

@@ -11,7 +11,7 @@
 
 @implementation SettingTestCase
 
-@dynamic name, age, score, male;
+@dynamic name, age, score, male, testFailedBool;
 
 SettingTestCase* _gInstance;
 + (SettingTestCase*)singleton{
@@ -33,6 +33,17 @@ SettingTestCase* _gInstance;
 	[self setupProperty:@"age" withType:PLSettingTypeInt];
 	[self setupProperty:@"score" withType:PLSettingTypeFloat];
 	[self setupProperty:@"male" withType:PLSettingTypeBool];
+	[self setupProperty:@"testFailedBool" withType:PLSettingTypeBool];
 }
 
+/*
+- (void)testFailedBool{
+	
+}
+
+- (void)setTestFailedBool:(BOOL)
+{
+	
+}
+*/
 @end

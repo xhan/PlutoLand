@@ -15,6 +15,7 @@
 @property(assign) int age;
 @property(assign) float score;
 @property(assign) BOOL male;
+@property(assign) BOOL testFailedBool;
 
 + (SettingTestCase*)singleton;
 
