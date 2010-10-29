@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 
 
-//TODO: add version and migration support (is that necessary?)
 //TODO: namespace support ?
 
 // umcomment following line to stop persisent data into disk
@@ -103,7 +102,7 @@ typedef enum {
 - (int)version;
 
 /**
- method will be invoked while version is not matched
+ method will be invoked if version is not matched
  */
 - (void)migrateFromOldVersion:(int)oldVersion;
 

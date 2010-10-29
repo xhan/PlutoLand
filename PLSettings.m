@@ -28,7 +28,6 @@
 @property (nonatomic, copy) NSString *getter;
 
 + (id)propertyByName:(NSString*)name key:(NSString*)key type:(PLSettingType)type;
-//- (id)initWithPropertyByName:(NSString*)name key:(NSString*)key type:(PLSettingType)type;
 
 + (NSString*)setterNameSEL:(NSString*)sel;
 - (NSMethodSignature*)signatureForGetter;
@@ -268,24 +267,7 @@ NSMutableArray* _gPropertiesList;
 			[invocation setArgument:&selName atIndex:2];
 			isForward = YES;
 		}else if([property.setter isEqualToString:selName])  {
-//			SEL selectors[4] = {
-//				@selector(setValueFor:intValue:),
-//				@selector(setValueFor:floatValue:),
-//				@selector(setValueFor:boolValue:),
-//				@selector(setValueFor:objectValue:)
-//			};
-			
-//			[invocation setArgument:&selector atIndex:2];
-//			[invocation setSelector:selectors[property.type]];
-//			if(property.type == PLSettingTypeObject){
-//				id argus;
-//				[invocation getArgument:&argus atIndex:2];
-//				[invocation setSelector:selectors[property.type]];
-//				[invocation setArgument:&selector atIndex:2];
-//				[invocation setArgument:argus atIndex:3];
-//			}else {
-//				
-//			}
+
 			SEL selectors[4] = {
 				@selector(setIntValue:setter:),
 				@selector(setFloatValue:setter:),
@@ -312,23 +294,7 @@ NSMutableArray* _gPropertiesList;
 ////////////////////////////////////////////////////////////////////////////////
 // setter forward methods
 
-/*
-- (void)setValueFor:(NSString*)setter intValue:(int)value{
-	
-}
 
-- (void)setValueFor:(NSString*)setter floatValue:(float)value{
-	
-}
-
-- (void)setValueFor:(NSString*)setter boolValue:(BOOL)value{
-	
-}
-
-- (void)setValueFor:(NSString*)setter objectValue:(id)value{
-	
-}
-*/
 - (PLSettingProperty*)propertyForSetter:(NSString*)setter{
 	for (PLSettingProperty* property in _gPropertiesList) {
 		if ([property.setter isEqualToString:setter]) {

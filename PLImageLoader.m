@@ -11,6 +11,7 @@
 #import "PLImageLoader.h"
 #import "PLImageCache.h"
 #import "PLHttpQueue.h"
+#import "PLOG.h"
 
 NSString* const PLINFO_HC_IMAGE = @"PLINFO_HC_IMAGE";
 
