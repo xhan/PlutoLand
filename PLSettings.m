@@ -192,6 +192,19 @@ NSMutableArray* _gPropertiesList;
 #pragma mark -
 #pragma mark private
 
+- (BOOL)respondsToSelector:(SEL)aSelector
+{
+	NSString* selName = [NSString stringWithFormat:@"%s",sel_getName(aSelector)];
+	for (PLSettingProperty* property in _gPropertiesList) {
+		if([property.getter isEqualToString:selName]){
+			return YES;
+		}else if([property.setter isEqualToString:selName])  {
+			return YES;
+		}
+	}
+	return NO;	
+}
+
 - (void)loadDefaults
 {
 	if (![self checkIfDataAvailable]) {
@@ -312,23 +325,7 @@ NSMutableArray* _gPropertiesList;
 ////////////////////////////////////////////////////////////////////////////////
 // setter forward methods
 
-/*
-- (void)setValueFor:(NSString*)setter intValue:(int)value{
-	
-}
 
-- (void)setValueFor:(NSString*)setter floatValue:(float)value{
-	
-}
-
-- (void)setValueFor:(NSString*)setter boolValue:(BOOL)value{
-	
-}
-
-- (void)setValueFor:(NSString*)setter objectValue:(id)value{
-	
-}
-*/
 - (PLSettingProperty*)propertyForSetter:(NSString*)setter{
 	for (PLSettingProperty* property in _gPropertiesList) {
 		if ([property.setter isEqualToString:setter]) {

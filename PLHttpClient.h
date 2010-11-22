@@ -46,6 +46,7 @@
 
 - (void)get:(NSURL*)url;
 - (void)get:(NSURL *)url userInfo:(NSDictionary*)info;
+- (void)post:(NSURL*)url body:(NSString*)body;
 
 - (void)cancel;
 
