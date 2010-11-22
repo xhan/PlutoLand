@@ -113,6 +113,24 @@ static NSStringEncoding _gEncoding;
 	[request release];	
 }
 
+- (void)post:(NSURL*)url body:(NSString*)body
+{
+	[self clean];
+	self.userInfo = nil;
+	if(_url != url ){
+		PLSafeRelease(_url);
+		_url = [url retain];
+	}
+	NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:_url];	
+	[request setTimeoutInterval:timeOutSec];
+	[request setHTTPMethod:@"POST"];
+	if (body) {
+		[request setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
+	}
+	_connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:_startImmediately];
+	[request release];	
+}
+
 - (void)cancel
 {
 	[_connection cancel];	

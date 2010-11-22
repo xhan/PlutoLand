@@ -191,6 +191,19 @@ NSMutableArray* _gPropertiesList;
 #pragma mark -
 #pragma mark private
 
+- (BOOL)respondsToSelector:(SEL)aSelector
+{
+	NSString* selName = [NSString stringWithFormat:@"%s",sel_getName(aSelector)];
+	for (PLSettingProperty* property in _gPropertiesList) {
+		if([property.getter isEqualToString:selName]){
+			return YES;
+		}else if([property.setter isEqualToString:selName])  {
+			return YES;
+		}
+	}
+	return NO;	
+}
+
 - (void)loadDefaults
 {
 	if (![self checkIfDataAvailable]) {
