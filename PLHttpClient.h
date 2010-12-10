@@ -57,6 +57,10 @@
 
 //return string value with default encoding
 - (NSString*)stringValue;
+- (NSObject*)responseHeaderForKey:(NSString*)key;
+
+
+- (id)initWithDelegate:(id<PLHttpClientDelegate>) delegate;
 
 @end
 

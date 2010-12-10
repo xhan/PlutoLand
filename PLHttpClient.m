@@ -68,6 +68,13 @@ static NSStringEncoding _gEncoding;
 	return self;
 }
 
+- (id)initWithDelegate:(id<PLHttpClientDelegate>) delegate
+{
+    self = [self init];
+    self.delegate = delegate;
+    return self;
+}
+
 - (void)dealloc {
 	[self cancel];
 	[_userInfo release], _userInfo = nil;
@@ -121,9 +128,13 @@ static NSStringEncoding _gEncoding;
 		PLSafeRelease(_url);
 		_url = [url retain];
 	}
+    
 	NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:_url];	
 	[request setTimeoutInterval:timeOutSec];
 	[request setHTTPMethod:@"POST"];
+    if (_enableGzipEncoding) {
+		[request setValue:@"gzip" forHTTPHeaderField:@"Accept-Encoding"];
+	}
 	if (body) {
 		[request setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
 	}
@@ -150,6 +161,11 @@ static NSStringEncoding _gEncoding;
 		return [[[NSString alloc] initWithData:_receivedData encoding:_gEncoding] autorelease];
 	}
 	return nil;
+}
+
+- (NSObject*)responseHeaderForKey:(NSString*)key
+{
+	return [[_response allHeaderFields] objectForKey:key];
 }
 
 #pragma mark -
