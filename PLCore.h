@@ -11,7 +11,7 @@
 #import "PLGlobal.h"
 #import "T.h"
 
-#define PLArray(...) [NSArray arrayWithObjects:##__VA_ARGS__, nil]
-#define PLArrayM(...) [NSMutableArray arrayWithObjects:##__VA_ARGS__, nil]
+#define PLArray(...) [NSArray arrayWithObjects:__VA_ARGS__, nil]
+#define PLArrayM(...) [NSMutableArray arrayWithObjects:__VA_ARGS__, nil]
 
 #define PLHashV(_dict_,_key_) [_dict_ objectForKey:_key_]

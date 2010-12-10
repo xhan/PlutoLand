@@ -215,4 +215,12 @@
   return nil;
 }
 
+
+- (void)addSubviews:(NSArray *)views
+{
+	for (UIView* v in views) {
+		[self addSubview:v];
+	}
+}
+
 @end
