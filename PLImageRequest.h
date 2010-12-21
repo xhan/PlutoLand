@@ -25,6 +25,7 @@
 	// value will be true no matter failed or succeeded
 	BOOL isFinished;
 	
+	int statusCode;
 }
 
 @property (nonatomic, readonly) NSURL *url;

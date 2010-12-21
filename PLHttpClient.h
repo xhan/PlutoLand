@@ -24,6 +24,8 @@
 	
 	BOOL _enableGzipEncoding;
 	NSDictionary* _userInfo;
+	
+	
 }
 
 @property (nonatomic, copy) NSDictionary *userInfo;

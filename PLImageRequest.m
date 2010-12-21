@@ -107,17 +107,26 @@ static const int timeOutSec = 30;
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-
-	if ([self.delegate respondsToSelector:self.didFinishSelector] ) {
-		[self.delegate performSelector:self.didFinishSelector withObject:self];
-	}	
+	
 	//PLLOG_STR(@"finished",nil);
 //	printf("image load finished\n");
+	if (statusCode != 200) {
+		NSError* error = [NSError errorWithDomain:@"PLImageFetchError" code:statusCode userInfo:nil];
+		if ([self.delegate respondsToSelector:self.didFailSelector] ) {
+			[self.delegate performSelector:self.didFailSelector withObject:self withObject:error];
+		}		
+	}else {
+		if ([self.delegate respondsToSelector:self.didFinishSelector] ) {
+			[self.delegate performSelector:self.didFinishSelector withObject:self];
+		}		
+	}
+
 	self.isFinished = YES;
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)aresponse {
 	self.response = (NSHTTPURLResponse*)aresponse;
+	statusCode = self.response.statusCode;
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {

@@ -192,6 +192,7 @@ static NSStringEncoding _gEncoding;
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)aresponse {
 	_response = [(NSHTTPURLResponse*)aresponse retain];
+	
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {

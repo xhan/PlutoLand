@@ -1,0 +1,4 @@
+PLHttpClient
+========================
+* add global setting and seperate settings	
+* add request cost time

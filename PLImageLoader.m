@@ -86,10 +86,10 @@ NSString* const PLINFO_HC_IMAGE = @"PLINFO_HC_IMAGE";
 - (void)imageRequestSucceeded:(PLImageRequest*)request
 {
 	//TODO: add request costs time
-//	NSLog(@"image fetched: %@",self.url);
-//	PLOG(@"fetched %@",self.url);
 	UIImage* img = [UIImage imageWithData:request.imageData];
-	
+	if (!img) {
+		return;
+	}
 	
 	if (_isFreshOnSucceed && _imageView) {
 		_imageView.image = img;
