@@ -55,6 +55,8 @@
 		8C82588A1262F9FE0078E094 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C8258881262F9FE0078E094 /* SettingViewController.m */; };
 		8C82588B1262F9FE0078E094 /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C8258891262F9FE0078E094 /* SettingViewController.xib */; };
 		8C82588E1262FA1E0078E094 /* SettingTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C82588D1262FA1E0078E094 /* SettingTestCase.m */; };
+		8CB8679112C38C570052868B /* NSDictionary+URL.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB8679012C38C570052868B /* NSDictionary+URL.m */; };
+		8CB8679512C38C990052868B /* UIDevice+PL.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB8679412C38C990052868B /* UIDevice+PL.m */; };
 		8CD6583511F04D28009D906E /* AppRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CD6583211F04D28009D906E /* AppRecord.m */; };
 		8CD6583611F04D28009D906E /* ParseOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CD6583411F04D28009D906E /* ParseOperation.m */; };
 /* End PBXBuildFile section */
@@ -145,6 +147,10 @@
 		8C82588C1262FA1E0078E094 /* SettingTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingTestCase.h; sourceTree = "<group>"; };
 		8C82588D1262FA1E0078E094 /* SettingTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingTestCase.m; sourceTree = "<group>"; };
 		8CB861BB12C077DB0052868B /* TODO.mdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TODO.mdown; sourceTree = "<group>"; };
+		8CB8678F12C38C570052868B /* NSDictionary+URL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+URL.h"; sourceTree = "<group>"; };
+		8CB8679012C38C570052868B /* NSDictionary+URL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+URL.m"; sourceTree = "<group>"; };
+		8CB8679312C38C990052868B /* UIDevice+PL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+PL.h"; sourceTree = "<group>"; };
+		8CB8679412C38C990052868B /* UIDevice+PL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+PL.m"; sourceTree = "<group>"; };
 		8CD6583111F04D28009D906E /* AppRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppRecord.h; sourceTree = "<group>"; };
 		8CD6583211F04D28009D906E /* AppRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppRecord.m; sourceTree = "<group>"; };
 		8CD6583311F04D28009D906E /* ParseOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseOperation.h; sourceTree = "<group>"; };
@@ -353,6 +359,10 @@
 		8C8258311262F3FC0078E094 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				8CB8679312C38C990052868B /* UIDevice+PL.h */,
+				8CB8679412C38C990052868B /* UIDevice+PL.m */,
+				8CB8678F12C38C570052868B /* NSDictionary+URL.h */,
+				8CB8679012C38C570052868B /* NSDictionary+URL.m */,
 				8C8258321262F3FC0078E094 /* UIAdditions.h */,
 				8C8258331262F3FC0078E094 /* NSAdditions.h */,
 				8C8258341262F3FC0078E094 /* UIImageExtras.h */,
@@ -500,6 +510,8 @@
 				8C8258531262F3FC0078E094 /* NSString+Addition.m in Sources */,
 				8C82588A1262F9FE0078E094 /* SettingViewController.m in Sources */,
 				8C82588E1262FA1E0078E094 /* SettingTestCase.m in Sources */,
+				8CB8679112C38C570052868B /* NSDictionary+URL.m in Sources */,
+				8CB8679512C38C990052868B /* UIDevice+PL.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
