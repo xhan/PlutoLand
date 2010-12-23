@@ -20,6 +20,7 @@ extern NSString * const PLINFO_HC_IMAGE;
 	UIImageView* _imageView;
 	UIButton* _storeButton;
 	UIControlState _buttonState;
+	BOOL _buttonUseBackground;	//tell if use background image
 	
 	BOOL _isCacheEnable;
 	BOOL _isFreshOnSucceed;
