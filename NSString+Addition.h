@@ -16,4 +16,8 @@
 //able to check nil object
 + (BOOL)isEqual:(NSString*)a toB:(NSString*)b;
 
+// return 1.5 mb 
+
++ (NSString*)localizedFileSize:(long long)fileSizeBytes;
+
 @end

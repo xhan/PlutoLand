@@ -26,4 +26,18 @@
 
 }
 
++ (NSString*)localizedFileSize:(long long)fileSizeBytes
+{
+	int gb = fileSizeBytes / GByte;
+	int mb = fileSizeBytes % GByte / MByte;
+	int kb = fileSizeBytes % MByte/ KByte;
+	if (gb > 0) {
+		return [NSString stringWithFormat:@"%d GB %d MB",gb,mb];
+	}
+	if (mb > 0) {
+		return [NSString stringWithFormat:@"%d%.2f MB",mb,((float)kb)/KByte];
+	}
+	return [NSString stringWithFormat:@"%d KB",kb];
+
+}
 @end
