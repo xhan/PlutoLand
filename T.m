@@ -64,4 +64,10 @@
 	return [UIImage imageWithContentsOfFile:path];
 }
 
++ (UIImageView*)imageViewNamed:(NSString*)fileName
+{
+	UIImageView* imageview = [[UIImageView alloc] initWithImage:[self imageNamed:fileName]];
+	return [imageview autorelease];
+}
+
 @end

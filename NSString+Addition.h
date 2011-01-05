@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+#define NSStringADD(_a_,_b_) [NSString stringWithFormat:@"%@%@",_a_,_b_]
 
 @interface NSString(Addition)
 

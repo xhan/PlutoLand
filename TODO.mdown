@@ -22,3 +22,8 @@ PLHttpQueue
 =======================
 * add task domain
 * add cancel specify task support
+
+
+Other
+=======================
+* add constant variables in a seperately file
