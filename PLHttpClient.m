@@ -11,10 +11,11 @@
 
 @implementation PLHttpClient
 
+@synthesize statusCode;
 @synthesize userInfo = _userInfo;
 @synthesize enableGzipEncoding = _enableGzipEncoding;
 @synthesize startImmediately = _startImmediately;
-
+@synthesize response = _response;
 
 
 static const int timeOutSec = 30;
@@ -163,7 +164,7 @@ static NSStringEncoding _gEncoding;
 	return nil;
 }
 
-- (NSObject*)responseHeaderForKey:(NSString*)key
+- (id)responseHeaderForKey:(NSString*)key
 {
 	return [[_response allHeaderFields] objectForKey:key];
 }
@@ -192,7 +193,7 @@ static NSStringEncoding _gEncoding;
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)aresponse {
 	_response = [(NSHTTPURLResponse*)aresponse retain];
-	
+	statusCode = [_response statusCode];
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
@@ -200,6 +201,7 @@ static NSStringEncoding _gEncoding;
 }
 
 @end
+
 
 
 

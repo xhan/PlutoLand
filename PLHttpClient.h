@@ -24,10 +24,11 @@
 	
 	BOOL _enableGzipEncoding;
 	NSDictionary* _userInfo;
-	
+	int statusCode;
 	
 }
 
+@property (nonatomic, assign,readonly) int statusCode;
 @property (nonatomic, copy) NSDictionary *userInfo;
 @property (nonatomic, assign) BOOL enableGzipEncoding; //default value is NO. set value to YES to enable Gzip decoding of http contents
 
@@ -36,7 +37,7 @@
 @property (nonatomic, assign) SEL didFailSelector;
 @property (nonatomic, assign) SEL didFinishSelector;
 @property (nonatomic, assign) id<PLHttpClientDelegate> delegate;
-
+@property (nonatomic, readonly) NSHTTPURLResponse* response;
 + (void)setGlobalEncoding:(NSStringEncoding)encoding;
 
 // (deprecated) return response by sync fetch  
@@ -59,7 +60,7 @@
 
 //return string value with default encoding
 - (NSString*)stringValue;
-- (NSObject*)responseHeaderForKey:(NSString*)key;
+- (id)responseHeaderForKey:(NSString*)key;
 
 
 - (id)initWithDelegate:(id<PLHttpClientDelegate>) delegate;
@@ -73,6 +74,7 @@
 - (void)httpClient:(PLHttpClient*)hc successed:(NSData*)data;
 
 @end
+
 
 
 

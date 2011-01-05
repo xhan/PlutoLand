@@ -21,7 +21,7 @@
 #define DOCUMENT_PATH [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]
 
 
-
+#define SETNIL(_obj_,_value_) (_obj_ ? _obj_ : _value_)
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
