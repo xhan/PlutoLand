@@ -52,17 +52,21 @@
 
 - (void)setupCellsByImagesName:(NSArray*)images selectedImagesName:(NSArray*)selectedImages offset:(CGSize)offset;
 {
+	[self setupCellsByImagesName:images selectedImagesName:selectedImages offset:offset startPosition:CGPointZero];
+}
+
+- (void)setupCellsByImagesName:(NSArray*)images selectedImagesName:(NSArray*)selectedImages offset:(CGSize)offset startPosition:(CGPoint)point
+{
 	NSAssert([images count] == [selectedImages count], @"two arrays should have same items count");
 	for (int cnt = 0; cnt < [images count]; cnt++) {
-		CGPoint origin = CGPointMake(offset.width * cnt, offset.height * cnt);
+		CGPoint origin = CGPointMake(offset.width * cnt + point.x, offset.height * cnt + point.y);
 		PLSegmentCell* cell = [[PLSegmentCell alloc] initWithNormalImage:[UIImage imageNamed:[images objectAtIndex:cnt]]
 														   selectedImage:[UIImage imageNamed:[selectedImages objectAtIndex:cnt]] 
 															  startPoint:origin];
 		[self addCell:cell];
 		[cell release];
-	}
+	}	
 }
-
 
 - (void)addCells:(NSArray*)cells
 {

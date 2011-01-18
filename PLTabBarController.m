@@ -147,10 +147,8 @@
 	}
 	_plTabbar.origin = CGPointZero;
 	float offset = _plTabbar.height - self.tabBar.height;
-	if(offset > 0){
-		self.tabBar.top -= 	offset;
-		self.tabBar.height += offset;
-	}
+	self.tabBar.top -= 	offset;
+	self.tabBar.height += offset;
 	[self.tabBar addSubview:_plTabbar];
 }
 

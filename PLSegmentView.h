@@ -33,6 +33,8 @@
 
 - (void)setupCellsByImagesName:(NSArray*)images selectedImagesName:(NSArray*)selectedImages offset:(CGSize)offset;
 
+- (void)setupCellsByImagesName:(NSArray*)images selectedImagesName:(NSArray*)selectedImages offset:(CGSize)offset startPosition:(CGPoint)point;
+
 - (void)addCells:(NSArray*)cells;
 
 - (void)addCell:(PLSegmentCell*)cell;

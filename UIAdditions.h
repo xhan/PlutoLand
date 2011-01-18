@@ -9,3 +9,4 @@
 
 #import "UIViewAdditions.h"
 #import "UIView-ModalAnimationHelper.h"
+#import "UIDevice+PL.h"
