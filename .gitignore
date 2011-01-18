@@ -1,4 +1,0 @@
-*.xcodeproj/*
-!*.xcodeproj/project.pbxproj
-/build
-.DS_Store
