@@ -10,7 +10,8 @@
 
 @protocol PLHttpClientDelegate;
 @interface PLHttpClient : NSObject {
-@private
+//@private
+	@protected
     NSURLConnection *_connection;
     NSMutableData *_receivedData;
 	NSHTTPURLResponse* _response;

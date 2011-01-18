@@ -40,4 +40,7 @@
 
 + (UIImageView*)imageViewNamed:(NSString*)fileName;
 
+/* return an random string powered by UTSC seconds */
++ (NSString*)randomName;	
+
 @end

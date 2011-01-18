@@ -70,4 +70,9 @@
 	return [imageview autorelease];
 }
 
+
++ (NSString*)randomName
+{
+	return	[NSString stringWithFormat:@"%.2lf",[[NSDate date] timeIntervalSince1970]];
+}
 @end
