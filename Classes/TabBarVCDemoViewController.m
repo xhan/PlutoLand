@@ -37,7 +37,7 @@
 
 - (void)loadView
 {
-	NSLog(@"load View");
+//	NSLog(@"load View");
 	[super loadView];
 	self.view.backgroundColor = self.bgColor;
 //	self.title = [self.bgColor description];
@@ -68,11 +68,12 @@
 	self.title = @"fixed tabBar";
 	self.viewControllers = vcArray;
 	self.tabBarView = [SegmentDemoViewController segmentDemo1TabBar];
+	
 #else	
 	self = [super initWithTabBar:[SegmentDemoViewController segmentDemo1TabBar] viewControllers:vcArray];	
 	self.title = @"origin tabBar";
 	self.tabBarView.bottom = 480 - 44 - 20;
-	self.selectedIndex = 0;
+	self.selectedIndex = 1;
 #endif
 	return self;
 }

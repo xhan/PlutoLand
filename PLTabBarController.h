@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "PLSegmentView.h"
 
-#define USING_UITABBAR_CONTROLLER_SUBCLASS
+//#define USING_UITABBAR_CONTROLLER_SUBCLASS
 
 #ifndef USING_UITABBAR_CONTROLLER_SUBCLASS
 
@@ -26,12 +26,12 @@
 	NSArray *viewControllers;
 	PLSegmentView *tabBarView;
 	UIView *containerView;
-	
+	UIView *_transitionView;
 	int _selectedIndex;
 }
 
 @property (nonatomic, retain) PLSegmentView *tabBarView;
-@property(nonatomic,readonly) int selectedIndex;
+@property(nonatomic,assign) int selectedIndex;
 @property(nonatomic,readonly) UIViewController* selectedVC;
 
 - (id)initWithTabBar:(PLSegmentView*)tabBar viewControllers:(NSArray*)viewControllers;
