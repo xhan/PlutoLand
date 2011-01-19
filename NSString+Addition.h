@@ -21,4 +21,8 @@
 
 + (NSString*)localizedFileSize:(long long)fileSizeBytes;
 
+// return the string starts from header and it's length not great than maxLength 
+// 返回字符串开头长度为 maxLength 字符串
+- (NSString*)firstString:(int)maxLength;
+
 @end
