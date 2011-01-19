@@ -40,4 +40,14 @@
 	return [NSString stringWithFormat:@"%d KB",kb];
 
 }
+
+- (NSString*)firstString:(int)maxLength
+{
+	if (maxLength > [self length]) {
+		return self;
+	}else {
+		return [self substringToIndex:maxLength];
+	}
+
+}
 @end

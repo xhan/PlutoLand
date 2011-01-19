@@ -9,16 +9,17 @@
 #import <UIKit/UIKit.h>
 #import "PLSegmentView.h"
 
-//#define USING_UITABBAR_CONTROLLER_SUBCLASS
+#define USING_UITABBAR_CONTROLLER_SUBCLASS
 
 #ifndef USING_UITABBAR_CONTROLLER_SUBCLASS
+
 
 @protocol PLTabBarControllerDelegate <UITabBarDelegate>
 
 @optional
 
-
 @end
+
 
 //TODO: add lazy load viewController , by using a delegate when need to display a new ViewController's contents
 @interface PLTabBarController : UIViewController<PLSegmentViewDelegate> {
@@ -41,6 +42,12 @@
 
 @end
 
+@interface UIViewController (PLTabBarControllerCategory)
+
+@property(nonatomic,readonly) PLTabBarController *pltabBarController;
+
+@end
+
 #else
 
 @interface PLTabBarController : UITabBarController<PLSegmentViewDelegate>
@@ -48,7 +55,6 @@
 	PLSegmentView* _plTabbar;
 }
 @property(nonatomic,retain) PLSegmentView *tabBarView;
-
 
 @end
 

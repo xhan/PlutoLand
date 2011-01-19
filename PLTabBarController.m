@@ -54,18 +54,19 @@
 //	[super loadView];
 	UIView* view_ = [[UIView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
 	view_.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+	view_.height -= 20;
 	self.view = view_;
 	[view_ release];
 	
 
-	_transitionView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320,480 - tabBarView.height)];
+	_transitionView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320,460 - tabBarView.height)];
 	_transitionView.clipsToBounds = YES;
-//	[_transitionView setNeedsLayout];
+	[_transitionView setNeedsLayout];
 	_transitionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 	[self.view addSubview:_transitionView];
 	[self.view addSubview:tabBarView];
 //	tabBarView.bottom = 480;	
-//	[self updateViewAndTabBarToIndex:0];
+	[self updateViewAndTabBarToIndex:0];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -111,14 +112,16 @@
 
 - (void)changeViewToIndex:(int)index
 {
-	if (index == _selectedIndex) 	return;
+//	if (index == _selectedIndex) 	return;
 	_selectedIndex = index;
 	
 	[containerView removeFromSuperview];
 	containerView = [(UIViewController*)[viewControllers objectAtIndex:_selectedIndex] view];
-	containerView.frame = _transitionView.bounds;
-	containerView.autoresizingMask = _transitionView.autoresizingMask;
-	[_transitionView insertSubview:containerView atIndex:0];
+//	containerView.frame = _transitionView.bounds;
+	containerView.height = _transitionView.height;
+//	containerView.autoresizingMask = _transitionView.autoresizingMask;
+//	[_transitionView insertSubview:containerView atIndex:0];
+	[_transitionView addSubview:containerView];
 	
 }
 
@@ -128,6 +131,21 @@
 - (void)segmentClickedAtIndex:(int)index onCurrentCell:(BOOL)isCurrent
 {
 	[self changeViewToIndex:index];
+}
+
+@end
+
+
+@implementation UIViewController (PLTabBarControllerCategory)
+
+- (PLTabBarController*)pltabBarController{
+	for (UIResponder* next = self; next; next = [next nextResponder]) {
+//		UIResponder* nextResponder = [next nextResponder];
+		if ([next isKindOfClass:[PLTabBarController class]]) {
+			return (PLTabBarController*)next;
+		}
+	}
+	return nil;	
 }
 
 @end
