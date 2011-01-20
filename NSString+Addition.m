@@ -50,4 +50,19 @@
 	}
 
 }
+
+- (NSString*)firstString:(int)maxLength atIndex:(NSUInteger)index
+{
+	NSUInteger length = self.length;
+	if (index >= length) {
+		return nil;
+	}
+	if (index + maxLength > length) {
+		maxLength = length - index;
+	}
+	
+	return [self substringWithRange:NSMakeRange(index, maxLength)];
+}
+
+
 @end
