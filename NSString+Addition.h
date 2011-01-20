@@ -25,5 +25,7 @@
 // 返回字符串开头长度为 maxLength 字符串
 - (NSString*)firstString:(int)maxLength;
 
+
 - (NSString*)firstString:(int)maxLength atIndex:(NSUInteger)index;
+
 @end

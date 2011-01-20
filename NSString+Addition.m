@@ -51,6 +51,7 @@
 
 }
 
+
 - (NSString*)firstString:(int)maxLength atIndex:(NSUInteger)index
 {
 	NSUInteger length = self.length;
@@ -63,6 +64,7 @@
 	
 	return [self substringWithRange:NSMakeRange(index, maxLength)];
 }
+
 
 
 @end
