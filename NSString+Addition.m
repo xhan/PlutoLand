@@ -7,7 +7,7 @@
 //
 
 #import "NSString+Addition.h"
-
+#import "PLGlobal.h"
 
 @implementation NSString(Addition)
 

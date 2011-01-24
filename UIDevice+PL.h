@@ -11,9 +11,6 @@
 
 @interface UIDevice(PL)
 
-#define KByte 1024
-#define MByte (KByte * KByte)
-#define GByte (MByte * KByte)
 
 
 + (long long)getTotalDiskSpaceInBytes ;

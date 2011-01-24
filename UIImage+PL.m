@@ -188,15 +188,6 @@
 }
 
 
-@end
-
-
-@interface UIImage (P_C)
-- (void)addRoundedRectToPath:(CGRect)rect context:(CGContextRef)context ovalWidth:(CGFloat)ovalWidth ovalHeight:(CGFloat)ovalHeight;
-@end
-
-@implementation UIImage (RoundedCorner)
-
 // Creates a copy of this image with rounded corners
 // If borderSize is non-zero, a transparent border of the given size will also be added
 // Original author: Bj枚rn S氓llarp. Used with permission. See: http://blog.sallarp.com/iphone-uiimage-round-corners/
@@ -260,15 +251,6 @@
     CGContextRestoreGState(context);
 }
 
-@end
-
-
-@interface UIImage ()
-- (CGImageRef)newBorderMask:(NSUInteger)borderSize size:(CGSize)size;
-@end
-
-
-@implementation UIImage (Alpha)
 
 // Returns true if the image has an alpha layer
 - (BOOL)hasAlpha {

@@ -7,7 +7,7 @@
 //
 
 #import "UIDevice+PL.h"
-
+#import "PLGlobal.h"
 
 @implementation UIDevice(PL)
 
