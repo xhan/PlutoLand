@@ -65,6 +65,4 @@
 	return [self substringWithRange:NSMakeRange(index, maxLength)];
 }
 
-
-
 @end
