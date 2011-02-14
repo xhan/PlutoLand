@@ -77,6 +77,7 @@ static NSStringEncoding _gEncoding;
 }
 
 - (void)dealloc {
+	self.delegate = nil;
 	[self cancel];
 	[_userInfo release], _userInfo = nil;
 	PLSafeRelease(_url);
@@ -146,6 +147,7 @@ static NSStringEncoding _gEncoding;
 - (void)cancel
 {
 	[_connection cancel];	
+	PLSafeRelease(_connection);
 }
 
 - (void)start
