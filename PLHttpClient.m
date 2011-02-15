@@ -83,8 +83,10 @@ static NSStringEncoding _gEncoding;
 }
 
 - (void)dealloc {
+
 	_delegate = nil;
 	[self cancel];
+	
 	[_userInfo release], _userInfo = nil;
 	PLSafeRelease(_url);
 	PLSafeRelease(_response);
