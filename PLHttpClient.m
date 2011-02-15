@@ -9,6 +9,12 @@
 #import "PLHttpClient.h"
 #import "PLGlobal.h"
 
+
+@interface PLHttpClient ()
+- (void)_clean;
+@end
+
+
 @implementation PLHttpClient
 
 @synthesize statusCode;
@@ -77,7 +83,7 @@ static NSStringEncoding _gEncoding;
 }
 
 - (void)dealloc {
-	self.delegate = nil;
+	_delegate = nil;
 	[self cancel];
 	[_userInfo release], _userInfo = nil;
 	PLSafeRelease(_url);
@@ -87,7 +93,7 @@ static NSStringEncoding _gEncoding;
 	[super dealloc];
 }
 
-- (void)clean{
+- (void)_clean{
 	[self cancel];
 	PLSafeRelease(_url);
 	PLSafeRelease(_response);
@@ -106,7 +112,7 @@ static NSStringEncoding _gEncoding;
 
 - (void)get:(NSURL *)url userInfo:(NSDictionary*)info;
 {
-	[self clean];
+	[self _clean];
 	self.userInfo = info;
 	if(_url != url ){
 		PLSafeRelease(_url);
@@ -124,7 +130,7 @@ static NSStringEncoding _gEncoding;
 
 - (void)post:(NSURL*)url body:(NSString*)body
 {
-	[self clean];
+	[self _clean];
 	self.userInfo = nil;
 	if(_url != url ){
 		PLSafeRelease(_url);
@@ -169,6 +175,12 @@ static NSStringEncoding _gEncoding;
 - (id)responseHeaderForKey:(NSString*)key
 {
 	return [[_response allHeaderFields] objectForKey:key];
+}
+
+- (void)cleanBeforeRelease
+{
+	[self cancel];
+	_delegate = nil;
 }
 
 #pragma mark -

@@ -57,14 +57,19 @@
 // works if set startImmediately to false
 - (void)start;
 
-- (void)clean;
 
 //return string value with default encoding
 - (NSString*)stringValue;
 - (id)responseHeaderForKey:(NSString*)key;
 
 
-- (id)initWithDelegate:(id<PLHttpClientDelegate>) delegate;
+- (id)initWithDelegate:(id) delegate;
+
+
+// !!! IMPORTANT !!!
+// NOTE: should invoke this method before release(free) this object
+// clean up the connection and delegate
+- (void)cleanBeforeRelease;
 
 @end
 
