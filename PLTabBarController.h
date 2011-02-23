@@ -49,7 +49,7 @@
 @end
 
 #else
-
+// NOTE: should set default selectedIndex in the -init method, otherwise it not works
 @interface PLTabBarController : UITabBarController<PLSegmentViewDelegate>
 {
 	PLSegmentView* _plTabbar;

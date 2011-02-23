@@ -181,8 +181,12 @@
 	[self.tabBar bringSubviewToFront:_plTabbar];
 	_plTabbar.selectedIndex = index;
 }
-
-
+/*
+- (void)viewDidLoad{
+	[super viewDidLoad];
+	_plTabbar.selectedIndex = self.selectedIndex;
+}
+*/
 #pragma mark -
 #pragma mark delegate of segment view
 

@@ -95,8 +95,8 @@ NSString* const PLINFO_HC_IMAGE = @"PLINFO_HC_IMAGE";
 		_imageView.image = img;
 	}
 	
-	//TODO: add more condition for cache
-	[[PLImageCache sharedCache] storeData:request.imageData forURL:[self.url absoluteString]];
+	if(_isCacheEnable)
+		[[PLImageCache sharedCache] storeData:request.imageData forURL:[self.url absoluteString]];
 	
 	[self.info setObject:img forKey:PLINFO_HC_IMAGE];
 	[[NSNotificationCenter defaultCenter] postNotificationName:NOTICE_IMAGE_LOADER_SUCCEEDED object:_imageView userInfo:self.info];

@@ -181,8 +181,8 @@ static NSStringEncoding _gEncoding;
 
 - (void)cleanBeforeRelease
 {
-	[self cancel];
 	_delegate = nil;
+	[self cancel];
 }
 
 #pragma mark -
