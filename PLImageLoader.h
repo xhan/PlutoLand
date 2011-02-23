@@ -58,6 +58,7 @@ extern NSString * const PLINFO_HC_IMAGE;
 // @property(nonatomic,readwrite) UIImage *image;
 
 - (void)fetchedSuccessed:(UIImage*)image userInfo:(NSDictionary*)info;
+- (void)fetchedFailed:(UIImage*)image userInfo:(NSDictionary*)info;
 
 @end
 
