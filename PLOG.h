@@ -13,8 +13,8 @@
 
 #import <Foundation/Foundation.h>
 
-#define ENABLE_PLOG
-#ifdef ENABLE_PLOG
+
+#ifdef DEBUG
 
 #define PLOGENV(_env_, _s_, ...) \
 [PLLOG logForEnv:_env_ file:__FILE__ line:__LINE__ \
