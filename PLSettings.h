@@ -87,10 +87,12 @@ typedef enum {
 
 - (void)reset;
 
-+ (void)setupProperty:(NSString*)property forKey:(NSString*)key withType:(PLSettingType)type;
++ (void)setupProperty:(NSString*)property forKey:(NSString*)key withType:(PLSettingType)type archive2Data:(BOOL)archived;
 
 + (void)setupProperty:(NSString *)property withType:(PLSettingType)type;
 
+// the property should only be object that conforms to protocol <nscoding>
++ (void)setupPropertyWithArchivedType:(NSString *)property;
 
 + (void)setupRoutes;
 - (void)setupDefaults;

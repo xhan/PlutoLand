@@ -19,6 +19,7 @@
 	NSString* _getter;
 	NSString* _setter;
 	NSString* _key;
+    BOOL _archiveToData;
 	PLSettingType _type;
 }
 
@@ -26,8 +27,10 @@
 @property (nonatomic, copy) NSString *key;
 @property (nonatomic, copy) NSString *setter;
 @property (nonatomic, copy) NSString *getter;
+// archive object into data structure
+@property (nonatomic, assign) BOOL archiveToData;
 
-+ (id)propertyByName:(NSString*)name key:(NSString*)key type:(PLSettingType)type;
++ (id)propertyByName:(NSString*)name key:(NSString*)key type:(PLSettingType)type archive2Data:(BOOL)archived;
 //- (id)initWithPropertyByName:(NSString*)name key:(NSString*)key type:(PLSettingType)type;
 
 + (NSString*)setterNameSEL:(NSString*)sel;
@@ -41,6 +44,7 @@
 @synthesize getter = _getter;
 @synthesize setter = _setter;
 @synthesize key = _key;
+@synthesize archiveToData = _archiveToData;
 
 - (void)dealloc
 {
@@ -50,13 +54,14 @@
 	[super dealloc];
 }
 
-+ (id)propertyByName:(NSString*)name key:(NSString*)key type:(PLSettingType)type
++ (id)propertyByName:(NSString*)name key:(NSString*)key type:(PLSettingType)type archive2Data:(BOOL)archived
 {
 	PLSettingProperty* p = [PLSettingProperty new];
 	p.getter = name;
 	p.setter = [PLSettingProperty setterNameSEL:name];
 	p.key = key;
 	p.type = type;
+    p.archiveToData = archived;
 	return [p autorelease];
 }
 
@@ -142,14 +147,19 @@ NSMutableArray* _gPropertiesList;
 }
 
 
-+ (void)setupProperty:(NSString*)property forKey:(NSString*)key withType:(PLSettingType)type
++ (void)setupProperty:(NSString*)property forKey:(NSString*)key withType:(PLSettingType)type archive2Data:(BOOL)archived
 {
-	[_gPropertiesList addObject:[PLSettingProperty propertyByName:property key:key type:type]];
+	[_gPropertiesList addObject:[PLSettingProperty propertyByName:property key:key type:type archive2Data:archived]];
 }
 
 + (void)setupProperty:(NSString *)property withType:(PLSettingType)type
 {
-	[self setupProperty:property forKey:property withType:type];
+	[self setupProperty:property forKey:property withType:type archive2Data:NO];
+}
+
++ (void)setupPropertyWithArchivedType:(NSString *)property
+{
+	[self setupProperty:property forKey:property withType:PLSettingTypeObject archive2Data:YES];
 }
 
 + (void)initialize{
@@ -363,7 +373,13 @@ NSMutableArray* _gPropertiesList;
 }
 - (void)setObjectValue:(id)value setter:(NSString*)setter{
 	PLSettingProperty* property = [self propertyForSetter:setter];
-	[_defaults setObject:value forKey:property.key];
+    if (property.archiveToData) {
+        NSData *theData = [NSArchiver archivedDataWithRootObject:property.key];
+        [_defaults setObject:theData forKey:property.key];   
+    }else{
+        [_defaults setObject:value forKey:property.key];   
+    }
+	
 }
 
 
@@ -386,7 +402,15 @@ NSMutableArray* _gPropertiesList;
 }
 
 - (id)getObjectValueFor:(NSString*)getter{
-	PLSettingProperty* property = [self propertyForGetter:getter];	
+	PLSettingProperty* property = [self propertyForGetter:getter];
+    
+	if (property.archiveToData) {
+        NSData* data = [_defaults dataForKey:property.key];
+        if (data) {
+            return [NSUnarchiver unarchiveObjectWithData:data];
+        }else
+            return nil;
+    }
 	return [_defaults objectForKey:property.key];
 }
 
