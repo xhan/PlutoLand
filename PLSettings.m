@@ -354,7 +354,7 @@ NSMutableArray* _gPropertiesList;
 - (void)setObjectValue:(id)value setter:(NSString*)setter{
 	PLSettingProperty* property = [self propertyForSetter:setter];
     if (property.archiveToData) {
-        NSData *theData = [NSArchiver archivedDataWithRootObject:property.key];
+        NSData *theData = [NSArchiver archivedDataWithRootObject:value];
         [_defaults setObject:theData forKey:property.key];   
     }else{
         [_defaults setObject:value forKey:property.key];   
