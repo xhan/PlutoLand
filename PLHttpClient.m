@@ -9,12 +9,19 @@
 #import "PLHttpClient.h"
 #import "PLGlobal.h"
 
+
+@interface PLHttpClient ()
+- (void)_clean;
+@end
+
+
 @implementation PLHttpClient
 
+@synthesize statusCode;
 @synthesize userInfo = _userInfo;
 @synthesize enableGzipEncoding = _enableGzipEncoding;
 @synthesize startImmediately = _startImmediately;
-
+@synthesize response = _response;
 
 
 static const int timeOutSec = 30;
@@ -68,8 +75,18 @@ static NSStringEncoding _gEncoding;
 	return self;
 }
 
+- (id)initWithDelegate:(id<PLHttpClientDelegate>) delegate
+{
+    self = [self init];
+    self.delegate = delegate;
+    return self;
+}
+
 - (void)dealloc {
+
+	_delegate = nil;
 	[self cancel];
+	
 	[_userInfo release], _userInfo = nil;
 	PLSafeRelease(_url);
 	PLSafeRelease(_response);
@@ -78,7 +95,7 @@ static NSStringEncoding _gEncoding;
 	[super dealloc];
 }
 
-- (void)clean{
+- (void)_clean{
 	[self cancel];
 	PLSafeRelease(_url);
 	PLSafeRelease(_response);
@@ -97,7 +114,7 @@ static NSStringEncoding _gEncoding;
 
 - (void)get:(NSURL *)url userInfo:(NSDictionary*)info;
 {
-	[self clean];
+	[self _clean];
 	self.userInfo = info;
 	if(_url != url ){
 		PLSafeRelease(_url);
@@ -113,9 +130,32 @@ static NSStringEncoding _gEncoding;
 	[request release];	
 }
 
+- (void)post:(NSURL*)url body:(NSString*)body
+{
+	[self _clean];
+	self.userInfo = nil;
+	if(_url != url ){
+		PLSafeRelease(_url);
+		_url = [url retain];
+	}
+    
+	NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:_url];	
+	[request setTimeoutInterval:timeOutSec];
+	[request setHTTPMethod:@"POST"];
+    if (_enableGzipEncoding) {
+		[request setValue:@"gzip" forHTTPHeaderField:@"Accept-Encoding"];
+	}
+	if (body) {
+		[request setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
+	}
+	_connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:_startImmediately];
+	[request release];	
+}
+
 - (void)cancel
 {
 	[_connection cancel];	
+	PLSafeRelease(_connection);
 }
 
 - (void)start
@@ -132,6 +172,17 @@ static NSStringEncoding _gEncoding;
 		return [[[NSString alloc] initWithData:_receivedData encoding:_gEncoding] autorelease];
 	}
 	return nil;
+}
+
+- (id)responseHeaderForKey:(NSString*)key
+{
+	return [[_response allHeaderFields] objectForKey:key];
+}
+
+- (void)cleanBeforeRelease
+{
+	_delegate = nil;
+	[self cancel];
 }
 
 #pragma mark -
@@ -158,6 +209,7 @@ static NSStringEncoding _gEncoding;
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)aresponse {
 	_response = [(NSHTTPURLResponse*)aresponse retain];
+	statusCode = [_response statusCode];
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
@@ -165,6 +217,7 @@ static NSStringEncoding _gEncoding;
 }
 
 @end
+
 
 
 

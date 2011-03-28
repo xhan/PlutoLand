@@ -80,6 +80,7 @@ static NSString *const TopPaidAppsFeed =
 - (void)handleLoadedApps:(NSArray *)loadedApps
 {
 	//NSLog(@"finished load :%d",[loadedApps count]);	
+	NSLog(@"is main thread %d",[NSThread isMainThread]);
 	self.entries = [NSMutableArray arrayWithArray:loadedApps];
 	images = [[NSMutableArray arrayWithCapacity:[loadedApps count]] retain];	
 	for(int i =0; i< [loadedApps count]; i++)  [images addObject:[NSNull null]];
@@ -91,6 +92,8 @@ static NSString *const TopPaidAppsFeed =
 
 - (void)didFinishParsing:(NSArray *)appList
 {
+//	[NSThread currentThread]
+	NSLog(@"is main thread %d",[NSThread isMainThread]);
     [self performSelectorOnMainThread:@selector(handleLoadedApps:) withObject:appList waitUntilDone:NO];
     
     self.queue = nil;   // we are finished with the queue and our ParseOperation
@@ -169,11 +172,14 @@ static NSString *const TopPaidAppsFeed =
 
 - (void)fetchedSuccessed:(UIImage*)image userInfo:(NSDictionary*)info
 {
+	NSLog(@"-is main thread %d",[NSThread isMainThread]);
 //	NSDictionary* info = [notify userInfo];
 	NSIndexPath* indexpath = [info objectForKey:@"indexPath"];
 	[images replaceObjectAtIndex:indexpath.row withObject:image];
-	[self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexpath] 
-						  withRowAnimation:UITableViewRowAnimationNone];		
+//	[self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexpath] 
+//						  withRowAnimation:UITableViewRowAnimationNone];		
+	UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexpath];
+	cell.imageView.image = image;
 }
 
 @end

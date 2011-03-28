@@ -7,7 +7,7 @@
 //
 
 #import "NSString+Addition.h"
-
+#import "PLGlobal.h"
 
 @implementation NSString(Addition)
 
@@ -24,6 +24,45 @@
 		return [a isEqualToString:b];
 	}
 
+}
+
++ (NSString*)localizedFileSize:(long long)fileSizeBytes
+{
+	int gb = fileSizeBytes / GByte;
+	int mb = fileSizeBytes % GByte / MByte;
+	int kb = fileSizeBytes % MByte/ KByte;
+	if (gb > 0) {
+		return [NSString stringWithFormat:@"%d GB %d MB",gb,mb];
+	}
+	if (mb > 0) {
+		return [NSString stringWithFormat:@"%d%.2f MB",mb,((float)kb)/KByte];
+	}
+	return [NSString stringWithFormat:@"%d KB",kb];
+
+}
+
+- (NSString*)firstString:(int)maxLength
+{
+	if (maxLength > [self length]) {
+		return self;
+	}else {
+		return [self substringToIndex:maxLength];
+	}
+
+}
+
+
+- (NSString*)firstString:(int)maxLength atIndex:(NSUInteger)index
+{
+	NSUInteger length = self.length;
+	if (index >= length) {
+		return nil;
+	}
+	if (index + maxLength > length) {
+		maxLength = length - index;
+	}
+	
+	return [self substringWithRange:NSMakeRange(index, maxLength)];
 }
 
 @end

@@ -52,4 +52,7 @@
  */
 - (UIViewController*)viewController;
 
+
+- (void)addSubviews:(NSArray *)views;
+
 @end

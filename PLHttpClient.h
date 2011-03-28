@@ -10,7 +10,8 @@
 
 @protocol PLHttpClientDelegate;
 @interface PLHttpClient : NSObject {
-@private
+//@private
+	@protected
     NSURLConnection *_connection;
     NSMutableData *_receivedData;
 	NSHTTPURLResponse* _response;
@@ -24,8 +25,11 @@
 	
 	BOOL _enableGzipEncoding;
 	NSDictionary* _userInfo;
+	int statusCode;
+	
 }
 
+@property (nonatomic, assign,readonly) int statusCode;
 @property (nonatomic, copy) NSDictionary *userInfo;
 @property (nonatomic, assign) BOOL enableGzipEncoding; //default value is NO. set value to YES to enable Gzip decoding of http contents
 
@@ -34,7 +38,7 @@
 @property (nonatomic, assign) SEL didFailSelector;
 @property (nonatomic, assign) SEL didFinishSelector;
 @property (nonatomic, assign) id<PLHttpClientDelegate> delegate;
-
+@property (nonatomic, readonly) NSHTTPURLResponse* response;
 + (void)setGlobalEncoding:(NSStringEncoding)encoding;
 
 // (deprecated) return response by sync fetch  
@@ -46,16 +50,26 @@
 
 - (void)get:(NSURL*)url;
 - (void)get:(NSURL *)url userInfo:(NSDictionary*)info;
+- (void)post:(NSURL*)url body:(NSString*)body;
 
 - (void)cancel;
 
 // works if set startImmediately to false
 - (void)start;
 
-- (void)clean;
 
 //return string value with default encoding
 - (NSString*)stringValue;
+- (id)responseHeaderForKey:(NSString*)key;
+
+
+- (id)initWithDelegate:(id) delegate;
+
+
+// !!! IMPORTANT !!!
+// NOTE: should invoke this method before release(free) this object
+// clean up the connection and delegate
+- (void)cleanBeforeRelease;
 
 @end
 
@@ -66,6 +80,7 @@
 - (void)httpClient:(PLHttpClient*)hc successed:(NSData*)data;
 
 @end
+
 
 
 

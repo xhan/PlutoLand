@@ -42,3 +42,11 @@
 
 @end
 
+@interface UIImage (P_C)
+- (void)addRoundedRectToPath:(CGRect)rect context:(CGContextRef)context ovalWidth:(CGFloat)ovalWidth ovalHeight:(CGFloat)ovalHeight;
+@end
+
+
+@interface UIImage ()
+- (CGImageRef)newBorderMask:(NSUInteger)borderSize size:(CGSize)size;
+@end

@@ -11,6 +11,7 @@
 #import "PLImageLoader.h"
 #import "PLImageCache.h"
 #import "PLHttpQueue.h"
+#import "PLOG.h"
 
 NSString* const PLINFO_HC_IMAGE = @"PLINFO_HC_IMAGE";
 
@@ -85,17 +86,17 @@ NSString* const PLINFO_HC_IMAGE = @"PLINFO_HC_IMAGE";
 - (void)imageRequestSucceeded:(PLImageRequest*)request
 {
 	//TODO: add request costs time
-//	NSLog(@"image fetched: %@",self.url);
-//	PLOG(@"fetched %@",self.url);
 	UIImage* img = [UIImage imageWithData:request.imageData];
-	
+	if (!img) {
+		return;
+	}
 	
 	if (_isFreshOnSucceed && _imageView) {
 		_imageView.image = img;
 	}
 	
-	//TODO: add more condition for cache
-	[[PLImageCache sharedCache] storeData:request.imageData forURL:[self.url absoluteString]];
+	if(_isCacheEnable)
+		[[PLImageCache sharedCache] storeData:request.imageData forURL:[self.url absoluteString]];
 	
 	[self.info setObject:img forKey:PLINFO_HC_IMAGE];
 	[[NSNotificationCenter defaultCenter] postNotificationName:NOTICE_IMAGE_LOADER_SUCCEEDED object:_imageView userInfo:self.info];

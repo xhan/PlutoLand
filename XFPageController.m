@@ -19,41 +19,12 @@
 
 
 @implementation XFPageController
+
 @synthesize scrollView = _scrollView;
 @synthesize pageControl = _pageControl;
-@synthesize viewControllers = _viewControllers;
-
-//@dynamic dataSource;
-/*
--(id)initWithClassesOfViews:(NSArray*)array {
-	if(self = [super init]){
-		_dataSourceType = kXFPageControllerDataSourceTypeViewClass;
-	}
-	return self;
-}
-
--(id)initWithInstancesOfViews:(NSArray*)array {
-	if(self = [super init]){
-		_dataSourceType = kXFPageControllerDataSourceTypeViewClass;
-	}
-	return self;
-}
+@synthesize delegate;
 
 
--(id)initWithClassesOfViewControllers:(NSArray*)array{
-	if(self = [super init]){
-		_dataSourceType = kXFPageControllerDataSourceTypeViewControllerClass;
-	}
-	return self;	
-}
-
--(id)initWithInstancesOfViewControllers:(NSArray*)array{
-	if(self = [super init]){
-		_dataSourceType = kXFPageControllerDataSourceTypeViewControllerClass;
-	}
-	return self;	
-}
-*/
 
 #pragma mark Must Implement methods in sub class
 -(int)numberOfPagesInView:(UIView*)aview
@@ -68,11 +39,12 @@
 
 
 
-- (void)viewDidLoad {
-//	self.view = [[UIView alloc] init];
+- (void)loadView {
+	
+	[super loadView];
 	int pages = [self numberOfPagesInView:self.view];
 	
-	_scrollView = [[UIScrollView alloc] initWithFrame:self.view.frame];
+	_scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
 	_scrollView.pagingEnabled = YES;
 	_scrollView.contentSize = CGSizeMake(_scrollView.frame.size.width * pages , _scrollView.frame.size.height);
 	_scrollView.showsVerticalScrollIndicator = NO;
@@ -88,10 +60,7 @@
 	[self.view addSubview:_pageControl];
 	_pageControl.center = CGPointMake(self.view.center.x , self.view.frame.size.height - _pageControl.frame.size.height / 2);
 	[_pageControl addTarget:self action:@selector(changePage:) forControlEvents:UIControlEventValueChanged];
-	/*	
-	NSLog(@"num:%d",_pageControl.numberOfPages);
-	NSLog(@"width:%.f",_scrollView.contentSize.width);
-	 */
+
 	[self loadScrollViewWithPage:0];
     [self loadScrollViewWithPage:1];
 }
@@ -123,13 +92,13 @@
     if (page >= _pageControl.numberOfPages) return;
 	
     // add the controller's view to the scroll view
-	
-    if (nil == [self PageView:self.view viewForPageAtIndex:page].superview) {
+	UIView* currentView = [self PageView:self.view viewForPageAtIndex:page];
+    if (nil == currentView.superview) {
         CGRect frame = _scrollView.frame;
         frame.origin.x = frame.size.width * page;
         frame.origin.y = 0;
-        [self PageView:self.view viewForPageAtIndex:page].frame = frame;
-        [_scrollView addSubview:[self PageView:self.view viewForPageAtIndex:page]];
+        currentView.frame = frame;
+        [_scrollView addSubview:currentView];
     }
 }
 
@@ -152,20 +121,7 @@
     // Set the boolean used when scrolls originate from the UIPageControl. See scrollViewDidScroll: above.
     _pageControlUsed = YES;
 }	
-/*
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
-    [super viewDidLoad];
-}
-*/
 
-/*
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-*/
 
 - (void)didReceiveMemoryWarning {
 	// Releases the view if it doesn't have a superview.

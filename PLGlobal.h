@@ -21,7 +21,7 @@
 #define DOCUMENT_PATH [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]
 
 
-
+#define SETNIL(_obj_,_value_) (_obj_ ? _obj_ : _value_)
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -32,6 +32,12 @@
 #endif
 
 #define PLSafeRelease(_obj_) [_obj_ release], _obj_ = nil;
+
+/* constants */
+
+#define KByte 1024
+#define MByte (KByte * KByte)
+#define GByte (MByte * KByte)
 
 
 @interface PLGlobal : NSObject {
