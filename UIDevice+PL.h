@@ -17,4 +17,7 @@
 
 + (long long)getFreeDiskSpaceInBytes ;
 
+- (NSString *) platform;
+- (NSString *) platformString;
+
 @end
