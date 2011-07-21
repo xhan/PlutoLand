@@ -19,7 +19,7 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // UIButton
-
+// buttons using background image
 + (UIButton*)createBtnfromPoint:(CGPoint)point image:(UIImage*)img target:(id)target selector:(SEL)selector; 
 
 + (UIButton*)createBtnfromPoint:(CGPoint)point image:(UIImage*)img highlightImg:(UIImage*)himg target:(id)target selector:(SEL)selector; 
@@ -28,6 +28,8 @@
 
 + (UIButton*)createBtnfromPoint:(CGPoint)point imageStr:(NSString*)imgstr highlightImgStr:(NSString*)himgstr target:(id)target selector:(SEL)selector; 
 
+// buttons using default img, so we can have padding properties
++ (UIButton*)createBtnfromFrame:(CGRect)frame imageStr:(NSString*)imgstr highlightImgStr:(NSString*)himgstr target:(id)target selector:(SEL)selector; 
 
 // each value comes from 0 to 255
 + (UIColor*)colorR:(float)r g:(float)g b:(float)b;

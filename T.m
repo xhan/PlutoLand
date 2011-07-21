@@ -13,15 +13,15 @@
 
 + (UIButton*)createBtnfromPoint:(CGPoint)point imageStr:(NSString*)imgstr target:(id)target selector:(SEL)selector;
 {
-	UIImage* img = [UIImage imageNamed:imgstr];
+	UIImage* img = [T imageNamed:imgstr];
 	return [self createBtnfromPoint:point image:img target:target selector:selector];
 }
 
 
 + (UIButton*)createBtnfromPoint:(CGPoint)point imageStr:(NSString*)imgstr highlightImgStr:(NSString*)himgstr target:(id)target selector:(SEL)selector;
 {
-	UIImage* img = [UIImage imageNamed:imgstr];
-	UIImage* imgHighlight = [UIImage imageNamed:himgstr];
+	UIImage* img = [T imageNamed:imgstr];
+	UIImage* imgHighlight = [T imageNamed:himgstr];
 	return [self createBtnfromPoint:point image:img highlightImg:imgHighlight target:target selector:selector];
 }
 
@@ -46,6 +46,20 @@
 	return abtn;	
 }
 
++ (UIButton*)createBtnfromFrame:(CGRect)frame imageStr:(NSString*)imgstr highlightImgStr:(NSString*)himgstr target:(id)target selector:(SEL)selector
+{
+    UIButton* btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.backgroundColor = [UIColor clearColor];
+    btn.frame = frame;
+    [btn setImage:[T imageNamed:imgstr]
+         forState:UIControlStateNormal];
+    if(himgstr)
+        [btn setImage:[T imageNamed:himgstr]
+         forState:UIControlStateHighlighted];
+    [btn addTarget:target action:selector forControlEvents:UIControlEventTouchUpInside];
+    return btn;
+}
+
 
 + (UIColor*)colorR:(float)r g:(float)g b:(float)b
 {
@@ -60,7 +74,22 @@
 
 + (UIImage*)imageNamed:(NSString*)fileName
 {
-	NSString* path = [[NSBundle mainBundle] pathForResource:fileName ofType:nil];
+    BOOL isHighResolution = NO;
+    if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
+        if ([UIScreen mainScreen].scale > 1) {
+            isHighResolution = YES;  
+        }
+    }
+#ifdef ALWAYS_RETINA
+    isHighResolution = YES;
+#endif
+    
+    if (isHighResolution) {
+        NSArray* array = [fileName componentsSeparatedByString:@"."];
+        fileName = [array componentsJoinedByString:@"@2x."];
+    }
+	NSString* path = [[NSBundle mainBundle] pathForResource:fileName ofType:nil];   
+    //	UIImage* i = [UIImage imageWithContentsOfFile:path];
 	return [UIImage imageWithContentsOfFile:path];
 }
 

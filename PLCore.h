@@ -16,3 +16,7 @@
 #define PLDict(...) [NSDictionary dictionaryWithObjectsAndKeys:__VA_ARGS__,nil]
 
 #define PLHashV(_dict_,_key_) [_dict_ objectForKey:_key_]
+
+#define StringAdd(a,b) [NSString stringWithFormat:@"%@%@",a,b]
+
+#define PLNUM(x) [NSNumber numberWithInt:x]

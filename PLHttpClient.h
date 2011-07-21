@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+#define PLCleanRelease(httpclient) [httpclient cleanBeforeRelease],[httpclient release], httpclient = nil
+
+
 @protocol PLHttpClientDelegate;
 @interface PLHttpClient : NSObject {
 //@private
@@ -56,6 +59,9 @@
 
 // works if set startImmediately to false
 - (void)start;
+
+// invoked by each request
+- (NSMutableURLRequest*)makeRequest:(NSURL*)url;
 
 
 //return string value with default encoding

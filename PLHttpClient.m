@@ -108,30 +108,39 @@ static NSStringEncoding _gEncoding;
 #pragma mark -
 #pragma mark public
 
+- (NSMutableURLRequest*)makeRequest:(NSURL*)url_
+{
+    NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:url_];	
+	[request setTimeoutInterval:timeOutSec];
+	if (_enableGzipEncoding) {
+		[request setValue:@"gzip" forHTTPHeaderField:@"Accept-Encoding"];
+	}
+    return [request autorelease];
+}
+
 - (void)get:(NSURL *)url{
 	[self get:url userInfo:nil];
 }
 
 - (void)get:(NSURL *)url userInfo:(NSDictionary*)info;
 {
+    PLOGENV(PLOG_ENV_NETWORK,@"GET %@",url);
+    
 	[self _clean];
 	self.userInfo = info;
 	if(_url != url ){
 		PLSafeRelease(_url);
 		_url = [url retain];
 	}
-	NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:_url];	
-	[request setTimeoutInterval:timeOutSec];
-	if (_enableGzipEncoding) {
-		[request setValue:@"gzip" forHTTPHeaderField:@"Accept-Encoding"];
-	}
+	NSMutableURLRequest* request = [self makeRequest:_url];
 	
 	_connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:_startImmediately];
-	[request release];	
 }
 
 - (void)post:(NSURL*)url body:(NSString*)body
 {
+    PLOGENV(PLOG_ENV_NETWORK,@"POST %@ \nbody:%@",url,body);
+    
 	[self _clean];
 	self.userInfo = nil;
 	if(_url != url ){
@@ -139,17 +148,13 @@ static NSStringEncoding _gEncoding;
 		_url = [url retain];
 	}
     
-	NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:_url];	
-	[request setTimeoutInterval:timeOutSec];
-	[request setHTTPMethod:@"POST"];
-    if (_enableGzipEncoding) {
-		[request setValue:@"gzip" forHTTPHeaderField:@"Accept-Encoding"];
-	}
+	NSMutableURLRequest* request = [self makeRequest:_url];	
+    [request setHTTPMethod:@"POST"];
+
 	if (body) {
 		[request setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
 	}
 	_connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:_startImmediately];
-	[request release];	
 }
 
 - (void)cancel

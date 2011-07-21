@@ -48,7 +48,8 @@ typedef enum{
 enum {
 	PLOG_ENV_INFO = 0,
 	PLOG_ENV_WARNING = 1,
-	PLOG_ENV_ERROR = 2
+	PLOG_ENV_ERROR = 2,
+    PLOG_ENV_NETWORK = 3
 };
 
 typedef enum  {

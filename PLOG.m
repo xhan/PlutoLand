@@ -26,6 +26,7 @@ static PLOG_STYLE _gStyle;
 	[self addEnv:0 name:@"Info"];
 	[self addEnv:1 name:@"Warning"];
 	[self addEnv:2 name:@"Error"];
+    [self addEnv:PLOG_ENV_NETWORK name:@"Net"];
 }
 
 + (void)configForEnv:(PLOG_ENV)env key:(PLOG_FORMAT)key enable:(BOOL)isEnable

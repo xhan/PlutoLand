@@ -119,10 +119,14 @@
 
 NSMutableArray* _gPropertiesList;
 
+#pragma mark - methods need be implemented by subclass
+
 - (NSString*)stringForFirstLoadCheck{
 	//implement by subclass
 	return @"PLSettings";
 }
+
+
 
 - (void)setupDefaults
 {
@@ -146,6 +150,7 @@ NSMutableArray* _gPropertiesList;
 
 }
 
+#pragma mark - private
 
 + (void)setupProperty:(NSString*)property forKey:(NSString*)key withType:(PLSettingType)type archive2Data:(BOOL)archived
 {
@@ -354,7 +359,7 @@ NSMutableArray* _gPropertiesList;
 - (void)setObjectValue:(id)value setter:(NSString*)setter{
 	PLSettingProperty* property = [self propertyForSetter:setter];
     if (property.archiveToData) {
-        NSData *theData = [NSArchiver archivedDataWithRootObject:value];
+        NSData *theData = [NSKeyedArchiver archivedDataWithRootObject:value];
         [_defaults setObject:theData forKey:property.key];   
     }else{
         [_defaults setObject:value forKey:property.key];   
@@ -387,7 +392,7 @@ NSMutableArray* _gPropertiesList;
 	if (property.archiveToData) {
         NSData* data = [_defaults dataForKey:property.key];
         if (data) {
-            return [NSUnarchiver unarchiveObjectWithData:data];
+            return [NSKeyedUnarchiver unarchiveObjectWithData:data];
         }else
             return nil;
     }

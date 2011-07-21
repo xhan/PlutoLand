@@ -18,6 +18,8 @@
  */
 #define ccp(__X__,__Y__) CGPointMake(__X__,__Y__)
 
+#define ccr(x,y,w,h) CGRectMake(x,y,w,h)
+
 #define DOCUMENT_PATH [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]
 
 
@@ -39,9 +41,15 @@
 #define MByte (KByte * KByte)
 #define GByte (MByte * KByte)
 
+#define ResourcePath(X,Y) [[NSBundle mainBundle] pathForResource:(X) ofType:(Y)]
+
+#define IsRetina ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? \
+CGSizeEqualToSize(CGSizeMake(640, 960), [[UIScreen mainScreen] currentMode].size) : NO)
+
+#define PNGImage(name) [T imageNamed:[NSString stringWithFormat:@"%@.png",name]]
 
 @interface PLGlobal : NSObject {
-
+    
 }
 
 @end
