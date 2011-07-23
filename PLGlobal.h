@@ -25,6 +25,11 @@
 
 #define SETNIL(_obj_,_value_) (_obj_ ? _obj_ : _value_)
 
+
+#define NUM(intV) [NSNumber numberWithInt:intV]
+
+
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 #if PL_DEBUG 
@@ -41,10 +46,6 @@
 #define MByte (KByte * KByte)
 #define GByte (MByte * KByte)
 
-#define ResourcePath(X,Y) [[NSBundle mainBundle] pathForResource:(X) ofType:(Y)]
-
-#define IsRetina ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? \
-CGSizeEqualToSize(CGSizeMake(640, 960), [[UIScreen mainScreen] currentMode].size) : NO)
 
 #define PNGImage(name) [T imageNamed:[NSString stringWithFormat:@"%@.png",name]]
 

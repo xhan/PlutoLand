@@ -51,8 +51,11 @@
     UIButton* btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.backgroundColor = [UIColor clearColor];
     btn.frame = frame;
-    [btn setImage:[T imageNamed:imgstr]
-         forState:UIControlStateNormal];
+    if (imgstr) {
+        [btn setImage:[T imageNamed:imgstr]
+             forState:UIControlStateNormal];
+    }
+
     if(himgstr)
         [btn setImage:[T imageNamed:himgstr]
          forState:UIControlStateHighlighted];

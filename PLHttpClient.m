@@ -9,6 +9,7 @@
 #import "PLHttpClient.h"
 #import "PLGlobal.h"
 
+#define PLHttpClientErrorDomain @"PLHttpClientErrorDomain"
 
 @interface PLHttpClient ()
 - (void)_clean;
@@ -22,7 +23,7 @@
 @synthesize enableGzipEncoding = _enableGzipEncoding;
 @synthesize startImmediately = _startImmediately;
 @synthesize response = _response;
-
+@synthesize isForceHandleStatusCode = _isForceHandleStatusCode;
 
 static const int timeOutSec = 30;
 static NSStringEncoding _gEncoding;
@@ -71,6 +72,9 @@ static NSStringEncoding _gEncoding;
 		_didFinishSelector = @selector(httpClient:successed:);
 		_startImmediately = YES;
 		_enableGzipEncoding = NO;
+        
+        //TODO: move this to configures
+        _isForceHandleStatusCode = YES;
 	}
 	return self;
 }
@@ -215,6 +219,16 @@ static NSStringEncoding _gEncoding;
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)aresponse {
 	_response = [(NSHTTPURLResponse*)aresponse retain];
 	statusCode = [_response statusCode];
+    if (_isForceHandleStatusCode) {
+        if (statusCode != 200) {
+            [self _clean];
+            NSError* error = [NSError errorWithDomain:PLHttpClientErrorDomain
+                                                 code:statusCode
+                                             userInfo:PLDict([NSString stringWithFormat:@"http response code %d failed",statusCode],NSLocalizedDescriptionKey)];
+            statusCode = 0;
+            [self connection:nil didFailWithError:error];
+        }
+    }
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {

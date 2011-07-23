@@ -18,8 +18,8 @@
 
 - (void)fetchByURL:(NSString*)urlstr userInfo:(NSDictionary*)info freshOnSucceed:(BOOL)isFresh
 {
-	UIImage* aimage = nil;
-	if (aimage = [[PLImageCache sharedCache] getImageByURL:urlstr]) {
+	UIImage* aimage = [[PLImageCache sharedCache] getImageByURL:urlstr];
+	if (aimage) {
 		self.image = aimage;
 		NSLog(@"- loaded cached image :%@",urlstr);
 		return;		

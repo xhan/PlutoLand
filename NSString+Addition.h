@@ -28,4 +28,5 @@
 
 - (NSString*)firstString:(int)maxLength atIndex:(NSUInteger)index;
 
+
 @end

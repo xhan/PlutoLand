@@ -32,6 +32,8 @@
 	
 }
 
+@property (nonatomic, assign) BOOL isForceHandleStatusCode;
+
 @property (nonatomic, assign,readonly) int statusCode;
 @property (nonatomic, copy) NSDictionary *userInfo;
 @property (nonatomic, assign) BOOL enableGzipEncoding; //default value is NO. set value to YES to enable Gzip decoding of http contents
