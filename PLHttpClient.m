@@ -8,11 +8,14 @@
 
 #import "PLHttpClient.h"
 #import "PLGlobal.h"
+#import "PLHttpConfig.h"
 
 #define PLHttpClientErrorDomain @"PLHttpClientErrorDomain"
 
 @interface PLHttpClient ()
 - (void)_clean;
+- (void)_handleRequestStart;
+- (void)_handleRequestStop;
 @end
 
 
@@ -72,7 +75,7 @@ static NSStringEncoding _gEncoding;
 		_didFinishSelector = @selector(httpClient:successed:);
 		_startImmediately = YES;
 		_enableGzipEncoding = NO;
-        
+        _isLoading = NO;
         //TODO: move this to configures
         _isForceHandleStatusCode = YES;
 	}
@@ -100,7 +103,8 @@ static NSStringEncoding _gEncoding;
 }
 
 - (void)_clean{
-	[self cancel];
+
+    [self cancel];
 	PLSafeRelease(_url);
 	PLSafeRelease(_response);
 	PLSafeRelease(_connection);
@@ -138,6 +142,7 @@ static NSStringEncoding _gEncoding;
 	}
 	NSMutableURLRequest* request = [self makeRequest:_url];
 	
+    [self _handleRequestStart];
 	_connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:_startImmediately];
 }
 
@@ -158,18 +163,22 @@ static NSStringEncoding _gEncoding;
 	if (body) {
 		[request setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
 	}
+    [self _handleRequestStart];
 	_connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:_startImmediately];
 }
 
 - (void)cancel
-{
+{    
 	[_connection cancel];	
 	PLSafeRelease(_connection);
+    [self _handleRequestStop];    
 }
 
 - (void)start
 {
 	if(_connection && _startImmediately == NO){
+        _isLoading = YES;
+        [[PLHttpConfig s] requestStarted];
 		[_connection scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
 		[_connection start];		
 	}
@@ -194,11 +203,27 @@ static NSStringEncoding _gEncoding;
 	[self cancel];
 }
 
+- (void)_handleRequestStart
+{
+    if(_startImmediately){        
+        _isLoading = YES;
+        [[PLHttpConfig s] requestStarted];
+    }                    
+}
+
+- (void)_handleRequestStop
+{
+    if (_isLoading) {
+        [[PLHttpConfig s] requestStoped];
+        _isLoading = NO;
+    }
+}
 #pragma mark -
 #pragma mark Delegate for NSURLRequest
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-	
+    [self _handleRequestStop];
+    
 	if ([self.delegate respondsToSelector:self.didFailSelector] ) {
 		[self.delegate performSelector:self.didFailSelector withObject:self withObject:error];
 	}
@@ -207,7 +232,7 @@ static NSStringEncoding _gEncoding;
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-	
+    [self _handleRequestStop];
 	if ([self.delegate respondsToSelector:self.didFinishSelector] ) {
 		[self.delegate performSelector:self.didFinishSelector withObject:self withObject:_receivedData];
 	}	

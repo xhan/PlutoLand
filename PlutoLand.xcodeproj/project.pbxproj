@@ -59,6 +59,7 @@
 		8CB8679512C38C990052868B /* UIDevice+PL.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB8679412C38C990052868B /* UIDevice+PL.m */; };
 		8CD6583511F04D28009D906E /* AppRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CD6583211F04D28009D906E /* AppRecord.m */; };
 		8CD6583611F04D28009D906E /* ParseOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CD6583411F04D28009D906E /* ParseOperation.m */; };
+		CA8F1DA213DD63F80045FC90 /* PLHttpConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = CA8F1DA113DD63F80045FC90 /* PLHttpConfig.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -156,6 +157,8 @@
 		8CD6583311F04D28009D906E /* ParseOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseOperation.h; sourceTree = "<group>"; };
 		8CD6583411F04D28009D906E /* ParseOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseOperation.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* PlutoLand-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "PlutoLand-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		CA8F1DA013DD63F80045FC90 /* PLHttpConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLHttpConfig.h; sourceTree = "<group>"; };
+		CA8F1DA113DD63F80045FC90 /* PLHttpConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLHttpConfig.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -331,6 +334,8 @@
 				8C82581F1262F3FC0078E094 /* PLImageLoader.m */,
 				8C8258201262F3FC0078E094 /* UIImageView+Http.h */,
 				8C8258211262F3FC0078E094 /* UIImageView+Http.m */,
+				CA8F1DA013DD63F80045FC90 /* PLHttpConfig.h */,
+				CA8F1DA113DD63F80045FC90 /* PLHttpConfig.m */,
 			);
 			name = HttpClient;
 			sourceTree = "<group>";
@@ -512,6 +517,7 @@
 				8C82588E1262FA1E0078E094 /* SettingTestCase.m in Sources */,
 				8CB8679112C38C570052868B /* NSDictionary+URL.m in Sources */,
 				8CB8679512C38C990052868B /* UIDevice+PL.m in Sources */,
+				CA8F1DA213DD63F80045FC90 /* PLHttpConfig.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

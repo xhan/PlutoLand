@@ -29,6 +29,8 @@
 	BOOL _enableGzipEncoding;
 	NSDictionary* _userInfo;
 	int statusCode;
+    
+    BOOL _isLoading;
 	
 }
 
