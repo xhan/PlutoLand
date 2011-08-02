@@ -13,6 +13,11 @@
 @interface NSString(Addition)
 
 @property(nonatomic,readonly)BOOL isEmpty;
+//why has an isNonEmpty is it could easy to handle nil string object
+// only the non-nil string with contents will return YES
+- (BOOL)isNonEmpty;
+
+
 
 //able to check nil object
 + (BOOL)isEqual:(NSString*)a toB:(NSString*)b;
@@ -27,6 +32,7 @@
 
 
 - (NSString*)firstString:(int)maxLength atIndex:(NSUInteger)index;
+
 
 
 @end

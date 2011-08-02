@@ -15,6 +15,11 @@
 	return [[self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length] == 0;
 }
 
+- (BOOL)isNonEmpty
+{
+    return !self.isEmpty;
+}
+
 
 + (BOOL)isEqual:(NSString*)a toB:(NSString*)b
 {

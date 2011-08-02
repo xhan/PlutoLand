@@ -171,7 +171,8 @@ static NSStringEncoding _gEncoding;
 {    
 	[_connection cancel];	
 	PLSafeRelease(_connection);
-    [self _handleRequestStop];    
+    PLSafeRelease(_receivedData);
+    [self _handleRequestStop]; 
 }
 
 - (void)start
