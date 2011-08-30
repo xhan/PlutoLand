@@ -237,10 +237,9 @@ NSMutableArray* _gPropertiesList;
 
 - (void)markAsLoaded
 {
-	[_defaults setObject:[NSNumber numberWithInt:[self version]] forKey:[self stringForFirstLoadCheck]];
-#ifndef DEBUG_MODE	
+	[_defaults setObject:[NSNumber numberWithInt:[self version]] forKey:[self stringForFirstLoadCheck]];	
 	[self synchronize];
-#endif
+
 }
 
 - (BOOL)checkIfDataAvailable

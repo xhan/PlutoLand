@@ -7,9 +7,22 @@
 //
 
 #import "T.h"
-
+#import <AudioToolbox/AudioToolbox.h>
 
 @implementation T
+
++ (void)appPlayVibrate
+{
+#if TARGET_OS_IPHONE    
+    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+#endif    
+}
+
++ (NSURL*)urlForAppLink:(NSString*)appID
+{
+    NSString* str = [NSString stringWithFormat:@"http://phobos.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?mt=8&id=%@",appID];
+    return [NSURL URLWithString:str];
+}
 
 + (UIButton*)createBtnfromPoint:(CGPoint)point imageStr:(NSString*)imgstr target:(id)target selector:(SEL)selector;
 {
@@ -73,6 +86,13 @@
 + (UIColor*)colorR:(float)r g:(float)g b:(float)b a:(float)a
 {
 	return [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a];
+}
+
++ (UIImage*)pngHighResolutionNamed:(NSString*)fileName
+{
+    fileName = NSStringADD(fileName, @"@2x.png");
+    NSString* path = [[NSBundle mainBundle] pathForResource:fileName ofType:nil];   
+    return [UIImage imageWithContentsOfFile:path];
 }
 
 + (UIImage*)imageNamed:(NSString*)fileName

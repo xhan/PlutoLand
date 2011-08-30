@@ -10,7 +10,7 @@
 #import "PLGlobal.h"
 #import "PLHttpConfig.h"
 
-#define PLHttpClientErrorDomain @"PLHttpClientErrorDomain"
+
 
 @interface PLHttpClient ()
 - (void)_clean;
@@ -163,6 +163,43 @@ static NSStringEncoding _gEncoding;
 	if (body) {
 		[request setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
 	}
+    [self _handleRequestStart];
+	_connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:_startImmediately];
+}
+
+- (void)put:(NSURL*)url body:(NSString*)body
+{
+    PLOGENV(PLOG_ENV_NETWORK,@"PUT %@ \nbody:%@",url,body);
+    [self _clean];
+	self.userInfo = nil;
+	if(_url != url ){
+		PLSafeRelease(_url);
+		_url = [url retain];
+	}
+    
+	NSMutableURLRequest* request = [self makeRequest:_url];	
+    [request setHTTPMethod:@"PUT"];
+    
+	if (body) {
+		[request setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
+	}
+    [self _handleRequestStart];
+	_connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:_startImmediately];
+}
+
+- (void)delete:(NSURL*)url
+{
+    PLOGENV(PLOG_ENV_NETWORK,@"DELETE %@",url);
+    
+	[self _clean];
+//	self.userInfo = info;
+	if(_url != url ){
+		PLSafeRelease(_url);
+		_url = [url retain];
+	}
+	NSMutableURLRequest* request = [self makeRequest:_url];
+    [request setHTTPMethod:@"DELETE"];
+    
     [self _handleRequestStart];
 	_connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:_startImmediately];
 }

@@ -29,7 +29,6 @@
 #define NUM(intV) [NSNumber numberWithInt:intV]
 
 
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 #if PL_DEBUG 
@@ -46,9 +45,14 @@
 #define MByte (KByte * KByte)
 #define GByte (MByte * KByte)
 
+#define KMinute 60
+#define KHour  (60*60)
+#define KDay   (24*60*60)
+
+
 /* iOS constants */
 #define KOSKeyboardHeightPort 216
-#define KOSKeyboardHeightLand 140
+#define KOSKeyboardHeightLand 162
 #define KOSStatusBarHeight 20
 #define KOSNavigationBarHeight 44
 #define KOSTabBarHeight    49

@@ -10,6 +10,7 @@
 
 #define PLCleanRelease(httpclient) [httpclient cleanBeforeRelease],[httpclient release], httpclient = nil
 
+#define PLHttpClientErrorDomain @"PLHttpClientErrorDomain"
 
 @protocol PLHttpClientDelegate;
 @interface PLHttpClient : NSObject {
@@ -58,6 +59,9 @@
 - (void)get:(NSURL*)url;
 - (void)get:(NSURL *)url userInfo:(NSDictionary*)info;
 - (void)post:(NSURL*)url body:(NSString*)body;
+- (void)put:(NSURL*)url body:(NSString*)body;
+- (void)delete:(NSURL*)url;
+
 
 - (void)cancel;
 

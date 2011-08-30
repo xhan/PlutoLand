@@ -17,6 +17,11 @@
 
 @interface T : NSObject 
 
++ (void)appPlayVibrate;
+
+// the link for get app info ,download ,review ...etc
++ (NSURL*)urlForAppLink:(NSString*)appID;
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // UIButton
 // buttons using background image
@@ -36,6 +41,8 @@
 
 //alpha from 0 to 1
 + (UIColor*)colorR:(float)r g:(float)g b:(float)b a:(float)a;
+
++ (UIImage*)pngHighResolutionNamed:(NSString*)fileName;
 
 //load image by contents of file
 + (UIImage*)imageNamed:(NSString*)fileName;
