@@ -17,6 +17,8 @@
 
 @interface T : NSObject 
 
++ (UIColor *)colorWithHex:(NSInteger)color;
+
 + (void)appPlayVibrate;
 
 // the link for get app info ,download ,review ...etc

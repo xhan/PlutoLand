@@ -11,6 +11,14 @@
 
 @implementation T
 
++ (UIColor *)colorWithHex:(NSInteger)color {
+	int r = (color & 0xFF0000) >> 16;
+	int g = (color & 0xFF00) >> 8;
+	int b = color & 0xFF;
+//	return [UIColor colorWithRed:r*1.0/255 green:g*1.0/255 blue:b*1.0/255 alpha:1.0];
+    return [self colorR:r g:g b:b];
+}
+
 + (void)appPlayVibrate
 {
 #if TARGET_OS_IPHONE
