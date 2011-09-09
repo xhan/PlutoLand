@@ -22,6 +22,8 @@
 // the link for get app info ,download ,review ...etc
 + (NSURL*)urlForAppLink:(NSString*)appID;
 
++ (NSURL*)urlForAppReview:(NSString*)appID;
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // UIButton
 // buttons using background image

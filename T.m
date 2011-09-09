@@ -13,9 +13,15 @@
 
 + (void)appPlayVibrate
 {
-#if TARGET_OS_IPHONE    
+#if TARGET_OS_IPHONE
     AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
-#endif    
+#endif
+}
+
++ (NSURL*)urlForAppReview:(NSString*)appID
+{
+    NSString* str = [NSString stringWithFormat:@"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%@",appID];
+    return [NSURL URLWithString:str];
 }
 
 + (NSURL*)urlForAppLink:(NSString*)appID
