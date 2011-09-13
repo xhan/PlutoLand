@@ -17,6 +17,8 @@
 
 @interface T : NSObject 
 
++ (void)alert:(NSString*)title body:(NSString*)body;
+
 + (UIColor *)colorWithHex:(NSInteger)color;
 
 + (void)appPlayVibrate;

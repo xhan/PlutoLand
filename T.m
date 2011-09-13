@@ -11,6 +11,18 @@
 
 @implementation T
 
+
++ (void)alert:(NSString*)title body:(NSString*)body
+{
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:title
+                                                    message:body
+                                                   delegate:nil
+                                          cancelButtonTitle:NSLocalizedString(@"OK", @"")
+                                          otherButtonTitles:nil];
+    [alert show];
+    [alert release];
+}
+
 + (UIColor *)colorWithHex:(NSInteger)color {
 	int r = (color & 0xFF0000) >> 16;
 	int g = (color & 0xFF00) >> 8;

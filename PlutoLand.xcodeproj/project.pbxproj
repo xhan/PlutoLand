@@ -60,6 +60,7 @@
 		8CD6583511F04D28009D906E /* AppRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CD6583211F04D28009D906E /* AppRecord.m */; };
 		8CD6583611F04D28009D906E /* ParseOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CD6583411F04D28009D906E /* ParseOperation.m */; };
 		CA8F1DA213DD63F80045FC90 /* PLHttpConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = CA8F1DA113DD63F80045FC90 /* PLHttpConfig.m */; };
+		CAD3292914173EAB00B2C85D /* NSDictionary+NonNull.m in Sources */ = {isa = PBXBuildFile; fileRef = CAD3292814173EAB00B2C85D /* NSDictionary+NonNull.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -159,6 +160,8 @@
 		8D1107310486CEB800E47090 /* PlutoLand-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "PlutoLand-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		CA8F1DA013DD63F80045FC90 /* PLHttpConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLHttpConfig.h; sourceTree = "<group>"; };
 		CA8F1DA113DD63F80045FC90 /* PLHttpConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLHttpConfig.m; sourceTree = "<group>"; };
+		CAD3292714173EAB00B2C85D /* NSDictionary+NonNull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+NonNull.h"; sourceTree = "<group>"; };
+		CAD3292814173EAB00B2C85D /* NSDictionary+NonNull.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+NonNull.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -364,6 +367,8 @@
 		8C8258311262F3FC0078E094 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				CAD3292714173EAB00B2C85D /* NSDictionary+NonNull.h */,
+				CAD3292814173EAB00B2C85D /* NSDictionary+NonNull.m */,
 				8CB8679312C38C990052868B /* UIDevice+PL.h */,
 				8CB8679412C38C990052868B /* UIDevice+PL.m */,
 				8CB8678F12C38C570052868B /* NSDictionary+URL.h */,
@@ -518,6 +523,7 @@
 				8CB8679112C38C570052868B /* NSDictionary+URL.m in Sources */,
 				8CB8679512C38C990052868B /* UIDevice+PL.m in Sources */,
 				CA8F1DA213DD63F80045FC90 /* PLHttpConfig.m in Sources */,
+				CAD3292914173EAB00B2C85D /* NSDictionary+NonNull.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
