@@ -118,7 +118,7 @@
 @implementation PLSettings
 
 NSMutableArray* _gPropertiesList;
-
+@synthesize isDynamicProperties = _isDynamicProperties;
 #pragma mark - methods need be implemented by subclass
 
 - (NSString*)stringForFirstLoadCheck{
@@ -179,6 +179,9 @@ NSMutableArray* _gPropertiesList;
 
 - (void)synchronize
 {
+    if (!_isDynamicProperties) {
+        [self _writePropertiesToDefaults];
+    }
 	[_defaults synchronize];
 }
 
@@ -193,7 +196,7 @@ NSMutableArray* _gPropertiesList;
 - (id)init{
 	self = [super init];
 	_defaults = [[NSUserDefaults standardUserDefaults] retain];
-	
+	_isDynamicProperties = YES;
 	[self loadDefaults];
 	
 	return self;
@@ -204,8 +207,44 @@ NSMutableArray* _gPropertiesList;
 	[super dealloc];
 }
 
+- (void)setIsDynamicProperties:(BOOL)isDynamicProperties
+{
+    _isDynamicProperties = isDynamicProperties;
+    if (!_isDynamicProperties) {
+        [self _readPropertiesFromDefaults];
+    }
+}
+
 #pragma mark -
 #pragma mark private
+
+- (void)_readPropertiesFromDefaults
+{
+    for (PLSettingProperty* property in _gPropertiesList){
+        
+        if (property.archiveToData) {
+            NSData* data = [_defaults dataForKey:property.key];
+            id value =  [NSKeyedUnarchiver unarchiveObjectWithData:data];
+            [self setValue:value forKey:property.getter];
+        }else{
+            [self setValue:[_defaults valueForKey:property.key] forKey:property.getter];
+        }
+        
+    }
+}
+
+- (void)_writePropertiesToDefaults
+{
+    for (PLSettingProperty* property in _gPropertiesList){
+        if (property.archiveToData) {
+            NSData* data = [NSKeyedArchiver archivedDataWithRootObject:[self valueForKey:property.getter]];
+            [_defaults setValue:data forKey:property.key];
+        }else{
+            [_defaults setValue:[self valueForKey:property.getter] forKey:property.key];
+        }
+        
+    }    
+}
 
 - (BOOL)respondsToSelector:(SEL)aSelector
 {
@@ -233,6 +272,7 @@ NSMutableArray* _gPropertiesList;
 		}
 	}
 	[self markAsLoaded];
+
 }
 
 - (void)markAsLoaded
