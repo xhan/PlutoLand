@@ -9,7 +9,7 @@
 #import "PLHttpClient.h"
 #import "PLGlobal.h"
 #import "PLHttpConfig.h"
-
+#import "PLOG.h"
 
 
 @interface PLHttpClient ()
