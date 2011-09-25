@@ -120,6 +120,10 @@ static NSStringEncoding _gEncoding;
 {
     NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:url_];	
 	[request setTimeoutInterval:timeOutSec];
+    NSString* ua = [[PLHttpConfig s] userAgentFormated];
+    if (ua) {
+        [request setValue:ua forHTTPHeaderField:@"User-Agent"];
+    }
 	if (_enableGzipEncoding) {
 		[request setValue:@"gzip" forHTTPHeaderField:@"Accept-Encoding"];
 	}

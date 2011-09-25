@@ -18,11 +18,12 @@
     NSTimeInterval timeout;
     
     int _connections;
-    
+    NSString* _userAgent;
 }
 
 + (PLHttpConfig*)s;
-
+// provide a better user agent other than system style "Secret/1100240 CFNetwork/485.13.9 Darwin/11.0.0"
+- (NSString*)userAgentFormated;
 
 - (void)requestStarted;
 - (void)requestStoped;

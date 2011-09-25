@@ -32,7 +32,7 @@
 	int statusCode;
     
     BOOL _isLoading;
-	
+	BOOL _isForceHandleStatusCode;
 }
 
 @property (nonatomic, assign) BOOL isForceHandleStatusCode;
