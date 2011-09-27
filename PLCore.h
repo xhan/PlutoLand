@@ -10,7 +10,8 @@
 #import "PLOG.h"
 #import "PLGlobal.h"
 #import "T.h"
-#import "NSDictionary+NonNull.h"
+
+#import "NSAdditions.h"
 
 #define PLArray(...) [NSArray arrayWithObjects:__VA_ARGS__, nil]
 #define PLArrayM(...) [NSMutableArray arrayWithObjects:__VA_ARGS__, nil]

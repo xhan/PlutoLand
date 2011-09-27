@@ -79,8 +79,9 @@ typedef enum {
 
 @interface PLSettings : NSObject {
 	NSUserDefaults* _defaults;
+    BOOL _isDynamicProperties;
 }
-
+@property(nonatomic,assign)BOOL isDynamicProperties;
 
 - (void)synchronize;
 
@@ -107,5 +108,8 @@ typedef enum {
  method will be invoked if version is not matched
  */
 - (void)migrateFromOldVersion:(int)oldVersion;
+
+- (void)_readPropertiesFromDefaults;
+- (void)_writePropertiesToDefaults;
 
 @end
