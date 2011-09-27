@@ -17,6 +17,12 @@
     }
     return obj;
 }
+
+- (int)intForKey:(id)aKey
+{
+    return [[self objectForKeyPL:aKey] intValue];
+}
+
 @end
 
 @implementation NSArray (NonNull)
