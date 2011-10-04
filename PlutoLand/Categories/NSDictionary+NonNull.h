@@ -11,6 +11,8 @@
 @interface NSDictionary (NSDictionary_NonNull)
 
 - (id)objectForKeyPL:(id)aKey;
+- (int)intForKey:(id)aKey;
+
 @end
 
 @interface NSArray (NonNull)

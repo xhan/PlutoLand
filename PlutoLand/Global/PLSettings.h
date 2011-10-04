@@ -47,7 +47,7 @@
  
  @dynamic name, age, score, male;
  
- - (void)loadDefaults{
+ - (void)setupDefaults{
  //implement by subclass, this method will only invoked once
  self.name = @"xhan";
  self.age = 23;

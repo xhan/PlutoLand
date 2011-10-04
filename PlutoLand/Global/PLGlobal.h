@@ -25,6 +25,7 @@
 
 #define SETNIL(_obj_,_value_) (_obj_ ? _obj_ : _value_)
 
+#define ASSIGN_IF_NIL(target,value) target = SETNIL(target,value)
 
 #define NUM(intV) [NSNumber numberWithInt:intV]
 
