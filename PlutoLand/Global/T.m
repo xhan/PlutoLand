@@ -5,6 +5,7 @@
 //  Created by xu xhan on 7/16/10.
 //  Copyright 2010 xu han. All rights reserved.
 //
+#if TARGET_OS_IPHONE
 
 #import "T.h"
 #import <AudioToolbox/AudioToolbox.h>
@@ -33,9 +34,7 @@
 
 + (void)appPlayVibrate
 {
-#if TARGET_OS_IPHONE
     AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
-#endif
 }
 
 + (NSURL*)urlForAppReview:(NSString*)appID
@@ -154,3 +153,5 @@
 	return	[NSString stringWithFormat:@"%.2lf",[[NSDate date] timeIntervalSince1970]];
 }
 @end
+
+#endif

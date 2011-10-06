@@ -118,7 +118,7 @@
 @implementation PLSettings
 
 NSMutableArray* _gPropertiesList;
-@synthesize isDynamicProperties = _isDynamicProperties;
+@synthesize isDynamicProperties = _isDynamicProperties, isFirstLaunched = _isFirstLaunched;
 #pragma mark - methods need be implemented by subclass
 
 - (NSString*)stringForFirstLoadCheck{
@@ -211,7 +211,12 @@ NSMutableArray* _gPropertiesList;
 {
     _isDynamicProperties = isDynamicProperties;
     if (!_isDynamicProperties) {
-        [self _readPropertiesFromDefaults];
+        if (_isFirstLaunched) {
+            //first launch, values already readed from setDefaults
+            [self _writePropertiesToDefaults];
+        }else{
+             [self _readPropertiesFromDefaults];   
+        }
     }
 }
 
@@ -222,14 +227,18 @@ NSMutableArray* _gPropertiesList;
 {
     for (PLSettingProperty* property in _gPropertiesList){
         
+        id value;
         if (property.archiveToData) {
             NSData* data = [_defaults dataForKey:property.key];
-            id value =  [NSKeyedUnarchiver unarchiveObjectWithData:data];
-            [self setValue:value forKey:property.getter];
-        }else{
-            [self setValue:[_defaults valueForKey:property.key] forKey:property.getter];
+            value =  [NSKeyedUnarchiver unarchiveObjectWithData:data];
+        }else{            
+            value = [_defaults valueForKey:property.key];
         }
         
+        //seems set nil vaue will cause error
+        if (value) {
+            [self setValue:value forKey:property.getter];
+        }
     }
 }
 
@@ -262,14 +271,17 @@ NSMutableArray* _gPropertiesList;
 - (void)loadDefaults
 {
 	if (![self checkIfDataAvailable]) {
+        _isFirstLaunched = YES;
 		[self setupDefaults];		
 	}else {
 		//[self versionCheck];
-		int oldVersion = [_defaults integerForKey:[self stringForFirstLoadCheck]];
+        _isFirstLaunched = NO;
+		NSUInteger oldVersion = [_defaults integerForKey:[self stringForFirstLoadCheck]];
 		int currentVersion = [self version];
 		if (oldVersion != currentVersion) {
-			[self migrateFromOldVersion:oldVersion];
+			[self migrateFromOldVersion:(int)oldVersion];
 		}
+        
 	}
 	[self markAsLoaded];
 
@@ -293,7 +305,7 @@ NSMutableArray* _gPropertiesList;
 	// a setter selector is similar as 'set_____:'
 	// simple check if last character is equal to ':'
 	const char* selectorName = sel_getName(selector);
-	int lastIndex = strlen(selectorName) - 1;
+	int lastIndex = (int)strlen(selectorName) - 1;
 	return selectorName[lastIndex] == ':';
 }
 
@@ -412,7 +424,7 @@ NSMutableArray* _gPropertiesList;
 
 - (int)getIntValueFor:(NSString*)getter{
 	PLSettingProperty* property = [self propertyForGetter:getter];	
-	return [_defaults integerForKey:property.key];
+	return (int)[_defaults integerForKey:property.key];
 }
 
 - (float)getFloatValueFor:(NSString*)getter{

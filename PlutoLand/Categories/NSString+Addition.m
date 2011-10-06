@@ -33,9 +33,9 @@
 
 + (NSString*)localizedFileSize:(long long)fileSizeBytes
 {
-	int gb = fileSizeBytes / GByte;
-	int mb = fileSizeBytes % GByte / MByte;
-	int kb = fileSizeBytes % MByte/ KByte;
+	int gb = (int)(fileSizeBytes / GByte);
+	int mb = (int)(fileSizeBytes % GByte / MByte);
+	int kb = (int)(fileSizeBytes % MByte/ KByte);
 	if (gb > 0) {
 		return [NSString stringWithFormat:@"%d GB %d MB",gb,mb];
 	}
@@ -64,7 +64,7 @@
 		return nil;
 	}
 	if (index + maxLength > length) {
-		maxLength = length - index;
+		maxLength = (int)(length - index);
 	}
 	
 	return [self substringWithRange:NSMakeRange(index, maxLength)];

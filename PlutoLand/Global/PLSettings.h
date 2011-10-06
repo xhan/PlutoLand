@@ -73,15 +73,15 @@ typedef enum {
 	PLSettingTypeFloat,
 	PLSettingTypeBool,
 	PLSettingTypeObject
-//	PLSettingTypeString,
-//	PLSettingTypeArray
 }PLSettingType;
 
 @interface PLSettings : NSObject {
 	NSUserDefaults* _defaults;
     BOOL _isDynamicProperties;
+    BOOL _isFirstLaunched;
 }
 @property(nonatomic,assign)BOOL isDynamicProperties;
+@property(nonatomic,readonly) BOOL isFirstLaunched;
 
 - (void)synchronize;
 
