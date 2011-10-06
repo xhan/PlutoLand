@@ -36,3 +36,9 @@
 
 
 @end
+
+
+@interface NSString (URLEscaped)
+- (NSString *)URLEscaped;
+- (NSString *)unURLEscape;
+@end
