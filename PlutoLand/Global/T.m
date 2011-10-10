@@ -13,7 +13,7 @@
 @implementation T
 
 
-+ (void)alert:(NSString*)title body:(NSString*)body
++ (UIAlertView*)alert:(NSString*)title body:(NSString*)body
 {
     UIAlertView* alert = [[UIAlertView alloc] initWithTitle:title
                                                     message:body
@@ -22,6 +22,7 @@
                                           otherButtonTitles:nil];
     [alert show];
     [alert release];
+    return alert;
 }
 
 + (UIColor *)colorWithHex:(NSInteger)color {

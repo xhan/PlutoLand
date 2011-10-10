@@ -18,7 +18,7 @@
 
 @interface T : NSObject 
 
-+ (void)alert:(NSString*)title body:(NSString*)body;
++ (UIAlertView*)alert:(NSString*)title body:(NSString*)body;
 
 + (UIColor *)colorWithHex:(NSInteger)color;
 
