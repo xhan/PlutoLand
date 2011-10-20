@@ -20,6 +20,8 @@
 	NSString* _setter;
 	NSString* _key;
     BOOL _archiveToData;
+    BOOL _isNeedTransform;
+    Class _transformClass;
 	PLSettingType _type;
 }
 
@@ -29,13 +31,18 @@
 @property (nonatomic, copy) NSString *getter;
 // archive object into data structure
 @property (nonatomic, assign) BOOL archiveToData;
-
+@property (nonatomic, assign) BOOL isNeedTransform;
 
 + (id)propertyByName:(NSString*)name key:(NSString*)key type:(PLSettingType)type archive2Data:(BOOL)archived;
+- (id)initWithTransformClass:(Class)class;
++ (id)propertyByName:(NSString*)name key:(NSString*)key transformClass:(Class)transformClass;
 
 + (NSString*)setterNameSEL:(NSString*)sel;
 - (NSMethodSignature*)signatureForGetter;
 - (NSMethodSignature*)signatureForSetter;
+
+- (id)transformedValue:(id)origin;
+- (id)reverseTransformedValue:(id)transformed;
 @end
 
 @implementation PLSettingProperty
@@ -45,7 +52,7 @@
 @synthesize setter = _setter;
 @synthesize key = _key;
 @synthesize archiveToData = _archiveToData;
-
+@synthesize isNeedTransform = _isNeedTransform;
 - (void)dealloc
 {
 	[_key release];
@@ -65,6 +72,27 @@
 	return [p autorelease];
 }
 
++ (id)propertyByName:(NSString*)name key:(NSString*)key transformClass:(Class)transformClass
+{
+	PLSettingProperty* p = [[PLSettingProperty alloc] initWithTransformClass:transformClass];
+	p.getter = name;
+	p.setter = [PLSettingProperty setterNameSEL:name];
+	p.key = key;
+	p.type = PLSettingTypeObject;
+    p.archiveToData = NO;
+    p.isNeedTransform = YES;
+	return [p autorelease];    
+}
+
+- (id)initWithTransformClass:(Class)class
+{
+    self = [super init];
+    _transformClass = class;
+    if (![_transformClass conformsToProtocol:@protocol(PLSettingTransformerProtocol)]) {
+        [NSException raise:@"Transformer Class have to conforms to Protocol PLSettingTransformerProtocol" format:nil];
+    }
+    return self;
+}
 
 + (NSString*)setterNameSEL:(NSString*)sel
 {
@@ -92,6 +120,15 @@
 	char types[] = "v^v^c_@";
 	types[5] = p[_type];
 	return [NSMethodSignature signatureWithObjCTypes:types];
+}
+
+- (id)transformedValue:(id)origin
+{
+    return [_transformClass transformedValue:origin];
+}
+- (id)reverseTransformedValue:(id)transformed
+{
+    return [_transformClass reverseTransformedValue:transformed];
 }
 
 @end
@@ -147,7 +184,11 @@ NSMutableArray* _gPropertiesList;
 {
 	// implemented by subclass
 	// you also need to handle oldVersion might is greater than current version. (happens uninstall and reinstall an older version apps)
-
+    
+    //TODO: need a better way to handle it
+    //Note: have to call this if  isNonDynamicProperties
+//    [self _writePropertiesToDefaults];
+    
 }
 
 #pragma mark - private
@@ -165,6 +206,13 @@ NSMutableArray* _gPropertiesList;
 + (void)setupPropertyWithArchivedType:(NSString *)property
 {
 	[self setupProperty:property forKey:property withType:PLSettingTypeObject archive2Data:YES];
+}
+
++ (void)setupProperty:(NSString *)property withTransformer:(Class)transformer
+{
+    [_gPropertiesList addObject:[PLSettingProperty propertyByName:property
+                                                              key:property
+                                                   transformClass:transformer]];
 }
 
 + (void)initialize{
@@ -230,7 +278,11 @@ NSMutableArray* _gPropertiesList;
         id value;
         if (property.archiveToData) {
             NSData* data = [_defaults dataForKey:property.key];
+            
             value =  [NSKeyedUnarchiver unarchiveObjectWithData:data];
+        }else if(property.isNeedTransform){
+            id obj = [_defaults objectForKey:property.key];
+            value = [property reverseTransformedValue:obj];
         }else{            
             value = [_defaults valueForKey:property.key];
         }
@@ -248,10 +300,12 @@ NSMutableArray* _gPropertiesList;
         if (property.archiveToData) {
             NSData* data = [NSKeyedArchiver archivedDataWithRootObject:[self valueForKey:property.getter]];
             [_defaults setValue:data forKey:property.key];
+        }else if(property.isNeedTransform){
+            id obj = [property transformedValue:[self valueForKey:property.getter]];
+            [_defaults setValue:obj forKey:property.key];
         }else{
             [_defaults setValue:[self valueForKey:property.getter] forKey:property.key];
-        }
-        
+        }        
     }    
 }
 
@@ -290,8 +344,7 @@ NSMutableArray* _gPropertiesList;
 - (void)markAsLoaded
 {
 	[_defaults setObject:[NSNumber numberWithInt:[self version]] forKey:[self stringForFirstLoadCheck]];	
-	[self synchronize];
-
+	//[self synchronize];
 }
 
 - (BOOL)checkIfDataAvailable
