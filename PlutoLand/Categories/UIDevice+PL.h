@@ -11,8 +11,6 @@
 
 @interface UIDevice(PL)
 
-
-
 + (long long)getTotalDiskSpaceInBytes ;
 
 + (long long)getFreeDiskSpaceInBytes ;
