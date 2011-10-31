@@ -20,4 +20,6 @@
 - (NSString *) platform;
 - (NSString *) platformString;
 
+@property(nonatomic,readonly) BOOL isIOS5;
+
 @end

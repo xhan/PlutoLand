@@ -79,5 +79,9 @@
     return platform;
 }
 
+- (BOOL)isIOS5
+{
+    return (int)([[self systemVersion] floatValue]) == 5; 
+}
 
 @end

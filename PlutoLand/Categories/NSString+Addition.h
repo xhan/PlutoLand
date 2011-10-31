@@ -33,7 +33,7 @@
 
 - (NSString*)firstString:(int)maxLength atIndex:(NSUInteger)index;
 
-
+- (NSString *)md5;
 
 @end
 
