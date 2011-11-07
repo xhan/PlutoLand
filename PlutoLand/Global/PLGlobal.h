@@ -28,7 +28,7 @@
 #define ASSIGN_IF_NIL(target,value) target = SETNIL(target,value)
 
 #define NUM(intV) [NSNumber numberWithInt:intV]
-
+#define NUM_F(floatV) [NSNumber numberWithDouble:floatV]
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 

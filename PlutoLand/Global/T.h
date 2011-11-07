@@ -10,6 +10,7 @@
  an global helper class, all the methods inside should be class method.
  */
 
+#if TARGET_OS_IPHONE || NS_BUILD_32_LIKE_64
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
@@ -59,3 +60,5 @@
 + (NSString*)randomName;	
 
 @end
+
+#endif

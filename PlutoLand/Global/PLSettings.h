@@ -73,15 +73,15 @@ typedef enum {
 	PLSettingTypeFloat,
 	PLSettingTypeBool,
 	PLSettingTypeObject
-//	PLSettingTypeString,
-//	PLSettingTypeArray
 }PLSettingType;
 
 @interface PLSettings : NSObject {
 	NSUserDefaults* _defaults;
     BOOL _isDynamicProperties;
+    BOOL _isFirstLaunched;
 }
 @property(nonatomic,assign)BOOL isDynamicProperties;
+@property(nonatomic,readonly) BOOL isFirstLaunched;
 
 - (void)synchronize;
 
@@ -90,6 +90,10 @@ typedef enum {
 + (void)setupProperty:(NSString*)property forKey:(NSString*)key withType:(PLSettingType)type archive2Data:(BOOL)archived;
 
 + (void)setupProperty:(NSString *)property withType:(PLSettingType)type;
+
+// for custom object with transformer(conformed to PLSettingTransformerProtocal protocol)
+// this method only works on isDynamicProperties set to NO
++ (void)setupProperty:(NSString *)property withTransformer:(Class)transformer;
 
 // the property should only be object that conforms to protocol <nscoding>
 + (void)setupPropertyWithArchivedType:(NSString *)property;
@@ -112,4 +116,14 @@ typedef enum {
 - (void)_readPropertiesFromDefaults;
 - (void)_writePropertiesToDefaults;
 
+
 @end
+
+
+
+@protocol PLSettingTransformerProtocol <NSObject>
+@required
++ (id)transformedValue:(id)sender;
++ (id)reverseTransformedValue:(id)sender;
+@end
+

@@ -20,6 +20,8 @@
 	NSString* _setter;
 	NSString* _key;
     BOOL _archiveToData;
+    BOOL _isNeedTransform;
+    Class _transformClass;
 	PLSettingType _type;
 }
 
@@ -29,13 +31,18 @@
 @property (nonatomic, copy) NSString *getter;
 // archive object into data structure
 @property (nonatomic, assign) BOOL archiveToData;
-
+@property (nonatomic, assign) BOOL isNeedTransform;
 
 + (id)propertyByName:(NSString*)name key:(NSString*)key type:(PLSettingType)type archive2Data:(BOOL)archived;
+- (id)initWithTransformClass:(Class)class;
++ (id)propertyByName:(NSString*)name key:(NSString*)key transformClass:(Class)transformClass;
 
 + (NSString*)setterNameSEL:(NSString*)sel;
 - (NSMethodSignature*)signatureForGetter;
 - (NSMethodSignature*)signatureForSetter;
+
+- (id)transformedValue:(id)origin;
+- (id)reverseTransformedValue:(id)transformed;
 @end
 
 @implementation PLSettingProperty
@@ -45,7 +52,7 @@
 @synthesize setter = _setter;
 @synthesize key = _key;
 @synthesize archiveToData = _archiveToData;
-
+@synthesize isNeedTransform = _isNeedTransform;
 - (void)dealloc
 {
 	[_key release];
@@ -65,6 +72,27 @@
 	return [p autorelease];
 }
 
++ (id)propertyByName:(NSString*)name key:(NSString*)key transformClass:(Class)transformClass
+{
+	PLSettingProperty* p = [[PLSettingProperty alloc] initWithTransformClass:transformClass];
+	p.getter = name;
+	p.setter = [PLSettingProperty setterNameSEL:name];
+	p.key = key;
+	p.type = PLSettingTypeObject;
+    p.archiveToData = NO;
+    p.isNeedTransform = YES;
+	return [p autorelease];    
+}
+
+- (id)initWithTransformClass:(Class)class
+{
+    self = [super init];
+    _transformClass = class;
+    if (![_transformClass conformsToProtocol:@protocol(PLSettingTransformerProtocol)]) {
+        [NSException raise:@"Transformer Class have to conforms to Protocol PLSettingTransformerProtocol" format:nil];
+    }
+    return self;
+}
 
 + (NSString*)setterNameSEL:(NSString*)sel
 {
@@ -94,6 +122,15 @@
 	return [NSMethodSignature signatureWithObjCTypes:types];
 }
 
+- (id)transformedValue:(id)origin
+{
+    return [_transformClass transformedValue:origin];
+}
+- (id)reverseTransformedValue:(id)transformed
+{
+    return [_transformClass reverseTransformedValue:transformed];
+}
+
 @end
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -118,7 +155,7 @@
 @implementation PLSettings
 
 NSMutableArray* _gPropertiesList;
-@synthesize isDynamicProperties = _isDynamicProperties;
+@synthesize isDynamicProperties = _isDynamicProperties, isFirstLaunched = _isFirstLaunched;
 #pragma mark - methods need be implemented by subclass
 
 - (NSString*)stringForFirstLoadCheck{
@@ -147,7 +184,11 @@ NSMutableArray* _gPropertiesList;
 {
 	// implemented by subclass
 	// you also need to handle oldVersion might is greater than current version. (happens uninstall and reinstall an older version apps)
-
+    
+    //TODO: need a better way to handle it
+    //Note: have to call this if  isNonDynamicProperties
+//    [self _writePropertiesToDefaults];
+    
 }
 
 #pragma mark - private
@@ -165,6 +206,13 @@ NSMutableArray* _gPropertiesList;
 + (void)setupPropertyWithArchivedType:(NSString *)property
 {
 	[self setupProperty:property forKey:property withType:PLSettingTypeObject archive2Data:YES];
+}
+
++ (void)setupProperty:(NSString *)property withTransformer:(Class)transformer
+{
+    [_gPropertiesList addObject:[PLSettingProperty propertyByName:property
+                                                              key:property
+                                                   transformClass:transformer]];
 }
 
 + (void)initialize{
@@ -211,7 +259,12 @@ NSMutableArray* _gPropertiesList;
 {
     _isDynamicProperties = isDynamicProperties;
     if (!_isDynamicProperties) {
-        [self _readPropertiesFromDefaults];
+        if (_isFirstLaunched) {
+            //first launch, values already readed from setDefaults
+            [self _writePropertiesToDefaults];
+        }else{
+             [self _readPropertiesFromDefaults];   
+        }
     }
 }
 
@@ -222,14 +275,22 @@ NSMutableArray* _gPropertiesList;
 {
     for (PLSettingProperty* property in _gPropertiesList){
         
+        id value;
         if (property.archiveToData) {
             NSData* data = [_defaults dataForKey:property.key];
-            id value =  [NSKeyedUnarchiver unarchiveObjectWithData:data];
-            [self setValue:value forKey:property.getter];
-        }else{
-            [self setValue:[_defaults valueForKey:property.key] forKey:property.getter];
+            
+            value =  [NSKeyedUnarchiver unarchiveObjectWithData:data];
+        }else if(property.isNeedTransform){
+            id obj = [_defaults objectForKey:property.key];
+            value = [property reverseTransformedValue:obj];
+        }else{            
+            value = [_defaults valueForKey:property.key];
         }
         
+        //seems set nil vaue will cause error
+        if (value) {
+            [self setValue:value forKey:property.getter];
+        }
     }
 }
 
@@ -239,10 +300,12 @@ NSMutableArray* _gPropertiesList;
         if (property.archiveToData) {
             NSData* data = [NSKeyedArchiver archivedDataWithRootObject:[self valueForKey:property.getter]];
             [_defaults setValue:data forKey:property.key];
+        }else if(property.isNeedTransform){
+            id obj = [property transformedValue:[self valueForKey:property.getter]];
+            [_defaults setValue:obj forKey:property.key];
         }else{
             [_defaults setValue:[self valueForKey:property.getter] forKey:property.key];
-        }
-        
+        }        
     }    
 }
 
@@ -262,14 +325,17 @@ NSMutableArray* _gPropertiesList;
 - (void)loadDefaults
 {
 	if (![self checkIfDataAvailable]) {
+        _isFirstLaunched = YES;
 		[self setupDefaults];		
 	}else {
 		//[self versionCheck];
-		int oldVersion = [_defaults integerForKey:[self stringForFirstLoadCheck]];
+        _isFirstLaunched = NO;
+		NSUInteger oldVersion = [_defaults integerForKey:[self stringForFirstLoadCheck]];
 		int currentVersion = [self version];
 		if (oldVersion != currentVersion) {
-			[self migrateFromOldVersion:oldVersion];
+			[self migrateFromOldVersion:(int)oldVersion];
 		}
+        
 	}
 	[self markAsLoaded];
 
@@ -278,8 +344,7 @@ NSMutableArray* _gPropertiesList;
 - (void)markAsLoaded
 {
 	[_defaults setObject:[NSNumber numberWithInt:[self version]] forKey:[self stringForFirstLoadCheck]];	
-	[self synchronize];
-
+	//[self synchronize];
 }
 
 - (BOOL)checkIfDataAvailable
@@ -293,7 +358,7 @@ NSMutableArray* _gPropertiesList;
 	// a setter selector is similar as 'set_____:'
 	// simple check if last character is equal to ':'
 	const char* selectorName = sel_getName(selector);
-	int lastIndex = strlen(selectorName) - 1;
+	int lastIndex = (int)strlen(selectorName) - 1;
 	return selectorName[lastIndex] == ':';
 }
 
@@ -412,7 +477,7 @@ NSMutableArray* _gPropertiesList;
 
 - (int)getIntValueFor:(NSString*)getter{
 	PLSettingProperty* property = [self propertyForGetter:getter];	
-	return [_defaults integerForKey:property.key];
+	return (int)[_defaults integerForKey:property.key];
 }
 
 - (float)getFloatValueFor:(NSString*)getter{

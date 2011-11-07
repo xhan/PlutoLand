@@ -5,6 +5,7 @@
 //  Created by xu xhan on 7/16/10.
 //  Copyright 2010 xu han. All rights reserved.
 //
+#if TARGET_OS_IPHONE || NS_BUILD_32_LIKE_64
 
 #import "T.h"
 #import <AudioToolbox/AudioToolbox.h>
@@ -155,3 +156,5 @@
 	return	[NSString stringWithFormat:@"%.2lf",[[NSDate date] timeIntervalSince1970]];
 }
 @end
+
+#endif
