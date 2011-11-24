@@ -118,7 +118,9 @@ static NSMutableDictionary* gSharedDictionary;
 	}
 	
 	if (_currentActiveTaskCount >0 && _isShowActiveIndicaterWhileRunning) {
+#if TARGET_OS_IPHONE
 		[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+#endif        
 	}
 }
 
@@ -148,7 +150,9 @@ static NSMutableDictionary* gSharedDictionary;
 		NSAssert(_currentActiveTaskCount>=0,@"task count should GE 0");
 		_currentActiveTaskCount = MAX(0,_currentActiveTaskCount);
 		if (_currentActiveTaskCount == 0) {
+#if TARGET_OS_IPHONE            
 			[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+#endif            
 		}
 	}
 }

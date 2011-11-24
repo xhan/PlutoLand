@@ -445,7 +445,7 @@ cachePath = _cachePath, maxPixelCount = _maxPixelCount, invalidationAge = _inval
 }
 
 - (void)logMemoryUsage {
-	NSLog(@"======= IMAGE CACHE: %luu images, %lu pixels ========", _imageCache.count, _totalPixelCount);
+	NSLog(@"======= IMAGE CACHE: %uu images, %u pixels ========", _imageCache.count, _totalPixelCount);
 	NSEnumerator* e = [_imageCache keyEnumerator];
 	for (NSString* key ; key = [e nextObject]; ) {
 		UIImage* image = [_imageCache objectForKey:key];

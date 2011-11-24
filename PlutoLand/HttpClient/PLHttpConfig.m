@@ -36,7 +36,9 @@ static pthread_mutex_t  _connectionMutex = PTHREAD_MUTEX_INITIALIZER;
 {
     pthread_mutex_lock(&_connectionMutex);
     if (_connections ==0) {
+#if TARGET_OS_IPHONE
         [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+#endif        
     }
     _connections += 1;
     pthread_mutex_unlock(&_connectionMutex);
@@ -47,7 +49,9 @@ static pthread_mutex_t  _connectionMutex = PTHREAD_MUTEX_INITIALIZER;
     _connections -= 1;
     _connections = MAX(0, _connections);
     if (_connections == 0) {
+#if TARGET_OS_IPHONE        
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+#endif        
     }
     pthread_mutex_unlock(&_connectionMutex);    
 }
