@@ -6,11 +6,14 @@
 //  Copyright 2010 xu han. All rights reserved.
 //
 
+// add ALWAYS_RETINA to project headers to force load retina resources
+
+
 /*
  an global helper class, all the methods inside should be class method.
  */
 
-#if TARGET_OS_IPHONE || NS_BUILD_32_LIKE_64
+#if TARGET_OS_IPHONE || NS_BUILD_32_LIKE_64 
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
