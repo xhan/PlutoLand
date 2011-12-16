@@ -64,6 +64,7 @@
 		CA41BD93143B634500D3E9AE /* notify_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = CA41BD87143B634500D3E9AE /* notify_arrow.png */; };
 		CA41BD94143B634500D3E9AE /* placeHolder.png in Resources */ = {isa = PBXBuildFile; fileRef = CA41BD88143B634500D3E9AE /* placeHolder.png */; };
 		CA41BD97143B637D00D3E9AE /* PlutoLand-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CA41BD96143B637D00D3E9AE /* PlutoLand-Info.plist */; };
+		CA43DDE3149B275400A161B4 /* PLHash.m in Sources */ = {isa = PBXBuildFile; fileRef = CA43DDE2149B275400A161B4 /* PLHash.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -166,6 +167,8 @@
 		CA41BD87143B634500D3E9AE /* notify_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notify_arrow.png; sourceTree = "<group>"; };
 		CA41BD88143B634500D3E9AE /* placeHolder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeHolder.png; sourceTree = "<group>"; };
 		CA41BD96143B637D00D3E9AE /* PlutoLand-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "PlutoLand-Info.plist"; sourceTree = "<group>"; };
+		CA43DDE1149B275400A161B4 /* PLHash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLHash.h; sourceTree = "<group>"; };
+		CA43DDE2149B275400A161B4 /* PLHash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLHash.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -307,6 +310,7 @@
 		CA41BD1D143B616600D3E9AE /* PlutoLand */ = {
 			isa = PBXGroup;
 			children = (
+				CA43DDE0149B275400A161B4 /* Additions */,
 				CA41BD1E143B616600D3E9AE /* Categories */,
 				CA41BD31143B616600D3E9AE /* Global */,
 				CA41BD3C143B616600D3E9AE /* HttpClient */,
@@ -416,6 +420,15 @@
 				CA41BD88143B634500D3E9AE /* placeHolder.png */,
 			);
 			path = "Demo-Resources";
+			sourceTree = "<group>";
+		};
+		CA43DDE0149B275400A161B4 /* Additions */ = {
+			isa = PBXGroup;
+			children = (
+				CA43DDE1149B275400A161B4 /* PLHash.h */,
+				CA43DDE2149B275400A161B4 /* PLHash.m */,
+			);
+			path = Additions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -532,6 +545,7 @@
 				CA41BD73143B616600D3E9AE /* PLSwipeableTableViewCell.m in Sources */,
 				CA41BD74143B616600D3E9AE /* PLTabBarController.m in Sources */,
 				CA41BD75143B616600D3E9AE /* XFPageController.m in Sources */,
+				CA43DDE3149B275400A161B4 /* PLHash.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
