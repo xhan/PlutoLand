@@ -16,14 +16,17 @@
 @implementation UIImageView(Http)
 
 
-- (void)fetchByURL:(NSString*)urlstr userInfo:(NSDictionary*)info freshOnSucceed:(BOOL)isFresh
+- (void)fetchByURL:(NSString*)urlstr userInfo:(NSDictionary*)info freshOnSucceed:(BOOL)isFresh placeHolder:(UIImage*)img
 {
 	UIImage* aimage = [[PLImageCache sharedCache] getImageByURL:urlstr];
 	if (aimage) {
 		self.image = aimage;
-		NSLog(@"- loaded cached image :%@",urlstr);
+		PLOG(@"- loaded cached image :%@",urlstr);
 		return;		
 	}
+    if (img) {
+        self.image = img;
+    }
 	PLImageLoader* loader = [[PLImageLoader alloc] init];	
 	[loader fetchForImageView:self URL:urlstr freshOnSucceed:isFresh cacheEnable:YES userInfo:info];
 	[[PLHttpQueue sharedQueue] addQueueItem:loader];
@@ -32,7 +35,11 @@
 
 - (void)fetchByURL:(NSString*)urlstr
 {
-	return [self fetchByURL:urlstr userInfo:nil freshOnSucceed:YES];
+	return [self fetchByURL:urlstr userInfo:nil freshOnSucceed:YES placeHolder:nil];
 }
 
+- (void)fetchByURL:(NSString*)urlstr placeHolder:(UIImage*)img
+{
+    return [self fetchByURL:urlstr userInfo:nil freshOnSucceed:YES placeHolder:img];
+}
 @end

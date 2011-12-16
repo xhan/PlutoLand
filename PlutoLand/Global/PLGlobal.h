@@ -18,6 +18,8 @@
  */
 #define ccp(__X__,__Y__) CGPointMake(__X__,__Y__)
 
+#define intp(p) ccp((int)p.x,(int)p.y)
+
 #define ccr(x,y,w,h) CGRectMake(x,y,w,h)
 
 #define DOCUMENT_PATH [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]

@@ -29,6 +29,12 @@ method:__PRETTY_FUNCTION__ message:_s_, ##__VA_ARGS__]
 
 #define PLOG(_s_,...) PLOGENV(0, _s_, ##__VA_ARGS__)
 
+#define PLOG_OBJ(obj) PLOG(@"%@",obj)
+
+#define PLOG_Point(point) PLOG(@"(%.1f,%.1f)",point.x,point.y)
+
+#define PLOG_Rect(rect) PLOG(@"{%.1f,%.1f, w:%.1f,h:%.1f}",rect.origin.x,rect.origin.y,rect.size.width,rect.size.height)
+
 #define PLOGWARNING(_s_,...) PLOGENV(1, _s_, ##__VA_ARGS__)
 
 #define PLOGERROR(_s_,...) PLOGENV(2, _s_, ##__VA_ARGS__)

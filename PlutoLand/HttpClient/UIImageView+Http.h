@@ -13,7 +13,6 @@
 
 
 //TODO: add force reload(ignore and remove cache) args?
-//TODO: add place holder option ?
 
 
 /*
@@ -23,10 +22,10 @@
  the cell's image manually.
  */
 
-- (void)fetchByURL:(NSString*)urlstr userInfo:(NSDictionary*)info freshOnSucceed:(BOOL)isFresh;
+- (void)fetchByURL:(NSString*)urlstr userInfo:(NSDictionary*)info freshOnSucceed:(BOOL)isFresh placeHolder:(UIImage*)img;
 
 - (void)fetchByURL:(NSString*)urlstr;
 
-
+- (void)fetchByURL:(NSString*)urlstr placeHolder:(UIImage*)img;
 
 @end

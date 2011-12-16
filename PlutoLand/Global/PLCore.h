@@ -21,6 +21,8 @@
 
 #define StringAdd(a,b) [NSString stringWithFormat:@"%@%@",a,b]
 
+#define PLStringFromInt(a) [NSString stringWithFormat:@"%d",a]
+
 #define PLNUM(x) [NSNumber numberWithInt:x]
 
 #define CLIP(x,min,max) (x < min ? min : (x > max ? max : x))
@@ -28,3 +30,4 @@
 #define BundlePath(name) [[NSBundle mainBundle] pathForResource:name ofType:nil]
 
 #define URL(string) [NSURL URLWithString:string]
+
