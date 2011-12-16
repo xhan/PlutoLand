@@ -22,7 +22,7 @@
 
 - (id)keyAtIndex:(int)index;
 - (id)objectAtIndex:(int)index;
-- (void)_cleanItemsInNeed;
+
 - (void)removeObjectForKey:(id)aKey;
 - (void)setObject:(id)anObject forKey:(id)aKey; 
 - (id)objectForKey:(id)aKey;
@@ -40,6 +40,6 @@
 #ifdef DEBUG
 //    Class a = NSClassFromString(@"PLHash");
 //    [a runTests];
-+ (void)runTests;
++ (void)_runTests;
 #endif
 @end

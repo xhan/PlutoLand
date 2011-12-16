@@ -8,6 +8,10 @@
 
 #import "PLHash.h"
 
+@interface PLHash(/*Private*/)
+- (void)_cleanItemsInNeed;
+@end
+
 @implementation PLHash
 @synthesize maxItems = _maxItems;
 
@@ -131,7 +135,7 @@
 }
 
 #ifdef DEBUG
-+ (void)runTests
++ (void)_runTests
 {
     PLHash* hash = [PLHash hash];
     
