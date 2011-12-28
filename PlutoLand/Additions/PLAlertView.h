@@ -10,7 +10,7 @@
 
 
 
-extern void PLAlert(NSString*title,NSString*body,void (^block)(int index,BOOL isCancel),NSString*cancel,NSString*button);
+extern void PLAlert(NSString*title,NSString*body,NSString*cancel,NSString*button,void (^block)(int index,BOOL isCancel));
 
 
 

@@ -12,6 +12,14 @@
 
 #define PLHttpClientErrorDomain @"PLHttpClientErrorDomain"
 
+typedef enum{
+    PLHttpMethodUndefined,
+    PLHttpMethodGet,
+    PLHttpMethodPut,
+    PLHttpMethodPost,
+    PLHttpMethodDelete
+}PLHttpMethod;
+
 @protocol PLHttpClientDelegate;
 @interface PLHttpClient : NSObject {
 //@private
@@ -33,8 +41,10 @@
     
     BOOL _isLoading;
 	BOOL _isForceHandleStatusCode;
+    
+    PLHttpMethod _requestMethod;
 }
-
+@property (readonly)         PLHttpMethod requestMethod;
 @property (nonatomic, assign) BOOL isForceHandleStatusCode;
 
 @property (nonatomic, assign,readonly) int statusCode;

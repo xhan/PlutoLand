@@ -91,7 +91,9 @@
 		if(previousIndex != -1)
 			((PLSegmentCell*)[_items objectAtIndex:previousIndex]).selected = NO;
 		((PLSegmentCell*)[_items objectAtIndex:_selectedIndex]).selected = YES;
-	}		
+	}else{
+		((PLSegmentCell*)[_items objectAtIndex:_selectedIndex]).selected = YES;
+    }
 	
 
 	

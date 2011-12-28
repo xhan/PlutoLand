@@ -24,13 +24,14 @@
 - (id)objectAtIndex:(int)index;
 
 - (void)removeObjectForKey:(id)aKey;
+- (void)removeAllObjects;
+
 - (void)setObject:(id)anObject forKey:(id)aKey; 
 - (id)objectForKey:(id)aKey;
 
 
 - (NSArray *)allKeys;
 - (NSArray *)allValues;
-
 
 
 + (id)hash;
@@ -42,4 +43,5 @@
 //    [a runTests];
 + (void)_runTests;
 #endif
+
 @end

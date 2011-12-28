@@ -29,7 +29,7 @@
 @end
 
 
-extern void Alert(NSString*title,NSString*body,void (^block)(int,BOOL),NSString*cancel,NSString*button)
+extern void PLAlert(NSString*title,NSString*body,NSString*cancel,NSString*button,void (^block)(int index,BOOL isCancel))
 {
     _PLAlertView*v= [[_PLAlertView alloc] initWithTitle:title
                                                         message:body

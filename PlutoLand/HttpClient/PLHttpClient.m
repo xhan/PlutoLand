@@ -27,6 +27,7 @@
 @synthesize startImmediately = _startImmediately;
 @synthesize response = _response;
 @synthesize isForceHandleStatusCode = _isForceHandleStatusCode;
+@synthesize requestMethod = _requestMethod;
 
 static const int timeOutSec = 30;
 static NSStringEncoding _gEncoding;
@@ -111,6 +112,7 @@ static NSStringEncoding _gEncoding;
 	PLSafeRelease(_receivedData);		
 	_receivedData = [[NSMutableData alloc] init];
 	self.userInfo = nil;
+    _requestMethod = PLHttpMethodUndefined;
 }
 
 #pragma mark -
@@ -139,6 +141,7 @@ static NSStringEncoding _gEncoding;
     PLOGENV(PLOG_ENV_NETWORK,@"GET %@",url);
     
 	[self _clean];
+    _requestMethod = PLHttpMethodGet;
 	self.userInfo = info;
 	if(_url != url ){
 		PLSafeRelease(_url);
@@ -155,6 +158,7 @@ static NSStringEncoding _gEncoding;
     PLOGENV(PLOG_ENV_NETWORK,@"POST %@ \nbody:%@",url,body);
     
 	[self _clean];
+    _requestMethod = PLHttpMethodPost;
 	self.userInfo = nil;
 	if(_url != url ){
 		PLSafeRelease(_url);
@@ -174,7 +178,9 @@ static NSStringEncoding _gEncoding;
 - (void)put:(NSURL*)url body:(NSString*)body
 {
     PLOGENV(PLOG_ENV_NETWORK,@"PUT %@ \nbody:%@",url,body);
+        
     [self _clean];
+    _requestMethod = PLHttpMethodPut;
 	self.userInfo = nil;
 	if(_url != url ){
 		PLSafeRelease(_url);
@@ -196,6 +202,7 @@ static NSStringEncoding _gEncoding;
     PLOGENV(PLOG_ENV_NETWORK,@"DELETE %@",url);
     
 	[self _clean];
+    _requestMethod = PLHttpMethodDelete;
 //	self.userInfo = info;
 	if(_url != url ){
 		PLSafeRelease(_url);
