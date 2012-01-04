@@ -18,6 +18,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+extern UIImage* ImageStretchable(UIImage*image);
 
 @interface T : NSObject 
 

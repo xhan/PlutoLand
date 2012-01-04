@@ -10,6 +10,13 @@
 #import "T.h"
 #import <AudioToolbox/AudioToolbox.h>
 
+UIImage* ImageStretchable(UIImage*image)
+{
+    CGSize size = image.size;    
+    return [image stretchableImageWithLeftCapWidth:size.width/2 topCapHeight:size.height/2];
+}
+
+
 @implementation T
 
 

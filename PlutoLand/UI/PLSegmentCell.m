@@ -30,10 +30,8 @@
 	return [self initWithNormalImage:anormal selectedImage:ahover frame:rect];
 }
 
-
 #pragma mark -
 #pragma mark OverWrite for default select action and state property
-
 
 - (void)setSelected:(BOOL)value
 {
