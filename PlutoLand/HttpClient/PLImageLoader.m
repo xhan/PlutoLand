@@ -9,7 +9,7 @@
 //TODO: add cache function at fetch method and store method(succeeded on fetching img data)
 
 #import "PLImageLoader.h"
-#import "PLImageCache.h"
+#import "PLImageCacheC.h"
 #import "PLHttpQueue.h"
 #import "PLOG.h"
 
@@ -61,7 +61,7 @@ NSString* const PLINFO_HC_IMAGE = @"PLINFO_HC_IMAGE";
 + (void)fetchURL:(NSString*)url object:(id)object userInfo:(NSDictionary *)info
 {
 	//we don't use notification here
-	UIImage* cachedImg = [[PLImageCache sharedCache] getImageByURL:url];
+	UIImage* cachedImg = [[PLImageCacheC sharedCache] getImageByURL:url];
 	if (cachedImg) {
 		if ([object respondsToSelector:@selector(fetchedSuccessed:userInfo:)]) {
 			[object fetchedSuccessed:cachedImg userInfo:info];
@@ -96,7 +96,7 @@ NSString* const PLINFO_HC_IMAGE = @"PLINFO_HC_IMAGE";
 	}
 	
 	if(_isCacheEnable)
-		[[PLImageCache sharedCache] storeData:request.imageData forURL:[self.url absoluteString]];
+		[[PLImageCacheC sharedCache] storeData:request.imageData forURL:[self.url absoluteString]];
 	
 	[self.info setObject:img forKey:PLINFO_HC_IMAGE];
 	[[NSNotificationCenter defaultCenter] postNotificationName:NOTICE_IMAGE_LOADER_SUCCEEDED object:_imageView userInfo:self.info];

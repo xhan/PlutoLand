@@ -19,6 +19,10 @@ UIImage* ImageStretchable(UIImage*image)
 
 @implementation T
 
++ (BOOL)openURL:(NSURL*)url
+{
+    return [[UIApplication sharedApplication] openURL:url];
+}
 
 + (UIAlertView*)alert:(NSString*)title body:(NSString*)body
 {

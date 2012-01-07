@@ -9,7 +9,7 @@
 #import "UIImageView+Http.h"
 #import "PLHttpQueue.h"
 #import "PLImageLoader.h"
-#import "PLImageCache.h"
+#import "PLImageCacheC.h"
 
 
 
@@ -18,7 +18,7 @@
 
 - (void)fetchByURL:(NSString*)urlstr userInfo:(NSDictionary*)info freshOnSucceed:(BOOL)isFresh placeHolder:(UIImage*)img
 {
-	UIImage* aimage = [[PLImageCache sharedCache] getImageByURL:urlstr];
+	UIImage* aimage = [[PLImageCacheC sharedCache] getImageByURL:urlstr];
 	if (aimage) {
 		self.image = aimage;
 		PLOG(@"- loaded cached image :%@",urlstr);

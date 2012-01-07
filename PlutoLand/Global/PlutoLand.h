@@ -28,7 +28,7 @@
 // Http
 #import "UIImageView+Http.h"
 #import "PLHttpClient.h"
-#import "PLImageCache.h"
+#import "PLImageCacheC.h"
 #import "PLImageLoader.h"
 
 

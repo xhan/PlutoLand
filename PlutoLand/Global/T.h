@@ -22,6 +22,8 @@ extern UIImage* ImageStretchable(UIImage*image);
 
 @interface T : NSObject 
 
++ (BOOL)openURL:(NSURL*)url;
+
 + (UIAlertView*)alert:(NSString*)title body:(NSString*)body;
 
 + (UIColor *)colorWithHex:(NSInteger)color;
