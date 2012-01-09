@@ -9,5 +9,8 @@
 #import "NSNumber+PLAddition.h"
 
 @implementation NSNumber (PLAddition)
-
+- (BOOL)isNonEmpty
+{
+    return [self intValue] != 0;
+}
 @end
