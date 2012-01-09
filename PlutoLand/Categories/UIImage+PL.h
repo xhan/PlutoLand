@@ -50,3 +50,13 @@
 @interface UIImage ()
 - (CGImageRef)newBorderMask:(NSUInteger)borderSize size:(CGSize)size;
 @end
+
+@interface UIImage (CS_Extensions)
+- (UIImage *)imageAtRect:(CGRect)rect;
+- (UIImage *)imageByScalingProportionallyToMinimumSize:(CGSize)targetSize;
+- (UIImage *)imageByScalingProportionallyToSize:(CGSize)targetSize;
+- (UIImage *)imageByScalingToSize:(CGSize)targetSize;
+- (UIImage *)imageRotatedByRadians:(CGFloat)radians;
+- (UIImage *)imageRotatedByDegrees:(CGFloat)degrees;
+
+@end
