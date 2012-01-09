@@ -21,7 +21,7 @@
 
 
 
-@interface PLImageCache : NSObject {
+@interface PLImageCacheC : NSObject {
 	@private
 	NSString* _name;
 	NSString* _cachePath;
@@ -35,9 +35,9 @@
 	BOOL _disableImageCache;
 }
 
-+ (PLImageCache*)sharedCache;
++ (PLImageCacheC*)sharedCache;
 
-+ (void)setSharedCache:(PLImageCache*)cache; // or to release it by set value to nil 
++ (void)setSharedCache:(PLImageCacheC*)cache; // or to release it by set value to nil 
 
 
 - (UIImage*)getImageByURL:(NSString*)urlStr;
@@ -80,17 +80,17 @@
 /**
  * Gets a shared cache identified with a unique name.
  */
-+ (PLImageCache*)cacheWithName:(NSString*)name;
++ (PLImageCacheC*)cacheWithName:(NSString*)name;
 
 /**
  * Gets the shared cache singleton used across the application.
  */
-+ (PLImageCache*)sharedCache;
++ (PLImageCacheC*)sharedCache;
 
 /**
  * Sets the shared cache singleton used across the application.
  */
-+ (void)setSharedCache:(PLImageCache*)cache;
++ (void)setSharedCache:(PLImageCacheC*)cache;
 
 /**
  * 

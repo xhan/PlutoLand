@@ -6,7 +6,7 @@
 //  Copyright 2010 xu han. All rights reserved.
 //
 
-#import "PLImageCache.h"
+#import "PLImageCacheC.h"
 #import <CommonCrypto/CommonDigest.h>
 
 #define TT_LARGE_IMAGE_SIZE (600*400)
@@ -19,9 +19,9 @@
 #define TTPathForDocumentsResource(_id_) nil
 #define TTPathForBundleResource(_id) nil
 
-@implementation PLImageCache
+@implementation PLImageCacheC
 
-static PLImageCache* gSharedCache = nil;
+static PLImageCacheC* gSharedCache = nil;
 
 static NSString* kDefaultCacheName = @"PlutoLand";
 
@@ -52,26 +52,26 @@ cachePath = _cachePath, maxPixelCount = _maxPixelCount, invalidationAge = _inval
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-+ (PLImageCache*)cacheWithName:(NSString*)name {
++ (PLImageCacheC*)cacheWithName:(NSString*)name {
 	if (!gNamedCaches) {
 		gNamedCaches = [[NSMutableDictionary alloc] init];
 	}
-	PLImageCache* cache = [gNamedCaches objectForKey:name];
+	PLImageCacheC* cache = [gNamedCaches objectForKey:name];
 	if (!cache) {
-		cache = [[[PLImageCache alloc] initWithName:name] autorelease];
+		cache = [[[PLImageCacheC alloc] initWithName:name] autorelease];
 		[gNamedCaches setObject:cache forKey:name];
 	}
 	return cache;
 }
 
-+ (PLImageCache*)sharedCache {
++ (PLImageCacheC*)sharedCache {
 	if (!gSharedCache) {
-		gSharedCache = [[PLImageCache alloc] init];
+		gSharedCache = [[PLImageCacheC alloc] init];
 	}
 	return gSharedCache;
 }
 
-+ (void)setSharedCache:(PLImageCache*)cache {
++ (void)setSharedCache:(PLImageCacheC*)cache {
 	if (gSharedCache != cache) {
 		[gSharedCache release];
 		gSharedCache = [cache retain];
@@ -168,7 +168,7 @@ cachePath = _cachePath, maxPixelCount = _maxPixelCount, invalidationAge = _inval
 - (id)initWithName:(NSString*)name {
 	if (self == [super init]) {
 		_name = [name copy];
-		_cachePath = [[PLImageCache cachePathWithName:name] retain];
+		_cachePath = [[PLImageCacheC cachePathWithName:name] retain];
 		_imageCache = nil;
 		_imageSortedList = nil;
 		_totalLoading = 0;
