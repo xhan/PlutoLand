@@ -171,7 +171,7 @@ static NSStringEncoding _gEncoding;
 	_connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:_startImmediately];
 }
 
-- (void)post:(NSURL*)url params:(NSDictionary*)params fileName:(NSString*)fileName fileData:(NSData*)data
+- (void)postForm:(NSURL*)url params:(NSDictionary*)params fileName:(NSString*)fileName fileData:(NSData*)data
 {
     PLOGENV(PLOG_ENV_NETWORK,@"POST(File:%@) %@ \nbody:%@",fileName, url,params);
     [self _clean];
@@ -199,12 +199,17 @@ static NSStringEncoding _gEncoding;
         [postString appendString:endItemBoundary];
     }
     
-    // add image flag
-    [postString appendFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%@\"\r\n", fileName,fileName];
-    [postString appendFormat:@"Content-Type: image/jpg\r\n\r\n"];
-    
+    if (fileName && data) {
+        // add image flag
+        [postString appendFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%@\"\r\n", fileName,fileName];
+        [postString appendFormat:@"Content-Type: image/jpg\r\n\r\n"];
+    }
+
     NSMutableData* body = [NSMutableData dataWithData:[postString dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:data];
+    
+    if (fileName && data) {
+        [body appendData:data];
+    }
     
     //end
     [body appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];

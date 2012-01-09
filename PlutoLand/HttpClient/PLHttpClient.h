@@ -71,7 +71,7 @@ typedef enum{
 - (void)post:(NSURL*)url body:(NSString*)body;
 - (void)put:(NSURL*)url body:(NSString*)body;
 - (void)delete:(NSURL*)url;
-- (void)post:(NSURL*)url params:(NSDictionary*)params fileName:(NSString*)fileName fileData:(NSData*)data;
+- (void)postForm:(NSURL*)url params:(NSDictionary*)params fileName:(NSString*)fileName fileData:(NSData*)data;
 
 - (void)cancel;
 
