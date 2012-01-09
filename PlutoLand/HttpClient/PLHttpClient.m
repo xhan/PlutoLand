@@ -16,6 +16,7 @@
 - (void)_clean;
 - (void)_handleRequestStart;
 - (void)_handleRequestStop;
+@property(nonatomic,retain)NSURL* url;
 @end
 
 
@@ -28,7 +29,7 @@
 @synthesize response = _response;
 @synthesize isForceHandleStatusCode = _isForceHandleStatusCode;
 @synthesize requestMethod = _requestMethod;
-
+@synthesize url = _url;
 static const int timeOutSec = 30;
 static NSStringEncoding _gEncoding;
 
@@ -61,7 +62,7 @@ static NSStringEncoding _gEncoding;
 #pragma mark -
 #pragma mark life cycle
 
-@synthesize url = _url;
+//@synthesize url = _url;
 @synthesize didFailSelector = _didFailSelector;
 @synthesize didFinishSelector = _didFinishSelector;
 @synthesize delegate = _delegate;
@@ -143,10 +144,8 @@ static NSStringEncoding _gEncoding;
 	[self _clean];
     _requestMethod = PLHttpMethodGet;
 	self.userInfo = info;
-	if(_url != url ){
-		PLSafeRelease(_url);
-		_url = [url retain];
-	}
+    self.url = url;
+    
 	NSMutableURLRequest* request = [self makeRequest:_url];
 	
     [self _handleRequestStart];
@@ -160,10 +159,7 @@ static NSStringEncoding _gEncoding;
 	[self _clean];
     _requestMethod = PLHttpMethodPost;
 	self.userInfo = nil;
-	if(_url != url ){
-		PLSafeRelease(_url);
-		_url = [url retain];
-	}
+    self.url = url;
     
 	NSMutableURLRequest* request = [self makeRequest:_url];	
     [request setHTTPMethod:@"POST"];
@@ -175,6 +171,50 @@ static NSStringEncoding _gEncoding;
 	_connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:_startImmediately];
 }
 
+- (void)post:(NSURL*)url params:(NSDictionary*)params fileName:(NSString*)fileName fileData:(NSData*)data
+{
+    PLOGENV(PLOG_ENV_NETWORK,@"POST(File:%@) %@ \nbody:%@",fileName, url,params);
+    [self _clean];
+    _requestMethod = PLHttpMethodPost;
+	self.userInfo = nil;
+    self.url = url;
+    
+    NSMutableURLRequest* request = [self makeRequest:_url];	
+    [request setHTTPMethod:@"POST"];
+    
+    NSString* boundary = @"ixhan-dot-com";
+    NSString *endItemBoundary = [NSString stringWithFormat:@"\r\n--%@\r\n",boundary];
+    
+    // setup headers 
+    [request setValue:[NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary] forHTTPHeaderField:@"Content-Type"];    
+    
+    
+    NSMutableString* postString = [NSMutableString string];
+    [postString appendFormat:@"--%@\r\n",boundary];
+    
+    // add params
+    for (id key in [params allKeys]) {
+        [postString appendFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n\r\n",key];
+        [postString appendFormat:@"%@",[params objectForKey:key]];
+        [postString appendString:endItemBoundary];
+    }
+    
+    // add image flag
+    [postString appendFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%@\"\r\n", fileName,fileName];
+    [postString appendFormat:@"Content-Type: image/jpg\r\n\r\n"];
+    
+    NSMutableData* body = [NSMutableData dataWithData:[postString dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:data];
+    
+    //end
+    [body appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    [request setHTTPBody:body];
+    
+    [self _handleRequestStart];
+	_connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:_startImmediately];
+}
+
 - (void)put:(NSURL*)url body:(NSString*)body
 {
     PLOGENV(PLOG_ENV_NETWORK,@"PUT %@ \nbody:%@",url,body);
@@ -182,10 +222,7 @@ static NSStringEncoding _gEncoding;
     [self _clean];
     _requestMethod = PLHttpMethodPut;
 	self.userInfo = nil;
-	if(_url != url ){
-		PLSafeRelease(_url);
-		_url = [url retain];
-	}
+    self.url = url;
     
 	NSMutableURLRequest* request = [self makeRequest:_url];	
     [request setHTTPMethod:@"PUT"];
@@ -203,11 +240,9 @@ static NSStringEncoding _gEncoding;
     
 	[self _clean];
     _requestMethod = PLHttpMethodDelete;
-//	self.userInfo = info;
-	if(_url != url ){
-		PLSafeRelease(_url);
-		_url = [url retain];
-	}
+    self.userInfo = nil;
+    self.url = url;
+    
 	NSMutableURLRequest* request = [self makeRequest:_url];
     [request setHTTPMethod:@"DELETE"];
     

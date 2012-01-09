@@ -52,7 +52,7 @@ typedef enum{
 @property (nonatomic, assign) BOOL enableGzipEncoding; //default value is NO. set value to YES to enable Gzip decoding of http contents
 
 @property (nonatomic, assign) BOOL startImmediately;
-@property (nonatomic, readonly) NSURL *url;
+@property (nonatomic, retain,readonly) NSURL *url;
 @property (nonatomic, assign) SEL didFailSelector;
 @property (nonatomic, assign) SEL didFinishSelector;
 @property (nonatomic, assign) id<PLHttpClientDelegate> delegate;
@@ -71,7 +71,7 @@ typedef enum{
 - (void)post:(NSURL*)url body:(NSString*)body;
 - (void)put:(NSURL*)url body:(NSString*)body;
 - (void)delete:(NSURL*)url;
-
+- (void)post:(NSURL*)url params:(NSDictionary*)params fileName:(NSString*)fileName fileData:(NSData*)data;
 
 - (void)cancel;
 
