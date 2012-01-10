@@ -201,7 +201,7 @@ static NSStringEncoding _gEncoding;
     
     if (fileName && data) {
         // add image flag
-        [postString appendFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%@\"\r\n", fileName,fileName];
+        [postString appendFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%@.jpg\"\r\n", fileName,fileName];
         [postString appendFormat:@"Content-Type: image/jpg\r\n\r\n"];
     }
 
