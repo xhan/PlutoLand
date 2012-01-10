@@ -84,4 +84,15 @@
     return (int)([[self systemVersion] floatValue]) == 5; 
 }
 
+- (NSString*)currentBuild
+{
+    return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]; 
+}
+
+- (NSString*)currentVersion
+{
+    return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]; 
+}
+
+
 @end

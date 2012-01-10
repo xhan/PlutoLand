@@ -20,4 +20,7 @@
 
 @property(nonatomic,readonly) BOOL isIOS5;
 
+@property(readonly) NSString* currentVersion;
+@property(readonly) NSString* currentBuild;
+
 @end
