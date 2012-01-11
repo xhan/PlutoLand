@@ -10,7 +10,7 @@
 #import <objc/runtime.h>
 
 ////////////////////////////////////////////////////////////////////////////////
-
+#define kSettingInitCountKey @"PLSettingInitCount"
 #pragma mark -
 #pragma mark PLSettingProperty
 
@@ -225,6 +225,11 @@ NSMutableArray* _gPropertiesList;
 #pragma mark -
 #pragma mark public
 
+- (int)initedCount
+{
+    return [_defaults integerForKey:kSettingInitCountKey];
+}
+
 - (void)synchronize
 {
     if (!_isDynamicProperties) {
@@ -246,7 +251,7 @@ NSMutableArray* _gPropertiesList;
 	_defaults = [[NSUserDefaults standardUserDefaults] retain];
 	_isDynamicProperties = YES;
 	[self loadDefaults];
-	
+	[_defaults setInteger:self.initedCount+1 forKey:kSettingInitCountKey];
 	return self;
 }
 
