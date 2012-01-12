@@ -35,6 +35,8 @@
 
 - (NSString *)md5;
 
+- (NSString *)stripFreeLines;
+
 @end
 
 

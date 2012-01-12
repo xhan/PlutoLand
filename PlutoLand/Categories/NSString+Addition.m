@@ -85,6 +85,19 @@
             ];  
 }
 
+- (NSString *)stripFreeLines
+{
+    NSArray* ary = [self componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+    NSMutableArray* rst = [NSMutableArray arrayWithCapacity:ary.count];
+    for (NSString* s in ary) {
+        if ([s isNonEmpty]) {
+            [rst addObject:s];
+        }
+    }
+//    PLOG(@"striped lines %d",ary.count - rst.count);
+    return [rst componentsJoinedByString:@"\n"];
+}
+
 @end
 
 
