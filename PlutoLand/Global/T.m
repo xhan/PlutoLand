@@ -59,7 +59,8 @@ UIImage* ImageStretchable(UIImage*image)
 
 + (NSURL*)urlForAppLink:(NSString*)appID
 {
-    NSString* str = [NSString stringWithFormat:@"http://phobos.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?mt=8&id=%@",appID];
+//    NSString* str = [NSString stringWithFormat:@"http://phobos.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?mt=8&id=%@",appID];    
+    NSString* str = [NSString stringWithFormat:@"itms-apps://phobos.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?mt=8&id=%@",appID];    
     return [NSURL URLWithString:str];
 }
 
