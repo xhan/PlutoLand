@@ -20,10 +20,11 @@
 [PLLOG logForEnv:_env_ file:__FILE__ line:__LINE__ \
 method:__PRETTY_FUNCTION__ message:_s_, ##__VA_ARGS__] 
 
+#define PLLOG_CONFIG PLLOG
 #else
 
 #define PLOGENV(_env_,_s_,...) ((void)0)
-
+#define PLLOG_CONFIG ((id)nil)
 #endif
 
 

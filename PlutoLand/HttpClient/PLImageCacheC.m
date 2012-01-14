@@ -166,7 +166,8 @@ cachePath = _cachePath, maxPixelCount = _maxPixelCount, invalidationAge = _inval
 // NSObject
 
 - (id)initWithName:(NSString*)name {
-	if (self == [super init]) {
+    self = [super init];
+	if (self) {
 		_name = [name copy];
 		_cachePath = [[PLImageCacheC cachePathWithName:name] retain];
 		_imageCache = nil;
