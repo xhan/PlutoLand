@@ -21,6 +21,11 @@
     return !self.isEmpty;
 }
 
+- (int)countWithoutSpace
+{
+    return [[self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length];
+}
+
 
 + (BOOL)isEqual:(NSString*)a toB:(NSString*)b
 {

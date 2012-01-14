@@ -13,6 +13,7 @@
 @interface NSString(Addition)
 
 @property(nonatomic,readonly)BOOL isEmpty;
+@property(nonatomic,readonly)int countWithoutSpace;
 //why has an isNonEmpty is it could easy to handle nil string object
 // only the non-nil string with contents will return YES
 - (BOOL)isNonEmpty;
