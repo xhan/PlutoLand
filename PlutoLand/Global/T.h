@@ -22,6 +22,8 @@ extern UIImage* ImageStretchable(UIImage*image);
 
 @interface T : NSObject 
 
++ (NSString*)readableTime:(NSDate*)date;
+
 + (BOOL)openURL:(NSURL*)url;
 
 + (UIAlertView*)alert:(NSString*)title body:(NSString*)body;

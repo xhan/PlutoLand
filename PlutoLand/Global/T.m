@@ -19,6 +19,32 @@ UIImage* ImageStretchable(UIImage*image)
 
 @implementation T
 
++ (NSString*)readableTime:(NSDate*)date
+{
+    static NSTimeInterval Within60Mins  = 60 * 60;
+	static NSTimeInterval Within24Hours = 24 * 60 * 60;
+	static NSTimeInterval Within7Days   = 7 * 24 * 60 * 60;
+	
+	NSTimeInterval since =  - [date timeIntervalSinceNow];
+    if (since <= 60) {
+        return NSLocalizedString(@"刚刚", @"just now");
+    }else if (since <= Within60Mins) {
+		return [NSString stringWithFormat:NSLocalizedString(@"%d分钟前", @"min ago"), (int)(since / 60)];
+	} else if (since <= Within24Hours) {
+		return [NSString stringWithFormat:NSLocalizedString(@"%d小时前",@"hour ago"), (int)(since / 60 / 60)];
+	} else if (since <= Within7Days) {
+		return [NSString stringWithFormat:NSLocalizedString(@"%d天前",@"day ago"), (int)(since / 60 / 60 / 24)];
+	} else {
+//        return [NSString stringWithFormat:NSLocalizedString(@"%d天前",@"day ago"), (int)(since / 60 / 60 / 24)];
+        
+        //http://unicode.org/reports/tr35/tr35-6.html#Date_Format_Patterns
+        NSDateFormatter *format = [[[NSDateFormatter alloc] init] autorelease];
+        [format setDateFormat:@"yy-MM-dd"];
+        return [format stringFromDate:date];
+	}    
+}
+
+
 + (BOOL)openURL:(NSURL*)url
 {
     return [[UIApplication sharedApplication] openURL:url];

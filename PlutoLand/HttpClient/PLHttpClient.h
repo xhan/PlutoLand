@@ -57,6 +57,7 @@ typedef enum{
 @property (nonatomic, assign) SEL didFinishSelector;
 @property (nonatomic, assign) id<PLHttpClientDelegate> delegate;
 @property (nonatomic, readonly) NSHTTPURLResponse* response;
+
 + (void)setGlobalEncoding:(NSStringEncoding)encoding;
 
 // (deprecated) return response by sync fetch  
@@ -72,6 +73,8 @@ typedef enum{
 - (void)put:(NSURL*)url body:(NSString*)body;
 - (void)delete:(NSURL*)url;
 - (void)postForm:(NSURL*)url params:(NSDictionary*)params fileName:(NSString*)fileName fileData:(NSData*)data;
+
+- (void)willRequest:(NSMutableURLRequest*)request;
 
 - (void)cancel;
 

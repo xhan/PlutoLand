@@ -147,7 +147,7 @@ static NSStringEncoding _gEncoding;
     self.url = url;
     
 	NSMutableURLRequest* request = [self makeRequest:_url];
-	
+	[self willRequest:request];
     [self _handleRequestStart];
 	_connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:_startImmediately];
 }
@@ -167,6 +167,7 @@ static NSStringEncoding _gEncoding;
 	if (body) {
 		[request setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
 	}
+    [self willRequest:request];
     [self _handleRequestStart];
 	_connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:_startImmediately];
 }
@@ -216,6 +217,7 @@ static NSStringEncoding _gEncoding;
     
     [request setHTTPBody:body];
     
+    [self willRequest:request];
     [self _handleRequestStart];
 	_connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:_startImmediately];
 }
@@ -235,6 +237,7 @@ static NSStringEncoding _gEncoding;
 	if (body) {
 		[request setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
 	}
+    [self willRequest:request];
     [self _handleRequestStart];
 	_connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:_startImmediately];
 }
@@ -251,8 +254,15 @@ static NSStringEncoding _gEncoding;
 	NSMutableURLRequest* request = [self makeRequest:_url];
     [request setHTTPMethod:@"DELETE"];
     
+    [self willRequest:request];
     [self _handleRequestStart];
 	_connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:_startImmediately];
+}
+
+
+- (void)willRequest:(NSMutableURLRequest*)request
+{
+    
 }
 
 - (void)cancel
