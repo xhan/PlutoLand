@@ -18,7 +18,7 @@
 
 - (int) count
 {
-    return [_keySequence count];
+    return (int)[_keySequence count];
 }
 
 - (void)setMaxItems:(int)maxItems

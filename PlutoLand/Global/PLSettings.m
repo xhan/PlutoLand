@@ -227,7 +227,7 @@ NSMutableArray* _gPropertiesList;
 
 - (int)initedCount
 {
-    return [_defaults integerForKey:kSettingInitCountKey];
+    return (int)[_defaults integerForKey:kSettingInitCountKey];
 }
 
 - (void)synchronize

@@ -7,6 +7,7 @@
 //
 
 #import "PLHttpClient.h"
+#import "PLCore.h"
 #import "PLGlobal.h"
 #import "PLHttpConfig.h"
 #import "PLOG.h"
@@ -342,7 +343,7 @@ static NSStringEncoding _gEncoding;
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)aresponse {
 	_response = [(NSHTTPURLResponse*)aresponse retain];
-	statusCode = [_response statusCode];
+	statusCode = (int)[_response statusCode];
     if (_isForceHandleStatusCode) {
         if (statusCode != 200) {
             [self _clean];
