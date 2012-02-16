@@ -9,8 +9,9 @@
 
 #import "PLOG.h"
 #import "PLGlobal.h"
+#if TARGET_OS_IPHONE || BUILD_AS_IPHONE
 #import "T.h"
-
+#endif
 #import "NSAdditions.h"
 
 #define PLArray(...) [NSArray arrayWithObjects:__VA_ARGS__, nil]
