@@ -111,3 +111,6 @@ typedef enum{
 
 
 
+@interface PLHttpClient (Helper)
++ (NSString*)paramsFromDict:(NSDictionary*)dict;
+@end

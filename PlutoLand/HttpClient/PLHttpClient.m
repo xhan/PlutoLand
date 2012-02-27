@@ -365,3 +365,22 @@ static NSStringEncoding _gEncoding;
 
 
 
+
+
+@implementation PLHttpClient (Helper)
++ (NSString*)paramsFromDict:(NSDictionary*)dict
+{
+    NSMutableArray *pairs = [NSMutableArray array];
+	for (NSString *key in [dict keyEnumerator])
+	{
+		if (!([[dict valueForKey:key] isKindOfClass:[NSString class]]))
+		{
+			continue;
+		}
+		
+		[pairs addObject:[NSString stringWithFormat:@"%@=%@", key, [[dict objectForKey:key] URLEscaped]]];
+	}
+	
+	return [pairs componentsJoinedByString:@"&"];   
+}
+@end

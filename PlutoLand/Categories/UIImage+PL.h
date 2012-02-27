@@ -47,9 +47,9 @@
 @end
 
 
-@interface UIImage ()
-- (CGImageRef)newBorderMask:(NSUInteger)borderSize size:(CGSize)size;
-@end
+//@interface UIImage ()
+//- (CGImageRef)newBorderMask:(NSUInteger)borderSize size:(CGSize)size;
+//@end
 
 @interface UIImage (CS_Extensions)
 - (UIImage *)imageAtRect:(CGRect)rect;
@@ -59,4 +59,13 @@
 - (UIImage *)imageRotatedByRadians:(CGFloat)radians;
 - (UIImage *)imageRotatedByDegrees:(CGFloat)degrees;
 
+@end
+
+@interface UIImage (Another)
+- (UIImage *)resizedImage:(CGSize)newSize
+                transform:(CGAffineTransform)transform
+           drawTransposed:(BOOL)transpose
+     interpolationQuality:(CGInterpolationQuality)quality;
+- (CGAffineTransform)transformForOrientation:(CGSize)newSize;
+- (CGImageRef)newBorderMask:(NSUInteger)borderSize size:(CGSize)size;
 @end
