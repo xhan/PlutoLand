@@ -69,4 +69,11 @@ extern UIImage* ImageStretchable(UIImage*image);
 
 @end
 
+
+
+@interface T(Utility)
++ (BOOL)validateEmailAddress:(NSString*)mailAddress;
+@end
+
+
 #endif

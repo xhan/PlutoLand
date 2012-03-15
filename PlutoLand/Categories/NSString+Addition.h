@@ -38,6 +38,8 @@
 
 - (NSString *)stripFreeLines;
 
+- (NSString *)striped;
+
 @end
 
 

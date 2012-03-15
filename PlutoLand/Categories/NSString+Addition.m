@@ -26,6 +26,10 @@
     return (int)[[self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length];
 }
 
+- (NSString *)striped
+{
+    return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+}
 
 + (BOOL)isEqual:(NSString*)a toB:(NSString*)b
 {
