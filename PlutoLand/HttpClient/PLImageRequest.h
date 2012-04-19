@@ -33,7 +33,7 @@
 @property (nonatomic, assign) SEL didFinishSelector;
 @property (nonatomic, assign) id<PLImageRequestDelegate> delegate;
 @property (nonatomic, retain) NSHTTPURLResponse *response;
-@property (nonatomic, readonly) BOOL isCancelled;
+@property (nonatomic, assign) BOOL isCancelled;
 @property (nonatomic, assign) BOOL isFinished;
 @property (nonatomic, readonly) BOOL isStarted;
 

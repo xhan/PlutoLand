@@ -7,9 +7,9 @@
 //
 
 #import "PLHttpQueue.h"
-
+#import "PLImageRequest.h"
 #define DEFAULT_CAPACITY 1000
-#define DEFAULT_PARELLEL_CAPACITY 5
+#define DEFAULT_PARELLEL_CAPACITY 3
 #define DEFAULT_ACTIVE_STATE YES
 #define DEFAULT_SHOW_ACTIVE_INCIDATER YES
 
@@ -104,17 +104,24 @@ static NSMutableDictionary* gSharedDictionary;
 
 	int idleCount = _parellelCapacity - _currentActiveTaskCount;
 	if(idleCount <= 0 ) return;
-	id task = nil;
+	PLImageRequest* task = nil;
 	
 	
 	//add idle task into running queue and run it's task
-	for (int i = 0; (i < idleCount) && [_queues count] ; i++ ) {
+	for (int i = 0, _act_tasks = 0; (_act_tasks < idleCount) && [_queues count] ; i++ ) {
 		task = [_queues objectAtIndex:0];
-		[_runningQueues addObject:task];
-		[_queues removeObjectAtIndex:0];
-		[task addObserver:self forKeyPath:@"isFinished" options:NSKeyValueObservingOptionNew context:NULL];
-		[task performSelector:@selector(start)];
-		_currentActiveTaskCount += 1; 
+        if (!task.isCancelled && !task.isFinished && !task.isStarted) {
+            [_runningQueues addObject:task];
+            [_queues removeObjectAtIndex:0];
+            [task addObserver:self forKeyPath:@"isFinished" options:NSKeyValueObservingOptionNew context:NULL];
+            [task addObserver:self forKeyPath:@"isCancelled" options:NSKeyValueObservingOptionNew context:NULL];
+            [task performSelector:@selector(start)];
+            _currentActiveTaskCount += 1; 
+            _act_tasks += 1;
+        }else {
+            [_queues removeObjectAtIndex:0];
+        }
+
 	}
 	
 	if (_currentActiveTaskCount >0 && _isShowActiveIndicaterWhileRunning) {
@@ -132,7 +139,9 @@ static NSMutableDictionary* gSharedDictionary;
 //	NSLog(@"%@",keyPath);
 	if ([keyPath isEqualToString:@"isFinished"]) {
 		[self actionFinished:object];	
-	}
+	}else if ( [keyPath isEqualToString:@"isCancelled"] ){
+        [self actionFinished:object];
+    }
 }
 
 - (void)actionFinished:(id)task
@@ -141,6 +150,7 @@ static NSMutableDictionary* gSharedDictionary;
 //	if(index == NSNotFound) return;
 	//else
 	[task removeObserver:self forKeyPath:@"isFinished"];
+    [task removeObserver:self forKeyPath:@"isCancelled"];
 	[_runningQueues removeObjectAtIndex:index];
 	_currentActiveTaskCount -= 1; 
 	/* run next action or nothing */

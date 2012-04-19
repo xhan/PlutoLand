@@ -32,6 +32,8 @@ method:__PRETTY_FUNCTION__ message:_s_, ##__VA_ARGS__]
 
 #define PLOG_OBJ(obj) PLOG(@"%@",obj)
 
+#define PLOG_IF(case,_s_,...) ((case) ? PLOG(_s_,##__VA_ARGS__) : ((void)0) )
+
 #define PLOG_Point(point) PLOG(@"(%.1f,%.1f)",point.x,point.y)
 
 #define PLOG_Rect(rect) PLOG(@"{%.1f,%.1f, w:%.1f,h:%.1f}",rect.origin.x,rect.origin.y,rect.size.width,rect.size.height)

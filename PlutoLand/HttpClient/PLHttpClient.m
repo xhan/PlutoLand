@@ -140,7 +140,6 @@ static NSStringEncoding _gEncoding;
 
 - (void)get:(NSURL *)url userInfo:(NSDictionary*)info;
 {
-    PLOGENV(PLOG_ENV_NETWORK,@"GET %@",url);
     
 	[self _clean];
     _requestMethod = PLHttpMethodGet;
@@ -150,12 +149,13 @@ static NSStringEncoding _gEncoding;
 	NSMutableURLRequest* request = [self makeRequest:_url];
 	[self willRequest:request];
     [self _handleRequestStart];
+    PLOGENV(PLOG_ENV_NETWORK,@"GET %@",request.URL);
 	_connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:_startImmediately];
 }
 
 - (void)post:(NSURL*)url body:(NSString*)body
 {
-    PLOGENV(PLOG_ENV_NETWORK,@"POST %@ \nbody:%@",url,body);
+    
     
 	[self _clean];
     _requestMethod = PLHttpMethodPost;
@@ -170,12 +170,12 @@ static NSStringEncoding _gEncoding;
 	}
     [self willRequest:request];
     [self _handleRequestStart];
+    PLOGENV(PLOG_ENV_NETWORK,@"POST %@ \nbody:%@",url,body);
 	_connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:_startImmediately];
 }
 
 - (void)postForm:(NSURL*)url params:(NSDictionary*)params fileName:(NSString*)fileName fileData:(NSData*)data
-{
-    PLOGENV(PLOG_ENV_NETWORK,@"POST(File:%@) %@ \nbody:%@",fileName, url,params);
+{    
     [self _clean];
     _requestMethod = PLHttpMethodPost;
 	self.userInfo = nil;
@@ -220,13 +220,12 @@ static NSStringEncoding _gEncoding;
     
     [self willRequest:request];
     [self _handleRequestStart];
+    PLOGENV(PLOG_ENV_NETWORK,@"POST(File:%@) %@ \nbody:%@",fileName, url,params);
 	_connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:_startImmediately];
 }
 
 - (void)put:(NSURL*)url body:(NSString*)body
 {
-    PLOGENV(PLOG_ENV_NETWORK,@"PUT %@ \nbody:%@",url,body);
-        
     [self _clean];
     _requestMethod = PLHttpMethodPut;
 	self.userInfo = nil;
@@ -240,13 +239,12 @@ static NSStringEncoding _gEncoding;
 	}
     [self willRequest:request];
     [self _handleRequestStart];
+    PLOGENV(PLOG_ENV_NETWORK,@"PUT %@ \nbody:%@",url,body);
 	_connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:_startImmediately];
 }
 
 - (void)delete:(NSURL*)url
 {
-    PLOGENV(PLOG_ENV_NETWORK,@"DELETE %@",url);
-    
 	[self _clean];
     _requestMethod = PLHttpMethodDelete;
     self.userInfo = nil;
@@ -257,6 +255,7 @@ static NSStringEncoding _gEncoding;
     
     [self willRequest:request];
     [self _handleRequestStart];
+    PLOGENV(PLOG_ENV_NETWORK,@"DELETE %@",url);
 	_connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:_startImmediately];
 }
 

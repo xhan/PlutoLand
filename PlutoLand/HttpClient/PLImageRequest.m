@@ -58,6 +58,7 @@ static const int timeOutSec = 30;
 }
 
 - (void)dealloc {
+    PLSafeRelease(_receivedData);
 	[_url release], _url = nil;
 	[_response release], _response = nil;
 	[_connection release], _connection =nil;
@@ -78,7 +79,9 @@ static const int timeOutSec = 30;
 - (void)cancel;
 {
 	[_connection cancel];
-	isCancelled = YES;
+    PLSafeRelease(_receivedData);
+	self.isCancelled = YES;
+    PLOG(@"canceled task %@",self.url);
 }
 
 - (NSData*)imageData
