@@ -14,6 +14,7 @@
 {
     NSMutableArray* _keySequence;
     NSMutableDictionary* _dict;
+    int _maxItems;
 }
 
 /* Once items count exceed maxItems , it would remove old items to fit maxItems */

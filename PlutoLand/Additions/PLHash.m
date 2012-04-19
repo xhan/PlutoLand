@@ -94,7 +94,12 @@
 
 + (id)hashFromPath:(NSString*)path
 {
-    return [NSKeyedUnarchiver unarchiveObjectWithFile:path];
+    id hash = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
+    if (hash) {
+        return hash;
+    }else {
+        return [self hash];
+    }
 }
 
 + (id)hash
@@ -110,7 +115,8 @@
 }
 - (void)writeHashToFile:(NSString*)path
 {
-    [NSKeyedArchiver archiveRootObject:self toFile:path];
+    BOOL r = [NSKeyedArchiver archiveRootObject:self toFile:path];
+    PLOG(@"saving historyList result %d",r);
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder
