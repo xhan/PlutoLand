@@ -155,8 +155,7 @@ static NSStringEncoding _gEncoding;
 
 - (void)post:(NSURL*)url body:(NSString*)body
 {
-    
-    
+        
 	[self _clean];
     _requestMethod = PLHttpMethodPost;
 	self.userInfo = nil;
@@ -170,7 +169,9 @@ static NSStringEncoding _gEncoding;
 	}
     [self willRequest:request];
     [self _handleRequestStart];
-    PLOGENV(PLOG_ENV_NETWORK,@"POST %@ \nbody:%@",url,body);
+    PLOGENV(PLOG_ENV_NETWORK,@"POST %@ \nbody:%@",url,
+            [[[NSString alloc] initWithData:request.HTTPBody
+                                  encoding:NSUTF8StringEncoding] autorelease]);
 	_connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:_startImmediately];
 }
 
