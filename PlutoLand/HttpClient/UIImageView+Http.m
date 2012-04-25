@@ -15,8 +15,7 @@
 
 @implementation UIImageView(Http)
 
-
-- (void)fetchByURL:(NSString*)urlstr userInfo:(NSDictionary*)info freshOnSucceed:(BOOL)isFresh placeHolder:(UIImage*)img
+- (void)fetchByURL:(NSString*)urlstr userInfo:(NSDictionary*)info freshOnSucceed:(BOOL)isFresh placeHolder:(UIImage*)img cache:(BOOL)cache
 {
 	UIImage* aimage = [[PLImageCacheC sharedCache] getImageByURL:urlstr];
 	if (aimage) {
@@ -28,9 +27,18 @@
         self.image = img;
     }
 	PLImageLoader* loader = [[PLImageLoader alloc] init];	
-	[loader fetchForImageView:self URL:urlstr freshOnSucceed:isFresh cacheEnable:YES userInfo:info];
+	[loader fetchForImageView:self URL:urlstr freshOnSucceed:isFresh cacheEnable:cache userInfo:info];
 	[[PLHttpQueue sharedQueue] addQueueItem:loader];
-	[loader release];	
+	[loader release];
+}
+
+- (void)fetchByURL:(NSString*)urlstr userInfo:(NSDictionary*)info freshOnSucceed:(BOOL)isFresh placeHolder:(UIImage*)img
+{
+    [self fetchByURL:urlstr
+            userInfo:info
+      freshOnSucceed:isFresh
+         placeHolder:img
+               cache:YES];
 }
 
 - (void)fetchByURL:(NSString*)urlstr

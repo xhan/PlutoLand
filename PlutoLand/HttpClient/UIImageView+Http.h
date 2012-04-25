@@ -22,6 +22,8 @@
  the cell's image manually.
  */
 
+- (void)fetchByURL:(NSString*)urlstr userInfo:(NSDictionary*)info freshOnSucceed:(BOOL)isFresh placeHolder:(UIImage*)img cache:(BOOL)cache;
+
 - (void)fetchByURL:(NSString*)urlstr userInfo:(NSDictionary*)info freshOnSucceed:(BOOL)isFresh placeHolder:(UIImage*)img;
 
 - (void)fetchByURL:(NSString*)urlstr;

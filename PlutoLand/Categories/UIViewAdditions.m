@@ -223,4 +223,11 @@
 	}
 }
 
+- (void)addTapCallBack:(id)target sel:(SEL)selector
+{
+    self.userInteractionEnabled = YES;
+    UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc] initWithTarget:target action:selector];
+    [self addGestureRecognizer:tap];
+    [tap release];
+}
 @end

@@ -55,4 +55,5 @@
 
 - (void)addSubviews:(NSArray *)views;
 
+- (void)addTapCallBack:(id)target sel:(SEL)selector;
 @end

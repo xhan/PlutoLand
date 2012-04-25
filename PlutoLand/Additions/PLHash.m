@@ -95,11 +95,8 @@
 + (id)hashFromPath:(NSString*)path
 {
     id hash = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
-    if (hash) {
-        return hash;
-    }else {
-        return [self hash];
-    }
+    PLOG_IF(!path,@"hash not founded in path %@",path);
+    return hash;
 }
 
 + (id)hash

@@ -13,7 +13,8 @@
 {
     NSMutableArray *parameterPairs = [NSMutableArray array];
 	for (NSString *key in [dict allKeys]) {
-		NSString *pair = [NSString stringWithFormat:@"%@=%@", [key URLEscaped], [[dict objectForKey:key] URLEscaped]];
+        id value = [[dict objectForKey:key] isKindOfClass:NSString.class] ? [[dict objectForKey:key] URLEscaped] : [dict objectForKey:key];
+		NSString *pair = [NSString stringWithFormat:@"%@=%@", [key URLEscaped], value ];
 		[parameterPairs addObject:pair];
 	}
 	return [parameterPairs componentsJoinedByString:@"&"];
