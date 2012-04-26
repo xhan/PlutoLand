@@ -32,3 +32,4 @@
 
 #define URL(string) [NSURL URLWithString:string]
 
+#define unless(condition) if (!(condition))

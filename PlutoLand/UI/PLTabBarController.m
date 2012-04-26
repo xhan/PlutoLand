@@ -181,6 +181,13 @@
 	[self.tabBar bringSubviewToFront:_plTabbar];
 	_plTabbar.selectedIndex = index;
 }
+
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
+    PLSafeRelease(_plTabbar);
+}
+
 /*
 - (void)viewDidLoad{
 	[super viewDidLoad];
