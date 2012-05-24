@@ -11,6 +11,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 #define kSettingInitCountKey @"PLSettingInitCount"
+#define kSettingInitDateKey     @"kSettingInitDate"
 #pragma mark -
 #pragma mark PLSettingProperty
 
@@ -225,6 +226,11 @@ NSMutableArray* _gPropertiesList;
 #pragma mark -
 #pragma mark public
 
+- (NSDate*)installedAt
+{
+    return [_defaults objectForKey:kSettingInitDateKey];
+}
+
 - (int)initedCount
 {
     return (int)[_defaults integerForKey:kSettingInitCountKey];
@@ -331,7 +337,8 @@ NSMutableArray* _gPropertiesList;
 {
 	if (![self checkIfDataAvailable]) {
         _isFirstLaunched = YES;
-		[self setupDefaults];		
+		[self setupDefaults];	
+        [_defaults setObject:[NSDate date] forKey:kSettingInitDateKey];
 	}else {
 		//[self versionCheck];
         _isFirstLaunched = NO;

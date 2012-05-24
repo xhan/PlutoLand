@@ -112,8 +112,9 @@
 }
 - (void)writeHashToFile:(NSString*)path
 {
-    BOOL r = [NSKeyedArchiver archiveRootObject:self toFile:path];
+    BOOL r __attribute__((unused)) = [NSKeyedArchiver archiveRootObject:self toFile:path];
     PLOG(@"saving historyList result %d",r);
+
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder
