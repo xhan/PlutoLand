@@ -57,7 +57,7 @@ typedef enum{
 @property (nonatomic, assign) SEL didFinishSelector;
 @property (nonatomic, assign) id<PLHttpClientDelegate> delegate;
 @property (nonatomic, readonly) NSHTTPURLResponse* response;
-
+@property (nonatomic, readonly) BOOL isLoading;
 + (void)setGlobalEncoding:(NSStringEncoding)encoding;
 
 // (deprecated) return response by sync fetch  

@@ -31,6 +31,8 @@
 @synthesize isForceHandleStatusCode = _isForceHandleStatusCode;
 @synthesize requestMethod = _requestMethod;
 @synthesize url = _url;
+@synthesize isLoading = _isLoading;
+
 static const int timeOutSec = 30;
 static NSStringEncoding _gEncoding;
 

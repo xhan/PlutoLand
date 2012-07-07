@@ -135,7 +135,7 @@
 
 - (NSString*)description
 {
-    return [NSString stringWithFormat:@"<PLHash:%0x>%@",self,_dict];
+    return [NSString stringWithFormat:@"<PLHash:%p>%@",self,_dict];
 }
 
 #ifdef DEBUG
