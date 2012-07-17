@@ -97,6 +97,17 @@
 }
 
 
+- (BOOL) isJailbreak
+{
+#if TARGET_IPHONE_SIMULATOR
+    return NO;
+#else
+    NSString *filePath = @"/Applications/Cydia.app";
+    return [[NSFileManager defaultManager] fileExistsAtPath:filePath];
+#endif
+    
+}
+
 @end
 
 
@@ -165,6 +176,8 @@
     
     return outstring;
 }
+
+
 
 ////////////////////////////////////////////////////////////////////////////////
 #pragma mark -
