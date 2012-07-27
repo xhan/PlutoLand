@@ -423,8 +423,7 @@ cachePath = _cachePath, maxPixelCount = _maxPixelCount, invalidationAge = _inval
 	NSFileManager* fm = [NSFileManager defaultManager];
 	if (filePath && [fm fileExistsAtPath:filePath]) {
 		NSDate* invalidDate = [NSDate dateWithTimeIntervalSinceNow:-_invalidationAge];
-		NSDictionary* attrs = [NSDictionary dictionaryWithObject:invalidDate
-														  forKey:NSFileModificationDate];
+		NSDictionary* attrs = @{NSFileModificationDate: invalidDate};
 		
 		//		[fm changeFileAttributes:attrs atPath:filePath];
 		[fm setAttributes:attrs ofItemAtPath:filePath error:nil];
@@ -433,8 +432,7 @@ cachePath = _cachePath, maxPixelCount = _maxPixelCount, invalidationAge = _inval
 
 - (void)invalidateAll {
 	NSDate* invalidDate = [NSDate dateWithTimeIntervalSinceNow:-_invalidationAge];
-	NSDictionary* attrs = [NSDictionary dictionaryWithObject:invalidDate
-													  forKey:NSFileModificationDate];
+	NSDictionary* attrs = @{NSFileModificationDate: invalidDate};
 	
 	NSFileManager* fm = [NSFileManager defaultManager];
 	NSDirectoryEnumerator* e = [fm enumeratorAtPath:_cachePath];

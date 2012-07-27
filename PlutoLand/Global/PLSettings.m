@@ -355,7 +355,7 @@ NSMutableArray* _gPropertiesList;
 
 - (void)markAsLoaded
 {
-	[_defaults setObject:[NSNumber numberWithInt:[self version]] forKey:[self stringForFirstLoadCheck]];	
+	[_defaults setObject:@([self version]) forKey:[self stringForFirstLoadCheck]];	
 	//[self synchronize];
 }
 

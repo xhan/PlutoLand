@@ -351,7 +351,7 @@ static NSStringEncoding _gEncoding;
             [self _clean];
             NSError* error = [NSError errorWithDomain:PLHttpClientErrorDomain
                                                  code:statusCode
-                                             userInfo:PLDict([NSString stringWithFormat:@"http response code %d failed",statusCode],NSLocalizedDescriptionKey)];
+                                             userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"http response code %d failed",statusCode]}];
             statusCode = 0;
             [self connection:nil didFailWithError:error];
         }

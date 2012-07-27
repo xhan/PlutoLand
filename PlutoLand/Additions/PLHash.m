@@ -143,11 +143,11 @@
 {
     PLHash* hash = [PLHash hash];
     
-    [hash setObject:@"obj1" forKey:NUM(0)];
-    [hash setObject:@"obj2" forKey:NUM(1)];
-    [hash setObject:@"obj3" forKey:NUM(2)];
-    [hash setObject:@"obj4" forKey:NUM(3)];
-    [hash setObject:@"obj5" forKey:NUM(4)];
+    [hash setObject:@"obj1" forKey:@0];
+    [hash setObject:@"obj2" forKey:@1];
+    [hash setObject:@"obj3" forKey:@2];
+    [hash setObject:@"obj4" forKey:@3];
+    [hash setObject:@"obj5" forKey:@4];
     [hash setMaxItems:3];
     NSLog(@"%@",hash);
     
@@ -162,7 +162,7 @@
     hash = [PLHash hashFromPath:path];
     NSLog(@"%@",hash);
     NSAssert([hash count]==3 && hash.maxItems==3, @"size should be 3 -2");
-    [hash setObject:@"obj6" forKey:NUM(3)];
+    [hash setObject:@"obj6" forKey:@3];
     NSAssert([hash count]==3 && hash.maxItems==3, @"size should be 3 -3");
     for (int i = 0; i<3; i++) {
         NSLog(@"%@ => %@",[hash keyAtIndex:i],[hash objectAtIndex:i]);

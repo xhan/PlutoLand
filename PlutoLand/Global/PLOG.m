@@ -53,7 +53,7 @@ static PLOG_STYLE _gStyle;
 {
 	if (!_gEnabled) return;
 	
-	NSMutableDictionary* dic = [_gDictionary objectForKey:[NSNumber numberWithUnsignedInt:env]];
+	NSMutableDictionary* dic = [_gDictionary objectForKey:@(env)];
 	NSAssert1(dic != nil ,@"PLOG env %d not exists",env);	
 	
 	BOOL enabled = [[dic objectForKey:@"enabled"] boolValue];	
@@ -94,20 +94,20 @@ static PLOG_STYLE _gStyle;
 		return;
 	}
 	
-	NSMutableDictionary* dic = [_gDictionary objectForKey:[NSNumber numberWithUnsignedInt:env]];
+	NSMutableDictionary* dic = [_gDictionary objectForKey:@(env)];
 	NSAssert1(dic != nil ,@"PLOG env %d not exists",env);
 	
-	[dic setObject:[NSNumber numberWithBool:enable] forKey:@"enabled"];
+	[dic setObject:@(enable) forKey:@"enabled"];
 }
 
 + (void)addEnv:(PLOG_ENV)env name:(NSString*)name
 {
-	NSNumber* key = [NSNumber numberWithUnsignedInt:env];
-	NSNumber* enabled = [NSNumber numberWithBool:YES];
+	NSNumber* key = @(env);
+	NSNumber* enabled = @(YES);
 	NSMutableDictionary* dic = [NSMutableDictionary dictionaryWithObjects:
-								[NSArray arrayWithObjects:name,enabled,nil] 
+								@[name,enabled] 
 																  forKeys:
-								[NSArray arrayWithObjects:@"name",@"enabled",nil]];
+								@[@"name",@"enabled"]];
 	[_gDictionary setObject:dic forKey:key];
 }
 
