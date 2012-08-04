@@ -43,6 +43,7 @@ typedef enum{
 	BOOL _isForceHandleStatusCode;
     
     PLHttpMethod _requestMethod;
+    NSOutputStream* _fileDownloadStream;
 }
 @property (readonly)         PLHttpMethod requestMethod;
 @property (nonatomic, assign) BOOL isForceHandleStatusCode;
@@ -58,6 +59,9 @@ typedef enum{
 @property (nonatomic, assign) id<PLHttpClientDelegate> delegate;
 @property (nonatomic, readonly) NSHTTPURLResponse* response;
 @property (nonatomic, readonly) BOOL isLoading;
+
+@property (nonatomic, copy) NSString *downloadDestinationPath;
+
 + (void)setGlobalEncoding:(NSStringEncoding)encoding;
 
 // (deprecated) return response by sync fetch  

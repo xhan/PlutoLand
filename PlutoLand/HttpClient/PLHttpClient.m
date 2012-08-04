@@ -269,8 +269,13 @@ static NSStringEncoding _gEncoding;
 }
 
 - (void)cancel
-{    
-	[_connection cancel];	
+{
+    if (_fileDownloadStream) {
+        [_fileDownloadStream close];
+        PLSafeRelease(_fileDownloadStream);
+    }
+    
+	[_connection cancel];
 	PLSafeRelease(_connection);
     PLSafeRelease(_receivedData);
     [self _handleRequestStop]; 
@@ -315,6 +320,11 @@ static NSStringEncoding _gEncoding;
 
 - (void)_handleRequestStop
 {
+    if (_fileDownloadStream) {
+        [_fileDownloadStream close];
+        PLSafeRelease(_fileDownloadStream);
+    }
+    
     if (_isLoading) {
         [[PLHttpConfig s] requestStoped];
         _isLoading = NO;
@@ -359,7 +369,29 @@ static NSStringEncoding _gEncoding;
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-	[_receivedData appendData:data];
+    if (_downloadDestinationPath) {
+        if (!_fileDownloadStream) {
+            //TODO: append support
+            _fileDownloadStream = [[NSOutputStream alloc] initToFileAtPath:_downloadDestinationPath
+                                                                    append:NO];
+            [_fileDownloadStream open];
+        }
+        NSUInteger length = [data length] , writedLength = 0;
+        do {
+            writedLength = [_fileDownloadStream write:[data bytes]
+                                            maxLength:length];
+            if (-1 == writedLength) {
+                //TODO: parse error
+                NSLog(@"%@", [_fileDownloadStream streamError]);
+                break;
+            }
+            length -= writedLength;
+        } while (length > 0 );
+        
+    }else{
+        [_receivedData appendData:data];
+    }
+	
 }
 
 @end

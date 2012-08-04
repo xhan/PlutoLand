@@ -129,7 +129,7 @@ static const int timeOutSec = 30;
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)aresponse {
 	self.response = (NSHTTPURLResponse*)aresponse;
-	statusCode = self.response.statusCode;
+	statusCode = (int)self.response.statusCode;
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
