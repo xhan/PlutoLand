@@ -21,14 +21,33 @@
 method:__PRETTY_FUNCTION__ message:_s_, ##__VA_ARGS__] 
 
 #define PLLOG_CONFIG PLLOG
+
+#define PLOG(_s_,...) PLOGENV(0, _s_, ##__VA_ARGS__)
+
+
+#define PLOGFILE_ENV(logger,_env_, _s_, ...) \
+[logger logForEnv:_env_ file:__FILE__ line:__LINE__ \
+method:__PRETTY_FUNCTION__ message:_s_, ##__VA_ARGS__]
+
+#define PLOGFILE(logger, _s_,...) PLOGFILE_ENV(logger,0,_s_,##__VA_ARGS__)
+
+#define PLOGF( _s_,...) PLOGFILE_ENV([PLLOG_File defaultLogger],0,_s_,##__VA_ARGS__)
+
 #else
 
 #define PLOGENV(_env_,_s_,...) ((void)0)
 #define PLLOG_CONFIG ((id)nil)
+
+#define PLOG(_s_,...) ((void)0)
+
+#define PLOGFILE_ENV(logger,_env_, _s_, ...) ((void)0)
+#define PLOGFILE(logger, _s_,...)  ((void)0)
+#define PLOGF( _s_,...) ((void)0)
+
 #endif
 
 
-#define PLOG(_s_,...) PLOGENV(0, _s_, ##__VA_ARGS__)
+
 
 #define PLOG_OBJ(obj) PLOG(@"%@",obj)
 
@@ -42,7 +61,7 @@ method:__PRETTY_FUNCTION__ message:_s_, ##__VA_ARGS__]
 
 #define PLOGERROR(_s_,...) PLOGENV(2, _s_, ##__VA_ARGS__)
 
-//TODO: add debug object, rect, position
+
 
 
 typedef enum{
@@ -91,4 +110,19 @@ extern const int PLOG_ENV_GLOBAL;
 
 + (void)addEnv:(PLOG_ENV)env name:(NSString*)name;
 
+@end
+
+//TODO: add time to end of log
+
+@interface PLLOG_File : PLLOG
+   //assign, manage logger's life cycle yourself
++ (void)setDefaultLogger:(PLLOG_File*)logger;
++ (PLLOG_File*)createDefaultLogger:(NSString*)path;
+
++ (PLLOG_File*)defaultLogger;
++ (id)fileLog:(NSString*)path;
+
+- (id)fileLog:(NSString*)path;
+- (void)setConsoleVisible:(BOOL)value; // default is YES, also print logs to console
+- (void)logForEnv:(PLOG_ENV)env file:(const char*)fileName line:(int)line method:(const char*)method message:(NSString *)format, ...;
 @end

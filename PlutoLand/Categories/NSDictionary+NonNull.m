@@ -11,7 +11,7 @@
 @implementation NSDictionary (NSDictionary_NonNull)
 - (id)objectForKeyPL:(id)aKey
 {
-    id obj = self[aKey];
+    id obj = [self objectForKey:aKey];
     if (obj == [NSNull null]) {
         return nil;
     }

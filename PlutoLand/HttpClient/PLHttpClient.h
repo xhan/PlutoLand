@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import <sys/time.h>
 #define PLCleanRelease(httpclient) [httpclient cleanBeforeRelease],[httpclient release], httpclient = nil
 
 #define PLHttpClientErrorDomain @"PLHttpClientErrorDomain"
@@ -44,6 +44,12 @@ typedef enum{
     
     PLHttpMethod _requestMethod;
     NSOutputStream* _fileDownloadStream;
+    
+    struct{
+//        clock_t start,end;
+        struct timeval t1,t2;
+
+    } _timeInfo;
 }
 @property (readonly)         PLHttpMethod requestMethod;
 @property (nonatomic, assign) BOOL isForceHandleStatusCode;
@@ -59,7 +65,7 @@ typedef enum{
 @property (nonatomic, assign) id<PLHttpClientDelegate> delegate;
 @property (nonatomic, readonly) NSHTTPURLResponse* response;
 @property (nonatomic, readonly) BOOL isLoading;
-
+@property (nonatomic, readonly) NSTimeInterval requestTimeCosted;
 @property (nonatomic, copy) NSString *downloadDestinationPath;
 
 + (void)setGlobalEncoding:(NSStringEncoding)encoding;

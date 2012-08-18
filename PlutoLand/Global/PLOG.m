@@ -112,3 +112,106 @@ static PLOG_STYLE _gStyle;
 }
 
 @end
+
+
+
+static PLLOG_File* _defaultFileLogger;
+@implementation PLLOG_File
+{
+    NSFileHandle* fileHandler;
+    BOOL isConsoleVisible;
+}
+
++ (PLLOG_File*)createDefaultLogger:(NSString*)path
+{
+    PLLOG_File*logger = [self fileLog:path];
+    [self setDefaultLogger:logger];
+    return logger;
+}
+
++ (void)setDefaultLogger:(PLLOG_File*)logger
+{
+    _defaultFileLogger = logger;
+}
++ (PLLOG_File*)defaultLogger
+{
+    return _defaultFileLogger;
+}
+
+- (id)fileLog:(NSString *)path
+{
+    self = [super init];
+    isConsoleVisible = YES;
+    [[NSFileManager defaultManager] createFileAtPath:path contents:nil attributes:nil];
+    fileHandler = [[NSFileHandle fileHandleForWritingAtPath:path] retain];
+    [fileHandler seekToEndOfFile];
+    if (fileHandler) {
+        return self;
+    }else{
+        PLOGERROR(@"Can't created file handle on path %@",path);
+        [self release];
+        return nil;
+    }
+    
+}
+- (void)setConsoleVisible:(BOOL)value
+{
+    isConsoleVisible = value;
+}
+
+- (void)dealloc
+{
+    [fileHandler closeFile];
+    PLSafeRelease(fileHandler);
+    [super dealloc];
+}
+
++ (id)fileLog:(NSString*)path
+{
+    PLLOG_File* logger = [[self alloc] fileLog:path];
+    return [logger autorelease];
+}
+
+- (void)logForEnv:(PLOG_ENV)env file:(const char*)fileName line:(int)line method:(const char*)method message:(NSString *)format, ...
+{
+    if (!_gEnabled) return;
+	
+	NSMutableDictionary* dic = [_gDictionary objectForKey:@(env)];
+	NSAssert1(dic != nil ,@"PLOG env %d not exists",env);
+	
+	BOOL enabled = [[dic objectForKey:@"enabled"] boolValue];
+	if (enabled) {
+		//NSLog() or printf()
+		NSString* file=[[NSString alloc] initWithBytes:fileName
+												length:strlen(fileName)
+											  encoding:NSUTF8StringEncoding];
+		
+		va_list ap;
+		va_start(ap,format);
+		NSString* message = [[NSString alloc] initWithFormat:format arguments:ap];
+		va_end(ap);
+		
+        
+		NSString* logStr = nil;
+		if (_gStyle == PLOG_STYLE_SHORT) {
+			logStr = [NSString stringWithFormat:@"[%@] %@",[dic objectForKey:@"name"],message];
+		}else if (_gStyle == PLOG_STYLE_MIDDLE) {
+			logStr = [NSString stringWithFormat:@"[%@] %@\n  %s",[dic objectForKey:@"name"],message,method];
+		}else if (_gStyle == PLOG_STYLE_FULL) {
+			logStr = [NSString stringWithFormat:@"[%@]%s:%d %s %@\n",[dic objectForKey:@"name"], [[file lastPathComponent] UTF8String],  line , method, message];
+		}
+		
+		[file release];
+		[message release];
+        
+        if (isConsoleVisible) {
+            printf("%s",[logStr UTF8String]);
+        }
+		
+		[fileHandler writeData: [logStr dataUsingEncoding:NSUTF8StringEncoding]];
+	}
+}
+
+
+@end
+

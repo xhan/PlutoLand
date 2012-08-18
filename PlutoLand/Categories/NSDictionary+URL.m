@@ -17,7 +17,7 @@
 	NSMutableArray* args = [NSMutableArray arrayWithCapacity:[self count]];
 	for (NSString* key in [self allKeys]) {
 		[args addObject:[NSString stringWithFormat:
-						 @"%@=%@",key, [[self[key] description] URLEscaped] ]];		
+						 @"%@=%@",key, [[[self objectForKey:key] description] URLEscaped] ]];
 	}
 	return [args componentsJoinedByString:@"&"];
 }

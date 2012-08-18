@@ -17,6 +17,9 @@
 - (void)_clean;
 - (void)_handleRequestStart;
 - (void)_handleRequestStop;
+- (void)_cleanTimeInfo;
+- (void)_logTimeStarted;
+- (void)_logTimeEnded;
 @property(nonatomic,retain)NSURL* url;
 @end
 
@@ -35,6 +38,46 @@
 
 static const int timeOutSec = 30;
 static NSStringEncoding _gEncoding;
+
+
+#pragma mark - request time
+- (void)_cleanTimeInfo
+{    
+//    _timeInfo.start = 0;
+//    _timeInfo.end = 0;
+    _timeInfo.t1 = (struct timeval){0,0};
+    _timeInfo.t2 = (struct timeval){0,0};
+    
+}
+- (void)_logTimeStarted
+{
+//    _timeInfo.start = clock(); -> clock time return system+user time not real time
+    gettimeofday(&_timeInfo.t1, NULL);
+}
+- (void)_logTimeEnded
+{
+//    _timeInfo.end = clock();
+    gettimeofday(&_timeInfo.t2, NULL);
+//    PLOG(@"costs %.3fs,%.3f in requesting %@",self.requestTimeCosted, t ,self.url);
+}
+
+- (NSTimeInterval) requestTimeCosted
+{
+//    DBL_MAX
+//    if (_timeInfo.end > _timeInfo.start && _timeInfo.start >0) {
+//        return (_timeInfo.end - _timeInfo.start)/((double)CLOCKS_PER_SEC);
+//    }else{
+//        return -1;
+//    }
+
+    double t = _timeInfo.t2.tv_sec - _timeInfo.t1.tv_sec;
+    t += (_timeInfo.t2.tv_usec - _timeInfo.t1.tv_usec)/((double)1000000);
+    if (t > 0) {
+        return t;
+    }else{
+        return 0;
+    }
+}
 
 #pragma mark -
 #pragma mark CLass methods
@@ -82,7 +125,8 @@ static NSStringEncoding _gEncoding;
 		_enableGzipEncoding = NO;
         _isLoading = NO;
         //TODO: move this to configures
-        _isForceHandleStatusCode = YES;
+        _isForceHandleStatusCode = YES; // return data only if status code is 200
+        [self _cleanTimeInfo];
 	}
 	return self;
 }
@@ -117,6 +161,7 @@ static NSStringEncoding _gEncoding;
 	_receivedData = [[NSMutableData alloc] init];
 	self.userInfo = nil;
     _requestMethod = PLHttpMethodUndefined;
+    [self _cleanTimeInfo];
 }
 
 #pragma mark -
@@ -278,13 +323,15 @@ static NSStringEncoding _gEncoding;
 	[_connection cancel];
 	PLSafeRelease(_connection);
     PLSafeRelease(_receivedData);
-    [self _handleRequestStop]; 
+    [self _handleRequestStop];
+    [self _cleanTimeInfo];
 }
 
 - (void)start
 {
 	if(_connection && _startImmediately == NO){
         _isLoading = YES;
+        [self _logTimeStarted];
         [[PLHttpConfig s] requestStarted];
 		[_connection scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
 		[_connection start];		
@@ -314,6 +361,7 @@ static NSStringEncoding _gEncoding;
 {
     if(_startImmediately){        
         _isLoading = YES;
+        [self _logTimeStarted];
         [[PLHttpConfig s] requestStarted];
     }                    
 }
@@ -326,6 +374,7 @@ static NSStringEncoding _gEncoding;
     }
     
     if (_isLoading) {
+        [self _logTimeEnded];
         [[PLHttpConfig s] requestStoped];
         _isLoading = NO;
     }
