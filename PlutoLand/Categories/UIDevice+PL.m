@@ -83,7 +83,25 @@
 
 - (BOOL)isIOS5
 {
-    return (int)([[self systemVersion] floatValue]) >= 5; 
+    return self.isIOS5above;
+}
+
+- (BOOL)isIOS5above
+{
+    static int __isIOS5above = -1;
+    if (__isIOS5above == -1) {
+        __isIOS5above = (int)([[self systemVersion] floatValue]) >= 5;
+    }
+    return __isIOS5above ;
+}
+
+- (BOOL)isIOS6above
+{
+    static int __isIOS6above = -1;
+    if (__isIOS6above == -1) {
+        __isIOS6above = (int)([[self systemVersion] floatValue]) >= 6;
+    }
+    return __isIOS6above ;
 }
 
 - (NSString*)currentBuild

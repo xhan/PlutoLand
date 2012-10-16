@@ -18,7 +18,9 @@
 - (NSString *) platform;
 - (NSString *) platformString;
 
-@property(nonatomic,readonly) BOOL isIOS5;
+@property(nonatomic,readonly) BOOL isIOS5;  //deprecate
+@property(nonatomic,readonly) BOOL isIOS5above;
+@property(nonatomic,readonly) BOOL isIOS6above;
 
 @property(readonly) NSString* currentVersion;
 @property(readonly) NSString* currentBuild;
