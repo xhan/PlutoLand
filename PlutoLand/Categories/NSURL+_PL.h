@@ -13,4 +13,7 @@
 + (NSString*)stringParamsFromDict:(NSDictionary*)dict;
 - (NSURL*)urlByaddingParamsString:(NSString*)params;
 - (NSURL*)urlByaddingParamsDict:(NSDictionary*)params;
+
++ (NSDictionary*)parseURLParams:(NSString*)params;
+- (NSDictionary*)params;
 @end

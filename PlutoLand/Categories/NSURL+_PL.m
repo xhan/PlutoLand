@@ -36,4 +36,35 @@
     NSString* str = [[self class] stringParamsFromDict:params];
     return [self urlByaddingParamsString:str];
 }
+
++ (NSDictionary*)parseURLParams:(NSString*)params
+{
+    NSMutableDictionary *queryComponents = [NSMutableDictionary dictionary];
+    for(NSString *keyValuePairString in [params componentsSeparatedByString:@"&"])
+    {
+        NSArray *keyValuePairArray = [keyValuePairString componentsSeparatedByString:@"="];
+        if ([keyValuePairArray count] < 2) continue; // Verify that there is at least one key, and at least one value.  Ignore extra = signs
+        NSString *key = [[keyValuePairArray objectAtIndex:0] unURLEscape];
+        NSString *value = [[keyValuePairArray objectAtIndex:1] unURLEscape];
+                /*
+        NSMutableArray *results = [queryComponents objectForKey:key]; // URL spec says that multiple values are allowed per key
+
+        if(!results) // First object
+        {
+            results = [NSMutableArray arrayWithCapacity:1];
+            [queryComponents setObject:results forKey:key];
+        }
+        [results addObject:value];
+         */
+        if (key && value) {
+            [queryComponents setObject:value forKey:key];
+        }
+    }
+    return queryComponents;
+}
+- (NSDictionary*)params
+{
+    NSString* query = [self query];
+    return [[self class] parseURLParams:query];
+}
 @end
