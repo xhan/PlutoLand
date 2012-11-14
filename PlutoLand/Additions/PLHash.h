@@ -34,7 +34,8 @@
 
 - (NSArray *)allKeys;
 - (NSArray *)allValues;
-
+- (NSArray *)allValuesInOrder;
+- (NSArray *)allValuesInOrderDESC;
 
 + (id)hash;
 + (id)hashFromPath:(NSString*)path;

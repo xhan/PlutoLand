@@ -44,12 +44,39 @@
  
 - (NSArray *)allKeys
 {
-    return [_dict allKeys];
+    return _keySequence;
 }
 - (NSArray *)allValues
 {
     return [_dict allValues];
 }
+
+- (NSArray *)allValuesInOrder
+{
+    return [self allValuesInOrderDESC:NO];
+}
+
+- (NSArray *)allValuesInOrderDESC
+{
+    return [self allValuesInOrderDESC:YES];
+}
+
+- (NSArray *)allValuesInOrderDESC:(BOOL)desc
+{
+    NSMutableArray* array = [NSMutableArray arrayWithCapacity:self.count];
+
+    if(!desc){
+        for (int i = 0; i < self.count; i++) {
+            [array addObject:[self objectAtIndex:i]];
+        }
+    }else{
+        for (int i = self.count -1; i>=0; i--) {
+            [array addObject:[self objectAtIndex:i]];
+        }
+    }
+    return [NSArray arrayWithArray:array];
+}
+
 #pragma mark - origin methods
 
 - (void)setObject:(id)anObject forKey:(id)aKey
