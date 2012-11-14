@@ -61,23 +61,28 @@
     }
     [_keySequence addObject:aKey];
     [self _cleanItemsInNeed];
+    _isValueDirty = YES;
 }
 
 - (void)removeObjectForKey:(id)aKey
 {    
     [_dict removeObjectForKey:aKey];
     [_keySequence removeObject:aKey];
+    _isValueDirty = YES;
 }
 
 - (void)removeAllObjects
 {
     [_dict removeAllObjects];
     [_keySequence removeAllObjects];
+    _isValueDirty = YES;
 }
 
 - (void)dealloc
 {
     PLSafeRelease(_keySequence);
+    PLSafeRelease(_dict);
+    PLSafeRelease(_saveFilePath);
     [super dealloc];
 }
 
@@ -94,15 +99,28 @@
 
 + (id)hashFromPath:(NSString*)path
 {
-    id hash = nil;
+    PLHash* hash = nil;
     @try {
         hash = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
     }
     @catch (NSException *exception) {
         
     }
-    
+    if (hash) {
+        hash.saveFilePath = path;
+    }
     PLOG_IF(!path,@"hash not founded in path %@",path);
+    return hash;
+}
+
++ (id)hashFromFile:(NSString*)filePath orNew:(int)maxItems
+{
+    PLHash* hash = [self hashFromPath:filePath];
+    if (!hash) {
+        hash = [self hash];
+        hash.maxItems = maxItems;
+        hash.saveFilePath = filePath;
+    }
     return hash;
 }
 
@@ -117,11 +135,33 @@
     _keySequence = [[NSMutableArray alloc] init];
     return self;
 }
-- (void)writeHashToFile:(NSString*)path
+- (BOOL)writeHashToFile:(NSString*)path
 {
-    BOOL r __attribute__((unused)) = [NSKeyedArchiver archiveRootObject:self toFile:path];
-    PLOG(@"saving historyList result %d",r);
+    
+    if (!_isValueDirty) {
+        return YES;
+    }
+    
+    // BOOL r __attribute__((unused))
+    BOOL ret = NO;
+    @try {
+        ret = [NSKeyedArchiver archiveRootObject:self toFile:path];
+    }
+    @catch (NSException *exception) {
+        PLOGERROR(@"save error %@",exception);
+    }
+    return ret;
+}
 
+- (BOOL)save
+{
+    if ([self.saveFilePath isNonEmpty]) {
+        return [self writeHashToFile:self.saveFilePath];
+    }else{
+        PLOGERROR(@"NO saveFilePath specify! %@",self);
+        return NO;
+    }
+    
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder

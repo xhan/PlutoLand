@@ -15,6 +15,7 @@
     NSMutableArray* _keySequence;
     NSMutableDictionary* _dict;
     int _maxItems;
+    BOOL _isValueDirty; 
 }
 
 /* Once items count exceed maxItems , it would remove old items to fit maxItems */
@@ -37,7 +38,13 @@
 
 + (id)hash;
 + (id)hashFromPath:(NSString*)path;
-- (void)writeHashToFile:(NSString*)path;
+
++ (id)hashFromFile:(NSString*)filePath orNew:(int)maxItems;
+
+
+- (BOOL)writeHashToFile:(NSString*)path;
+@property(nonatomic,copy) NSString* saveFilePath;
+- (BOOL)save; // save to disk
 
 #ifdef DEBUG
 //    Class a = NSClassFromString(@"PLHash");

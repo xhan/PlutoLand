@@ -64,6 +64,10 @@ extern UIImage* ImageStretchable(UIImage*image);
 
 + (UIImageView*)imageViewNamed:(NSString*)fileName;
 
+// create a image view with strectched image
++ (UIImageView*)imageViewNamed:(NSString*)fileName frame:(CGRect)frame;
+
+
 /* return an random string powered by UTSC seconds */
 + (NSString*)randomName;	
 

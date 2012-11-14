@@ -188,6 +188,14 @@ UIImage* ImageStretchable(UIImage*image)
 	return [imageview autorelease];
 }
 
++ (UIImageView*)imageViewNamed:(NSString*)fileName frame:(CGRect)frame;
+{
+	UIImageView* imageview = [[UIImageView alloc] initWithFrame:frame];
+    UIImage* img = ImageStretchable( [self imageNamed:fileName]);
+    imageview.image = img;
+	return [imageview autorelease];
+}
+
 
 + (NSString*)randomName
 {
