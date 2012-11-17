@@ -43,7 +43,7 @@
 #endif
 
 #define PLSafeRelease(_obj_) [_obj_ release], _obj_ = nil;
-
+#define PLBlockRelease(_block_) Block_release(_block_),_block_=nil
 /* constants */
 
 #define KByte 1024
