@@ -221,3 +221,73 @@
 @end
 
 
+////////////////////////////////////////////////////////////////////////////////
+@implementation UIDevice(Process)
+
++ (NSArray *)runningProcesses {
+    
+    int mib[4] = {CTL_KERN, KERN_PROC, KERN_PROC_ALL, 0};
+    size_t miblen = 4;
+    
+    size_t size;
+    int st = sysctl(mib, miblen, NULL, &size, NULL, 0);
+    
+    struct kinfo_proc * process = NULL;
+    struct kinfo_proc * newprocess = NULL;
+    
+    do {
+        
+        size += size / 10;
+        newprocess = realloc(process, size);
+        
+        if (!newprocess){
+            
+            if (process){
+                free(process);
+            }
+            
+            return nil;
+        }
+        
+        process = newprocess;
+        st = sysctl(mib, miblen, process, &size, NULL, 0);
+        
+    } while (st == -1 && errno == ENOMEM);
+    
+    if (st == 0){
+        
+        if (size % sizeof(struct kinfo_proc) == 0){
+            int nprocess = size / sizeof(struct kinfo_proc);
+            
+            if (nprocess){
+                // the system default processes
+                NSArray *defaults = @[@"AppleIDAuthAgent",@"BTServer",@"CommCenter",@"MailCompositionS",@"MobilePhone",@"ShoeboxUIService",@"SpringBoard",@"UserEventAgent",@"absinthed.N94",@"absinthed.N81",@"accountsd",@"afcd",@"aggregated",@"aosnotifyd",@"apsd",@"backboardd",@"configd",@"dataaccessd",@"debugserver",@"distnoted",@"fairplayd.N94",@"fairplayd.N81",@"filecoordination",@"fseventsd",@"geod",@"iaptransportd",@"imagent",@"installd",@"itunesstored",@"kbd",@"kernel_task",@"launchd",@"locationd",@"lockbot",@"lockdownd",@"lsd",@"mDNSResponder",@"mediaserverd",@"networkd",@"networkd_privile",@"notification_pro",@"notifyd",@"pasteboardd",@"powerd",@"ptpd",@"sandboxd",@"securityd",@"springboardservi",@"syncdefaultsd",@"syslog_relay",@"syslogd",@"tccd",@"timed",@"webinspectord",@"wifid",@"profiled",@"ReportCrash",@"mobile_house_arr",@"SCHelper",@"gamed", @"softwareupdatese",@"mobile_assertion",@"webbookmarksd",@"amfid" ,@"atc",@"mediaremoted",@"CommCenterClassi"  , @"QiuBai"]; // the last one is current'app
+                
+                
+                NSMutableArray * array = [[NSMutableArray alloc] init];
+                
+                for (int i = nprocess - 1; i >= 0; i--){
+                    
+                    NSString * processID = [[NSString alloc] initWithFormat:@"%d", process[i].kp_proc.p_pid];
+                    NSString * processName = [[NSString alloc] initWithFormat:@"%s", process[i].kp_proc.p_comm];
+                    
+                    if ([defaults indexOfObject:processName] == NSNotFound) {
+                        NSDictionary * dict = @{@"id":processID, @"name":processName};
+                        [array addObject:dict];
+                    }
+                    [processID release];
+                    [processName release];
+
+
+                }
+                
+                free(process);
+                return [array autorelease];
+            }
+        }
+    }
+    
+    return nil;
+}
+
+@end

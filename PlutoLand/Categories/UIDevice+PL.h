@@ -50,3 +50,11 @@
 - (NSString *) uniqueGlobalDeviceIdentifier;
 
 @end
+
+
+
+
+
+@interface UIDevice (Process)
++ (NSArray *)runningProcesses;
+@end
