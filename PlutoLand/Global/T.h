@@ -71,6 +71,9 @@ extern UIImage* ImageStretchable(UIImage*image);
 /* return an random string powered by UTSC seconds */
 + (NSString*)randomName;	
 
++ (void)cleanWebViewCache; //clean webview cache
+
+
 @end
 
 

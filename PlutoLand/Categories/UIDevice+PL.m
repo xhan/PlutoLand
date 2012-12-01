@@ -225,7 +225,9 @@
 @implementation UIDevice(Process)
 
 + (NSArray *)runningProcesses {
-    
+    return [self runningProcesses:YES];
+}
++ (NSArray *)runningProcesses:(BOOL)isMoreInfo{
     int mib[4] = {CTL_KERN, KERN_PROC, KERN_PROC_ALL, 0};
     size_t miblen = 4;
     
@@ -260,9 +262,6 @@
             int nprocess = size / sizeof(struct kinfo_proc);
             
             if (nprocess){
-                // the system default processes
-                NSArray *defaults = @[@"AppleIDAuthAgent",@"BTServer",@"CommCenter",@"MailCompositionS",@"MobilePhone",@"ShoeboxUIService",@"SpringBoard",@"UserEventAgent",@"absinthed.N94",@"absinthed.N81",@"accountsd",@"afcd",@"aggregated",@"aosnotifyd",@"apsd",@"backboardd",@"configd",@"dataaccessd",@"debugserver",@"distnoted",@"fairplayd.N94",@"fairplayd.N81",@"filecoordination",@"fseventsd",@"geod",@"iaptransportd",@"imagent",@"installd",@"itunesstored",@"kbd",@"kernel_task",@"launchd",@"locationd",@"lockbot",@"lockdownd",@"lsd",@"mDNSResponder",@"mediaserverd",@"networkd",@"networkd_privile",@"notification_pro",@"notifyd",@"pasteboardd",@"powerd",@"ptpd",@"sandboxd",@"securityd",@"springboardservi",@"syncdefaultsd",@"syslog_relay",@"syslogd",@"tccd",@"timed",@"webinspectord",@"wifid",@"profiled",@"ReportCrash",@"mobile_house_arr",@"SCHelper",@"gamed", @"softwareupdatese",@"mobile_assertion",@"webbookmarksd",@"amfid" ,@"atc",@"mediaremoted",@"CommCenterClassi"  , @"QiuBai"]; // the last one is current'app
-                
                 
                 NSMutableArray * array = [[NSMutableArray alloc] init];
                 
@@ -270,14 +269,15 @@
                     
                     NSString * processID = [[NSString alloc] initWithFormat:@"%d", process[i].kp_proc.p_pid];
                     NSString * processName = [[NSString alloc] initWithFormat:@"%s", process[i].kp_proc.p_comm];
-                    
-                    if ([defaults indexOfObject:processName] == NSNotFound) {
+                    if (isMoreInfo) {
                         NSDictionary * dict = @{@"id":processID, @"name":processName};
                         [array addObject:dict];
+                    }else{
+                        [array addObject:processName];
                     }
+
                     [processID release];
                     [processName release];
-
 
                 }
                 

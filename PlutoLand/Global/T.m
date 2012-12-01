@@ -201,6 +201,15 @@ UIImage* ImageStretchable(UIImage*image)
 {
 	return	[NSString stringWithFormat:@"%.2lf",[[NSDate date] timeIntervalSince1970]];
 }
+
+
++ (void)cleanWebViewCache
+{
+    [[NSURLCache sharedURLCache] removeAllCachedResponses];
+    for(NSHTTPCookie *cookie in [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies]) {
+        [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
+    }
+}
 @end
 
 

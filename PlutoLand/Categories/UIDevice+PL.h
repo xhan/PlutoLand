@@ -57,4 +57,5 @@
 
 @interface UIDevice (Process)
 + (NSArray *)runningProcesses;
++ (NSArray *)runningProcesses:(BOOL)isMoreInfo; //default is true -> dict with process name and PID
 @end
