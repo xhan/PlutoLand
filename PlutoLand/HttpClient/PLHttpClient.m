@@ -245,7 +245,7 @@ static NSStringEncoding _gEncoding;
     // add params
     for (id key in [params allKeys]) {
         [postString appendFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n\r\n",key];
-        [postString appendFormat:@"%@",[params objectForKey:key]];
+        [postString appendFormat:@"%@",params[key]];
         [postString appendString:endItemBoundary];
     }
     
@@ -348,7 +348,7 @@ static NSStringEncoding _gEncoding;
 
 - (id)responseHeaderForKey:(NSString*)key
 {
-	return [[_response allHeaderFields] objectForKey:key];
+	return [_response allHeaderFields][key];
 }
 
 - (void)cleanBeforeRelease
@@ -461,7 +461,7 @@ static NSStringEncoding _gEncoding;
 			continue;
 		}
 		
-		[pairs addObject:[NSString stringWithFormat:@"%@=%@", key, [[dict objectForKey:key] URLEscaped]]];
+		[pairs addObject:[NSString stringWithFormat:@"%@=%@", key, [dict[key] URLEscaped]]];
 	}
 	
 	return [pairs componentsJoinedByString:@"&"];   

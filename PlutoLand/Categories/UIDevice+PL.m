@@ -23,7 +23,7 @@
     NSDictionary *dictionary = [[NSFileManager defaultManager] attributesOfFileSystemForPath:NSHomeDirectory() error: &error];
 	
     if (dictionary) {
-        NSNumber *fileSystemSizeInBytes = [dictionary objectForKey: NSFileSystemSize];
+        NSNumber *fileSystemSizeInBytes = dictionary[NSFileSystemSize];
         totalSpace = [fileSystemSizeInBytes longLongValue];
     } else {
         PLOG(@"Error Obtaining File System Info: Domain = %@, Code = %@", [error domain], [error code]);
@@ -40,7 +40,7 @@
     NSDictionary *dictionary = [[NSFileManager defaultManager] attributesOfFileSystemForPath:NSHomeDirectory() error: &error];
 	
     if (dictionary) {
-        NSNumber *fileSystemSizeInBytes = [dictionary objectForKey: NSFileSystemFreeSize];
+        NSNumber *fileSystemSizeInBytes = dictionary[NSFileSystemFreeSize];
         totalSpace = [fileSystemSizeInBytes longLongValue];
     } else {
         PLOG(@"Error Obtaining File System Info: Domain = %@, Code = %@", [error domain], [error code]);
@@ -106,12 +106,12 @@
 
 - (NSString*)currentBuild
 {
-    return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]; 
+    return [[NSBundle mainBundle] infoDictionary][@"CFBundleVersion"]; 
 }
 
 - (NSString*)currentVersion
 {
-    return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]; 
+    return [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"]; 
 }
 
 

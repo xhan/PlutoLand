@@ -39,10 +39,10 @@ static NSMutableDictionary* gSharedDictionary;
 + (PLHttpQueue*)sharedQueue
 {
 	NSString *className = NSStringFromClass([self class]);
-	PLHttpQueue* queue = [gSharedDictionary objectForKey:className];
+	PLHttpQueue* queue = gSharedDictionary[className];
 	if (!queue) {
 		queue = [[[self class] alloc] init];
-		[gSharedDictionary setObject:queue forKey:className];
+		gSharedDictionary[className] = queue;
 		[queue release];
 		return queue;
 	}
@@ -109,7 +109,7 @@ static NSMutableDictionary* gSharedDictionary;
 	
 	//add idle task into running queue and run it's task
 	for (int i = 0, _act_tasks = 0; (_act_tasks < idleCount) && [_queues count] ; i++ ) {
-		task = [_queues objectAtIndex:0];
+		task = _queues[0];
         if (!task.isCancelled && !task.isFinished && !task.isStarted) {
             [_runningQueues addObject:task];
             [_queues removeObjectAtIndex:0];

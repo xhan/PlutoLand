@@ -60,8 +60,8 @@
 	NSAssert([images count] == [selectedImages count], @"two arrays should have same items count");
 	for (int cnt = 0; cnt < [images count]; cnt++) {
 		CGPoint origin = CGPointMake(offset.width * cnt + point.x, offset.height * cnt + point.y);
-		PLSegmentCell* cell = [[PLSegmentCell alloc] initWithNormalImage:[UIImage imageNamed:[images objectAtIndex:cnt]]
-														   selectedImage:[UIImage imageNamed:[selectedImages objectAtIndex:cnt]] 
+		PLSegmentCell* cell = [[PLSegmentCell alloc] initWithNormalImage:[UIImage imageNamed:images[cnt]]
+														   selectedImage:[UIImage imageNamed:selectedImages[cnt]] 
 															  startPoint:origin];
 		[self addCell:cell];
 		[cell release];
@@ -89,10 +89,10 @@
 	
 	if (previousIndex != _selectedIndex) {
 		if(previousIndex != -1)
-			((PLSegmentCell*)[_items objectAtIndex:previousIndex]).selected = NO;
-		((PLSegmentCell*)[_items objectAtIndex:_selectedIndex]).selected = YES;
+			((PLSegmentCell*)_items[previousIndex]).selected = NO;
+		((PLSegmentCell*)_items[_selectedIndex]).selected = YES;
 	}else{
-		((PLSegmentCell*)[_items objectAtIndex:_selectedIndex]).selected = YES;
+		((PLSegmentCell*)_items[_selectedIndex]).selected = YES;
     }
 	
 

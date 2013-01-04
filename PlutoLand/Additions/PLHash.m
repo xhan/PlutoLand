@@ -29,7 +29,7 @@
 
 - (id)keyAtIndex:(int)index
 {
-    return [_keySequence objectAtIndex:index];
+    return _keySequence[index];
 }
 
 - (id)objectAtIndex:(int)index
@@ -39,7 +39,7 @@
 
 - (id)objectForKey:(id)aKey
 {
-    return [_dict objectForKey:aKey];    
+    return _dict[aKey];    
 }
  
 - (NSArray *)allKeys
@@ -81,7 +81,7 @@
 
 - (void)setObject:(id)anObject forKey:(id)aKey
 {
-    [_dict setObject:anObject forKey:aKey];
+    _dict[aKey] = anObject;
     // incase modify key's value : update key's position to tail
     if ([_keySequence indexOfObject:aKey]!=NSNotFound) {
         [_keySequence removeObject:aKey];
@@ -117,7 +117,7 @@
 {
     if (_maxItems !=0) {
         while ([_keySequence count] > _maxItems) {
-            id key = [_keySequence objectAtIndex:0];
+            id key = _keySequence[0];
             [self removeObjectForKey:key];
         }
     }

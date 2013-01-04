@@ -9,7 +9,7 @@
 #import "NSString+Addition.h"
 #import "PLGlobal.h"
 #import <CommonCrypto/CommonDigest.h>
-
+#import "NSData+Base64.h"
 @implementation NSString(Addition)
 
 - (BOOL)isEmpty{
@@ -105,6 +105,64 @@
     }
 //    PLOG(@"striped lines %d",ary.count - rst.count);
     return [rst componentsJoinedByString:@"\n"];
+}
+
+
+- (NSData*)xorWithKey:(NSString*)key
+{
+    const char* orig = [self UTF8String];
+    const char* keys = [key UTF8String];
+
+    int length = strlen(orig);
+    int lengthKey = strlen(keys);
+
+    char *rets = malloc(length*sizeof(char));
+    for (int i =0; i<length+lengthKey; i+=lengthKey) {
+        for (int j=0; j<lengthKey; j++) {
+            if (i+j<length) {
+                rets[i+j] = orig[i+j] ^ keys[j];
+            }
+        }
+    }
+    
+    NSData*data = [NSData dataWithBytes:rets length:length];
+    free(rets);
+    return data;
+}
+
++ (NSString*)xorFromData:(NSData*)raw key:(NSString*)key
+{
+    const char *orig = [raw bytes];
+    const char* keys = [key UTF8String];
+    
+    int length = raw.length;
+    int lengthKey = strlen(keys);
+    char *rets = malloc((length+1)*sizeof(char));
+    
+    for (int i =0; i<length+lengthKey; i+=lengthKey) {
+        for (int j=0; j<lengthKey; j++) {
+            if (i+j<length) {
+                rets[i+j] = keys[j] ^ orig[i+j] ;
+            }
+        }
+    }
+    rets[length] = '\0';
+    
+    NSString*strings = [[NSString alloc] initWithBytes:rets length:length encoding:NSUTF8StringEncoding];
+    free(rets);
+    return [strings autorelease];
+}
+
+
+- (NSString*)xorEncodeWithKey:(NSString*)key
+{
+    NSData*data = [self xorWithKey:key];
+    return [data base64EncodedString];
+}
+- (NSString*)xorDecodeWithKey:(NSString*)key
+{
+    NSData*data = [NSData dataFromBase64String:self];
+    return [[self class] xorFromData:data key:key];
 }
 
 @end

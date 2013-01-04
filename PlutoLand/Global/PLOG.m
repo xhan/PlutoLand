@@ -19,6 +19,7 @@ static PLOG_STYLE _gStyle;
 
 + (void)initialize
 {
+    if (self.class != PLLOG.class) return;
 	_gDictionary = [[NSMutableDictionary alloc] init];
 	_gFormatSetting = ~0; // default outputs everything
 	_gEnabled = YES;
@@ -53,10 +54,10 @@ static PLOG_STYLE _gStyle;
 {
 	if (!_gEnabled) return;
 	
-	NSMutableDictionary* dic = [_gDictionary objectForKey:@(env)];
+	NSMutableDictionary* dic = _gDictionary[@(env)];
 	NSAssert1(dic != nil ,@"PLOG env %d not exists",env);	
 	
-	BOOL enabled = [[dic objectForKey:@"enabled"] boolValue];	
+	BOOL enabled = [dic[@"enabled"] boolValue];	
 	if (enabled) {
 		//NSLog() or printf()
 		NSString* file=[[NSString alloc] initWithBytes:fileName 
@@ -71,11 +72,11 @@ static PLOG_STYLE _gStyle;
 
 		NSString* logStr = nil;
 		if (_gStyle == PLOG_STYLE_SHORT) {
-			logStr = [NSString stringWithFormat:@"[%@] %@",[dic objectForKey:@"name"],message];
+			logStr = [NSString stringWithFormat:@"[%@] %@",dic[@"name"],message];
 		}else if (_gStyle == PLOG_STYLE_MIDDLE) {
-			logStr = [NSString stringWithFormat:@"[%@] %@\n  %s",[dic objectForKey:@"name"],message,method];
+			logStr = [NSString stringWithFormat:@"[%@] %@\n  %s",dic[@"name"],message,method];
 		}else if (_gStyle == PLOG_STYLE_FULL) {
-			logStr = [NSString stringWithFormat:@"[%@]%s:%d %s %@",[dic objectForKey:@"name"], [[file lastPathComponent] UTF8String],  line , method, message];			
+			logStr = [NSString stringWithFormat:@"[%@]%s:%d %s %@",dic[@"name"], [[file lastPathComponent] UTF8String],  line , method, message];			
 		}
 		
 		[file release];
@@ -94,10 +95,10 @@ static PLOG_STYLE _gStyle;
 		return;
 	}
 	
-	NSMutableDictionary* dic = [_gDictionary objectForKey:@(env)];
+	NSMutableDictionary* dic = _gDictionary[@(env)];
 	NSAssert1(dic != nil ,@"PLOG env %d not exists",env);
 	
-	[dic setObject:@(enable) forKey:@"enabled"];
+	dic[@"enabled"] = @(enable);
 }
 
 + (void)addEnv:(PLOG_ENV)env name:(NSString*)name
@@ -108,7 +109,7 @@ static PLOG_STYLE _gStyle;
 								@[name,enabled] 
 																  forKeys:
 								@[@"name",@"enabled"]];
-	[_gDictionary setObject:dic forKey:key];
+	_gDictionary[key] = dic;
 }
 
 @end
@@ -176,10 +177,10 @@ static PLLOG_File* _defaultFileLogger;
 {
     if (!_gEnabled) return;
 	
-	NSMutableDictionary* dic = [_gDictionary objectForKey:@(env)];
+	NSMutableDictionary* dic = _gDictionary[@(env)];
 	NSAssert1(dic != nil ,@"PLOG env %d not exists",env);
 	
-	BOOL enabled = [[dic objectForKey:@"enabled"] boolValue];
+	BOOL enabled = [dic[@"enabled"] boolValue];
 	if (enabled) {
 		//NSLog() or printf()
 		NSString* file=[[NSString alloc] initWithBytes:fileName
@@ -194,11 +195,11 @@ static PLLOG_File* _defaultFileLogger;
         
 		NSString* logStr = nil;
 		if (_gStyle == PLOG_STYLE_SHORT) {
-			logStr = [NSString stringWithFormat:@"[%@] %@",[dic objectForKey:@"name"],message];
+			logStr = [NSString stringWithFormat:@"[%@] %@",dic[@"name"],message];
 		}else if (_gStyle == PLOG_STYLE_MIDDLE) {
-			logStr = [NSString stringWithFormat:@"[%@] %@\n  %s",[dic objectForKey:@"name"],message,method];
+			logStr = [NSString stringWithFormat:@"[%@] %@\n  %s",dic[@"name"],message,method];
 		}else if (_gStyle == PLOG_STYLE_FULL) {
-			logStr = [NSString stringWithFormat:@"[%@]%s:%d %s %@\n",[dic objectForKey:@"name"], [[file lastPathComponent] UTF8String],  line , method, message];
+			logStr = [NSString stringWithFormat:@"[%@]%s:%d %s %@\n",dic[@"name"], [[file lastPathComponent] UTF8String],  line , method, message];
 		}
 		
 		[file release];

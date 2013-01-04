@@ -23,7 +23,7 @@
 //able to check nil object
 + (BOOL)isEqual:(NSString*)a toB:(NSString*)b;
 
-// return 1.5 mb 
+// return examples:1.5 mb 
 
 + (NSString*)localizedFileSize:(long long)fileSizeBytes;
 
@@ -40,6 +40,16 @@
 
 - (NSString *)striped;
 
+@end
+
+
+@interface NSString(xor)
+- (NSData*)xorWithKey:(NSString*)key;
++ (NSString*)xorFromData:(NSData*)data key:(NSString*)key;
+
+//with base64 encoded
+- (NSString*)xorEncodeWithKey:(NSString*)key;
+- (NSString*)xorDecodeWithKey:(NSString*)key;
 @end
 
 

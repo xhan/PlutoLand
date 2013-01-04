@@ -13,7 +13,7 @@
 {
     NSMutableArray *parameterPairs = [NSMutableArray array];
 	for (NSString *key in [dict allKeys]) {
-        id value = [[dict objectForKey:key] isKindOfClass:NSString.class] ? [[dict objectForKey:key] URLEscaped] : [dict objectForKey:key];
+        id value = [dict[key] isKindOfClass:NSString.class] ? [dict[key] URLEscaped] : dict[key];
 		NSString *pair = [NSString stringWithFormat:@"%@=%@", [key URLEscaped], value ];
 		[parameterPairs addObject:pair];
 	}
@@ -44,8 +44,8 @@
     {
         NSArray *keyValuePairArray = [keyValuePairString componentsSeparatedByString:@"="];
         if ([keyValuePairArray count] < 2) continue; // Verify that there is at least one key, and at least one value.  Ignore extra = signs
-        NSString *key = [[keyValuePairArray objectAtIndex:0] unURLEscape];
-        NSString *value = [[keyValuePairArray objectAtIndex:1] unURLEscape];
+        NSString *key = [keyValuePairArray[0] unURLEscape];
+        NSString *value = [keyValuePairArray[1] unURLEscape];
                 /*
         NSMutableArray *results = [queryComponents objectForKey:key]; // URL spec says that multiple values are allowed per key
 
@@ -57,7 +57,7 @@
         [results addObject:value];
          */
         if (key && value) {
-            [queryComponents setObject:value forKey:key];
+            queryComponents[key] = value;
         }
     }
     return queryComponents;

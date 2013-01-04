@@ -56,10 +56,10 @@ cachePath = _cachePath, maxPixelCount = _maxPixelCount, invalidationAge = _inval
 	if (!gNamedCaches) {
 		gNamedCaches = [[NSMutableDictionary alloc] init];
 	}
-	PLImageCacheC* cache = [gNamedCaches objectForKey:name];
+	PLImageCacheC* cache = gNamedCaches[name];
 	if (!cache) {
 		cache = [[[PLImageCacheC alloc] initWithName:name] autorelease];
-		[gNamedCaches setObject:cache forKey:name];
+		gNamedCaches[name] = cache;
 	}
 	return cache;
 }
@@ -80,7 +80,7 @@ cachePath = _cachePath, maxPixelCount = _maxPixelCount, invalidationAge = _inval
 
 + (NSString*)cachePathWithName:(NSString*)name {
 	NSArray* paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-	NSString* cachesPath = [paths objectAtIndex:0];
+	NSString* cachesPath = paths[0];
 	NSString* cachePath = [cachesPath stringByAppendingPathComponent:name];
 	NSFileManager* fm = [NSFileManager defaultManager];
 	if (![fm fileExistsAtPath:cachesPath]) {
@@ -98,8 +98,8 @@ cachePath = _cachePath, maxPixelCount = _maxPixelCount, invalidationAge = _inval
 
 - (void)expireImagesFromMemory {
 	while (_imageSortedList.count) {
-		NSString* key = [_imageSortedList objectAtIndex:0];
-		UIImage* image = [_imageCache objectForKey:key];
+		NSString* key = _imageSortedList[0];
+		UIImage* image = _imageCache[key];
 		// TTLOG(@"EXPIRING %@", key);
 		
 		_totalPixelCount -= image.size.width * image.size.height;
@@ -129,7 +129,7 @@ cachePath = _cachePath, maxPixelCount = _maxPixelCount, invalidationAge = _inval
 			}
 			
 			[_imageSortedList addObject:URL];
-			[_imageCache setObject:image forKey:URL];
+			_imageCache[URL] = image;
 		}
 	}
 }
@@ -262,7 +262,7 @@ cachePath = _cachePath, maxPixelCount = _maxPixelCount, invalidationAge = _inval
 	NSFileManager* fm = [NSFileManager defaultManager];
 	if ([fm fileExistsAtPath:filePath]) {
 		NSDictionary* attrs = [fm attributesOfItemAtPath:filePath error:nil];
-		NSDate* modified = [attrs objectForKey:NSFileModificationDate];
+		NSDate* modified = attrs[NSFileModificationDate];
 		if (expirationAge && [modified timeIntervalSinceNow] < -expirationAge) {
 			return nil;
 		}
@@ -281,7 +281,7 @@ cachePath = _cachePath, maxPixelCount = _maxPixelCount, invalidationAge = _inval
 }
 
 - (id)imageForURL:(NSString*)URL fromDisk:(BOOL)fromDisk {
-	UIImage* image = [_imageCache objectForKey:URL];
+	UIImage* image = _imageCache[URL];
 	if (!image && fromDisk) {
 		if (TTIsBundleURL(URL)) {
 			image = [self loadImageFromBundle:URL];
@@ -354,7 +354,7 @@ cachePath = _cachePath, maxPixelCount = _maxPixelCount, invalidationAge = _inval
 		[_imageSortedList removeObject:oldKey];
 		[_imageCache removeObjectForKey:oldKey];
 		[_imageSortedList addObject:newKey];
-		[_imageCache setObject:image forKey:newKey];
+		_imageCache[newKey] = image;
 	}
 	NSString* oldPath = [self cachePathForKey:oldKey];
 	NSFileManager* fm = [NSFileManager defaultManager];
@@ -447,7 +447,7 @@ cachePath = _cachePath, maxPixelCount = _maxPixelCount, invalidationAge = _inval
 	NSLog(@"======= IMAGE CACHE: %uu images, %u pixels ========", _imageCache.count, _totalPixelCount);
 	NSEnumerator* e = [_imageCache keyEnumerator];
 	for (NSString* key ; key = [e nextObject]; ) {
-		UIImage* image = [_imageCache objectForKey:key];
+		UIImage* image = _imageCache[key];
 		NSLog(@"  %f x %f %@", image.size.width, image.size.height, key);
 	}  
 }
