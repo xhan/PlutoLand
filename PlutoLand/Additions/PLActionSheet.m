@@ -10,31 +10,6 @@
 
 @implementation PLActionSheet
 
-//- (void)showFromToolbar:(UIToolbar *)view{
-//    self.delegate = self;
-//    [super showFromToolbar:view];
-//}
-//- (void)showFromTabBar:(UITabBar *)view
-//{
-//    self.delegate = self;
-//    [super showFromTabBar:view];
-//}
-//- (void)showFromBarButtonItem:(UIBarButtonItem *)item animated:(BOOL)animated 
-//{
-//    self.delegate = self;
-//    [super showFromBarButtonItem:item animated:animated];
-//}
-//
-//- (void)showFromRect:(CGRect)rect inView:(UIView *)view animated:(BOOL)animated
-//{
-//    self.delegate = self;
-//    [super showFromRect:rect inView:view animated:animated];
-//}
-//- (void)showInView:(UIView *)view
-//{
-//    self.delegate = self;
-//    [super showInView:view];
-//}
 
 - (void)setCallBack:(void (^)(int index,BOOL isCancel))block
 {

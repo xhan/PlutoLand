@@ -69,3 +69,4 @@
 - (CGAffineTransform)transformForOrientation:(CGSize)newSize;
 - (CGImageRef)newBorderMask:(NSUInteger)borderSize size:(CGSize)size;
 @end
+

@@ -92,15 +92,15 @@ UIImage* ImageStretchable(UIImage*image)
 
 + (UIButton*)createBtnfromPoint:(CGPoint)point imageStr:(NSString*)imgstr target:(id)target selector:(SEL)selector;
 {
-	UIImage* img = [T imageNamed:imgstr];
+	UIImage* img = [self imageNamed:imgstr];
 	return [self createBtnfromPoint:point image:img target:target selector:selector];
 }
 
 
 + (UIButton*)createBtnfromPoint:(CGPoint)point imageStr:(NSString*)imgstr highlightImgStr:(NSString*)himgstr target:(id)target selector:(SEL)selector;
 {
-	UIImage* img = [T imageNamed:imgstr];
-	UIImage* imgHighlight = [T imageNamed:himgstr];
+	UIImage* img = [self imageNamed:imgstr];
+	UIImage* imgHighlight = [self imageNamed:himgstr];
 	return [self createBtnfromPoint:point image:img highlightImg:imgHighlight target:target selector:selector];
 }
 
@@ -131,12 +131,12 @@ UIImage* ImageStretchable(UIImage*image)
     btn.backgroundColor = [UIColor clearColor];
     btn.frame = frame;
     if (imgstr) {
-        [btn setImage:[T imageNamed:imgstr]
+        [btn setImage:[self imageNamed:imgstr]
              forState:UIControlStateNormal];
     }
 
     if(himgstr)
-        [btn setImage:[T imageNamed:himgstr]
+        [btn setImage:[self imageNamed:himgstr]
          forState:UIControlStateHighlighted];
     [btn addTarget:target action:selector forControlEvents:UIControlEventTouchUpInside];
     return btn;
