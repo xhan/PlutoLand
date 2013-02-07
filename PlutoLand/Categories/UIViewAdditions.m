@@ -1,5 +1,5 @@
 #import "UIViewAdditions.h"
-
+#import <objc/runtime.h>
 
 @implementation UIView (TTCategory)
 
@@ -230,4 +230,46 @@
     [self addGestureRecognizer:tap];
     [tap release];
 }
+- (void)onLongPress:(void(^)(void))block
+{
+    objc_setAssociatedObject(self, @"longpressblock", block, OBJC_ASSOCIATION_COPY_NONATOMIC);
+    self.userInteractionEnabled = YES;
+    UILongPressGestureRecognizer*press = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(_callback_onLongPressed:)];
+    press.minimumPressDuration = 0.6;
+    [self addGestureRecognizer:press];
+    [press release];
+
+}
+//TODO: memory release on view dealloced 
+- (void)_callback_onLongPressed:(UILongPressGestureRecognizer*)reg
+{
+
+    if (reg.state == UIGestureRecognizerStateBegan) {
+        void(^block)(void)  = objc_getAssociatedObject(self, @"longpressblock");
+        if (block) {
+            block();
+        }
+    }
+
+    /*
+    if (reg.state == UIGestureRecognizerStateBegan) {
+        NSLog(@"began");
+    }
+    if (reg.state == UIGestureRecognizerStateEnded) {
+        NSLog(@"end recoged");
+    }
+    if (reg.state == UIGestureRecognizerStateChanged) {
+        NSLog(@"changed");
+    }
+     began
+     end recoged
+     began
+     end recoged
+     began
+     end recoged
+     began
+     end recoged
+     */
+}
+
 @end
