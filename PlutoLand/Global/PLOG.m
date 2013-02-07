@@ -28,6 +28,7 @@ static PLOG_STYLE _gStyle;
 	[self addEnv:1 name:@"Warning"];
 	[self addEnv:2 name:@"Error"];
     [self addEnv:PLOG_ENV_NETWORK name:@"Net"];
+    [self addEnv:PLOG_ENV_MEMORY name:@"Mem"];
 }
 
 + (void)configForEnv:(PLOG_ENV)env key:(PLOG_FORMAT)key enable:(BOOL)isEnable
@@ -103,13 +104,9 @@ static PLOG_STYLE _gStyle;
 
 + (void)addEnv:(PLOG_ENV)env name:(NSString*)name
 {
-	NSNumber* key = @(env);
-	NSNumber* enabled = @(YES);
-	NSMutableDictionary* dic = [NSMutableDictionary dictionaryWithObjects:
-								@[name,enabled] 
-																  forKeys:
-								@[@"name",@"enabled"]];
-	_gDictionary[key] = dic;
+	NSMutableDictionary* dic = [NSMutableDictionary dictionaryWithDictionary:@{@"name":name,
+                                @"enabled":@(YES)}];
+	_gDictionary[@(env)] = dic;
 }
 
 @end

@@ -60,7 +60,7 @@ method:__PRETTY_FUNCTION__ message:_s_, ##__VA_ARGS__]
 #define PLOGWARNING(_s_,...) PLOGENV(1, _s_, ##__VA_ARGS__)
 
 #define PLOGERROR(_s_,...) PLOGENV(2, _s_, ##__VA_ARGS__)
-
+#define PLOGMEM(_s_,...) PLOGENV(4, _s_, ##__VA_ARGS__)
 
 
 
@@ -77,7 +77,8 @@ enum {
 	PLOG_ENV_INFO = 0,
 	PLOG_ENV_WARNING = 1,
 	PLOG_ENV_ERROR = 2,
-    PLOG_ENV_NETWORK = 3
+    PLOG_ENV_NETWORK = 3,
+    PLOG_ENV_MEMORY = 4
 };
 
 typedef enum  {
