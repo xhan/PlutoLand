@@ -34,3 +34,6 @@
 #define URL(string) [NSURL URLWithString:string]
 
 #define unless(condition) if (!(condition))
+
+
+#define weak(value) __block id wself = value
