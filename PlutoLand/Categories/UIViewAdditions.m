@@ -240,7 +240,7 @@
     [press release];
 
 }
-//TODO: memory release on view dealloced 
+
 - (void)_callback_onLongPressed:(UILongPressGestureRecognizer*)reg
 {
 
