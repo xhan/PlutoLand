@@ -34,15 +34,15 @@
 	BOOL _disableDiskCache;
 	BOOL _disableImageCache;
 }
-
+/*
 + (PLImageCacheC*)sharedCache;
 
 + (void)setSharedCache:(PLImageCacheC*)cache; // or to release it by set value to nil 
-
+*/
 
 - (UIImage*)getImageByURL:(NSString*)urlStr;
 
-- (void)storeData:(NSData*)data forURL:(NSString*)URL;
+//- (void)storeData:(NSData*)data forURL:(NSString*)URL;
 
 
 

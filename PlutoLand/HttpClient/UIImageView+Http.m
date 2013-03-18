@@ -20,8 +20,8 @@
 	UIImage* aimage = [[PLImageCacheC sharedCache] getImageByURL:urlstr];
 	if (aimage) {
 		self.image = aimage;
-		PLOG(@"- loaded cached image :%@",urlstr);
-		return;		
+//		PLOG(@"- loaded cached image :%@",urlstr);
+		return;
 	}
     if (img) {
         self.image = img;
