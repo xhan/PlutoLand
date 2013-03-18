@@ -29,7 +29,9 @@ extern UIImage* ImageStretchable(UIImage*image);
 + (UIAlertView*)alert:(NSString*)title body:(NSString*)body;
 
 + (UIColor *)colorWithHex:(NSInteger)color;
-
++ (UIColor *)colorHexFromString:(NSString*)str;
+// cssstyle starts with # mark (#FF0000)
++ (UIColor *)colorHexFromString:(NSString*)str cssStyle:(BOOL)cssStyle;
 + (void)appPlayVibrate;
 
 // the link for get app info ,download ,review ...etc

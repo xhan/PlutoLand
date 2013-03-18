@@ -70,6 +70,25 @@ UIImage* ImageStretchable(UIImage*image)
     return [self colorR:r g:g b:b];
 }
 
++ (UIColor *)colorHexFromString:(NSString*)str
+{
+    return [self colorHexFromString:str cssStyle:-1]; // -1 -> auto check
+}
+
++ (UIColor *)colorHexFromString:(NSString*)str cssStyle:(BOOL)cssStyle
+{
+    if( str.length < 3) return nil;
+    NSUInteger c;
+    cssStyle = cssStyle != -1 ? cssStyle : [str characterAtIndex:0] == '#' ;
+    
+    if (cssStyle) {
+        [[NSScanner scannerWithString:[str substringFromIndex:1]] scanHexInt:&c];
+    } else {
+        [[NSScanner scannerWithString:str] scanHexInt:&c];
+    }
+    return [self colorWithHex:c];
+}
+
 + (void)appPlayVibrate
 {
 #if TARGET_OS_IPHONE

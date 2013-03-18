@@ -24,8 +24,6 @@
 
 #define PLStringFromInt(a) [NSString stringWithFormat:@"%d",a]
 
-#define PLNUM(x) [NSNumber numberWithInt:x]
-
 #define CLIP(x,min,max) ((x) < (min) ? (min) : ((x) > (max) ? (max) : (x) ))
 #define CENTER(x,min,max) CLIP((x),(min),(max))
 
@@ -37,3 +35,5 @@
 
 
 #define weak(value) __block id wself = value
+
+#define I(value) [value intValue]
