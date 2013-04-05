@@ -7,6 +7,7 @@
 //
 
 #import "PLOG.h"
+#import "PLGlobal.h"
 
 const int PLOG_ENV_GLOBAL = 871015;
 

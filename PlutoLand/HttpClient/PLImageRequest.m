@@ -6,7 +6,7 @@
 //  Copyright 2010 xu han. All rights reserved.
 //
 
-#import "PLGlobal.h"
+#import "PLCore.h"
 #import "PLImageRequest.h"
 
 

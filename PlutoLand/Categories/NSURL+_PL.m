@@ -8,6 +8,8 @@
 
 #import "NSURL+_PL.h"
 #import "NSString+Addition.h"
+#import "PLCore.h"
+
 @implementation NSURL (_PL)
 + (NSString*)stringParamsFromDict:(NSDictionary*)dict
 {

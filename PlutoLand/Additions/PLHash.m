@@ -7,6 +7,7 @@
 //
 
 #import "PLHash.h"
+#import "PLCore.h"
 
 @interface PLHash(/*Private*/)
 - (void)_cleanItemsInNeed;

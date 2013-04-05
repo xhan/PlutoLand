@@ -8,7 +8,10 @@
 #if TARGET_OS_IPHONE || NS_BUILD_32_LIKE_64
 
 #import "T.h"
+#if PL_AUDIO
 #import <AudioToolbox/AudioToolbox.h>
+#endif
+#import "PLCore.h"
 
 UIImage* ImageStretchable(UIImage*image)
 {
@@ -91,7 +94,7 @@ UIImage* ImageStretchable(UIImage*image)
 
 + (void)appPlayVibrate
 {
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE && PL_AUDIO
     AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
 #endif
 }

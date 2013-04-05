@@ -165,6 +165,12 @@
     return [[self class] xorFromData:data key:key];
 }
 
+- (BOOL)contains:(NSString*)string
+{
+    NSRange rng = [self rangeOfString:string options:0];
+    return rng.location != NSNotFound;
+}
+
 @end
 
 

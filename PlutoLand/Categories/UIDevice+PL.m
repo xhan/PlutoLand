@@ -7,7 +7,7 @@
 //
 
 #import "UIDevice+PL.h"
-#import "PLGlobal.h"
+#import "PLCore.h"
 
 #include <sys/types.h>
 #include <sys/sysctl.h>

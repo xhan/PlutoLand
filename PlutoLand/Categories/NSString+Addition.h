@@ -40,6 +40,7 @@
 
 - (NSString *)striped;
 
+- (BOOL)contains:(NSString*)string;
 @end
 
 

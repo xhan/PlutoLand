@@ -8,6 +8,11 @@
 
 #import "PLSegmentView.h"
 #import "PLSegmentCell.h"
+#import "PLCore.h"
+
+#ifndef  PL_SEG_PNG_CUSTOM
+#define TPngc(value) PNGImage(value)
+#endif
 
 /////////////////////////////////////////////////////////////////////////////////////
 @interface PLSegmentView(private)
@@ -60,13 +65,15 @@
 	NSAssert([images count] == [selectedImages count], @"two arrays should have same items count");
 	for (int cnt = 0; cnt < [images count]; cnt++) {
 		CGPoint origin = CGPointMake(offset.width * cnt + point.x, offset.height * cnt + point.y);
-		PLSegmentCell* cell = [[PLSegmentCell alloc] initWithNormalImage:[UIImage imageNamed:images[cnt]]
-														   selectedImage:[UIImage imageNamed:selectedImages[cnt]] 
+		PLSegmentCell* cell = [[PLSegmentCell alloc] initWithNormalImage:TPngc(images[cnt])
+														   selectedImage:TPngc(selectedImages[cnt])
 															  startPoint:origin];
 		[self addCell:cell];
 		[cell release];
-	}	
+	}
+    
 }
+
 
 - (void)addCells:(NSArray*)cells
 {
