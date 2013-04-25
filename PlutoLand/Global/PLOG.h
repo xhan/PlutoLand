@@ -13,6 +13,10 @@
 
 #import <Foundation/Foundation.h>
 
+#define PLOG_USING_CONSOLE 1
+// default value -> 0
+// change it to true to show debugs on console
+// or it will use print instead
 
 #ifdef DEBUG
 

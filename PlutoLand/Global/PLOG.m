@@ -83,7 +83,11 @@ static PLOG_STYLE _gStyle;
 		
 		[file release];
 		[message release];
+#if PLOG_USING_CONSOLE
+         NSLog(@"%@",logStr);
+#else
 		printf("%s\n",[logStr UTF8String]);
+#endif
 		
 	}
 }
