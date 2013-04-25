@@ -18,6 +18,7 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+    if(_blockDelegate)
     _blockDelegate(buttonIndex,alertView.cancelButtonIndex == buttonIndex);
 }
 
