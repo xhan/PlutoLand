@@ -26,6 +26,7 @@
 @property(readonly) NSString* currentBuild;
 
 @property(readonly) BOOL isJailbreak;
+@property(readonly) BOOL isIAPcrack;
 @end
 
 @interface UIDevice (IdentifierAddition)

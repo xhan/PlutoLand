@@ -126,6 +126,43 @@
     
 }
 
+
+- (BOOL) isIAPcrack
+{
+#if TARGET_IPHONE_SIMULATOR
+    return NO;
+#else
+    
+//    越狱软件对这个方法做了hook
+    
+//    BOOL ret = NO;
+//    for (NSString*hack in @[@"IAPFreeService",@"LocalIAPStore"]) {
+//        ret = [[NSFileManager defaultManager] fileExistsAtPath:[NSString stringWithFormat:@"/Library/MobileSubstrate/DynamicLibraries/%@.dylib",hack]];
+//        if (ret) {
+//            PLOGERROR(@"found bad hacks %@",hack);
+//            break;
+//        }
+//    }
+    
+    NSString *path = @"/Library/MobileSubstrate/DynamicLibraries";
+    NSFileManager*a = [NSFileManager defaultManager];
+    NSArray* files = [a contentsOfDirectoryAtPath:path error:nil];
+    for (NSString*hack in @[@"IAPFreeService",@"LocalIAPStore"]) {
+        for (NSString*file in files) {
+            if ([file rangeOfString:hack].location != NSNotFound) {
+                PLOGERROR(@"found bad hacks %@",hack);
+//                ret = YES;
+                return YES;
+            }
+        }
+
+    }
+//    PLOG_OBJ([a contentsOfDirectoryAtPath:path error:nil]);
+    
+    return NO;
+#endif
+}
+
 @end
 
 
