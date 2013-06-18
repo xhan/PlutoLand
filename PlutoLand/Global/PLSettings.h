@@ -82,7 +82,7 @@ typedef enum {
 }
 @property(nonatomic,assign)BOOL isDynamicProperties;
 @property(nonatomic,readonly) BOOL isFirstLaunched;
-@property(nonatomic,readonly) int  initedCount;     // each time you initialized a new instance, this value += 1
+@property(nonatomic,readonly) int  initedCount;     // each time you initialized a new instance, this value += 1 , starts from 1
 @property(nonatomic,readonly) NSDate *installedAt;   // time records when first time launched the app
 - (void)synchronize;
 
