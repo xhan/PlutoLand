@@ -30,4 +30,6 @@
 
 - (void)fetchByURL:(NSString*)urlstr placeHolder:(UIImage*)img;
 
+
+- (BOOL)cleanFetchURL:(NSString*)url;
 @end

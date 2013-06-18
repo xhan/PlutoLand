@@ -50,4 +50,10 @@
 {
     return [self fetchByURL:urlstr userInfo:nil freshOnSucceed:YES placeHolder:img];
 }
+
+- (BOOL)cleanFetchURL:(NSString*)url
+{
+    [[PLImageCacheC sharedCache] removeURL:url fromDisk:YES];
+    return YES;
+}
 @end
