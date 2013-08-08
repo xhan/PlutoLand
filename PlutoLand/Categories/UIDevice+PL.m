@@ -11,6 +11,7 @@
 
 #include <sys/types.h>
 #include <sys/sysctl.h>
+#import <AdSupport/AdSupport.h>
 
 @implementation UIDevice(PL)
 
@@ -60,24 +61,39 @@
     return platform;
 }
 
+// get updates from
+// https://gist.github.com/Jaybles/1323251
 - (NSString *) platformString{
     NSString *platform = [self platform];
     if ([platform isEqualToString:@"iPhone1,1"])    return @"iPhone 1G";
     if ([platform isEqualToString:@"iPhone1,2"])    return @"iPhone 3G";
     if ([platform isEqualToString:@"iPhone2,1"])    return @"iPhone 3GS";
     if ([platform isEqualToString:@"iPhone3,1"])    return @"iPhone 4";
-    if ([platform isEqualToString:@"iPhone4,1"])    return @"iPhone 4S";
     if ([platform isEqualToString:@"iPhone3,3"])    return @"Verizon iPhone 4";
+    if ([platform isEqualToString:@"iPhone4,1"])    return @"iPhone 4S";
+    if ([platform isEqualToString:@"iPhone5,1"])    return @"iPhone 5 (GSM)";
+    if ([platform isEqualToString:@"iPhone5,2"])    return @"iPhone 5 (GSM+CDMA)";
     if ([platform isEqualToString:@"iPod1,1"])      return @"iPod Touch 1G";
     if ([platform isEqualToString:@"iPod2,1"])      return @"iPod Touch 2G";
     if ([platform isEqualToString:@"iPod3,1"])      return @"iPod Touch 3G";
     if ([platform isEqualToString:@"iPod4,1"])      return @"iPod Touch 4G";
+    if ([platform isEqualToString:@"iPod5,1"])      return @"iPod Touch 5G";
     if ([platform isEqualToString:@"iPad1,1"])      return @"iPad";
     if ([platform isEqualToString:@"iPad2,1"])      return @"iPad 2 (WiFi)";
     if ([platform isEqualToString:@"iPad2,2"])      return @"iPad 2 (GSM)";
     if ([platform isEqualToString:@"iPad2,3"])      return @"iPad 2 (CDMA)";
-    if ([platform isEqualToString:@"i386"] ||
-        [platform isEqualToString:@"x86_64"])         return @"Simulator";
+    if ([platform isEqualToString:@"iPad2,4"])      return @"iPad 2 (WiFi)";
+    if ([platform isEqualToString:@"iPad2,5"])      return @"iPad Mini (WiFi)";
+    if ([platform isEqualToString:@"iPad2,6"])      return @"iPad Mini (GSM)";
+    if ([platform isEqualToString:@"iPad2,7"])      return @"iPad Mini (GSM+CDMA)";
+    if ([platform isEqualToString:@"iPad3,1"])      return @"iPad 3 (WiFi)";
+    if ([platform isEqualToString:@"iPad3,2"])      return @"iPad 3 (GSM+CDMA)";
+    if ([platform isEqualToString:@"iPad3,3"])      return @"iPad 3 (GSM)";
+    if ([platform isEqualToString:@"iPad3,4"])      return @"iPad 4 (WiFi)";
+    if ([platform isEqualToString:@"iPad3,5"])      return @"iPad 4 (GSM)";
+    if ([platform isEqualToString:@"iPad3,6"])      return @"iPad 4 (GSM+CDMA)";
+    if ([platform isEqualToString:@"i386"])         return @"Simulator";
+    if ([platform isEqualToString:@"x86_64"])       return @"Simulator";
     return platform;
 }
 
@@ -102,6 +118,15 @@
         __isIOS6above = (int)([[self systemVersion] floatValue]) >= 6;
     }
     return __isIOS6above ;
+}
+
+- (BOOL)isIOS7AndAbove
+{
+    static int __isIOS7above = -1;
+    if (__isIOS7above == -1) {
+        __isIOS7above = (int)([[self systemVersion] floatValue]) >= 7;
+    }
+    return __isIOS7above ;
 }
 
 - (NSString*)currentBuild
@@ -330,3 +355,61 @@
 }
 
 @end
+
+
+
+
+@implementation UIDevice (NetDetect)
+
+- (NSNumber *) dataNetworkTypeFromStatusBar
+{
+    /*
+     Make sure that the Status bar is not hidden in your application. if it's not visible it will always return No wifi or cellular because your code reads the text in the Status bar thats all.
+     
+    //statusBarHidden
+     
+     0 = No wifi or cellular  - gprs return 0
+     1 = 2G and earlier? (not confirmed)
+     2 = 3G? (not yet confirmed)
+     3 = 4G
+     4 = LTE
+     5 = Wifi
+     
+     */
+    
+    
+    UIApplication *app = [UIApplication sharedApplication];
+    NSArray *subviews = [[[app valueForKey:@"statusBar"] valueForKey:@"foregroundView"]    subviews];
+    NSNumber *dataNetworkItemView = nil;
+    
+    for (id subview in subviews) {
+        if([subview isKindOfClass:[NSClassFromString(@"UIStatusBarDataNetworkItemView") class]]) {
+            dataNetworkItemView = subview;
+            break;
+        }
+    }
+    return [dataNetworkItemView valueForKey:@"dataNetworkType"];
+}
+
+@end
+
+
+
+// ios7 and later
+@implementation UIDevice (UUID)
+- (NSString *) adUUID
+{
+    NSString* uuid = nil;
+    if (NSClassFromString(@"ASIdentifierManager")) {
+        uuid = [[ASIdentifierManager sharedManager].advertisingIdentifier UUIDString];;
+    }
+    return uuid;
+}
+
+@end
+
+
+UIDevice* MyDevice()
+{
+    return [UIDevice currentDevice];
+}

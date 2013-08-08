@@ -21,6 +21,7 @@
 @property(nonatomic,readonly) BOOL isIOS5;  //deprecate
 @property(nonatomic,readonly) BOOL isIOS5above;
 @property(nonatomic,readonly) BOOL isIOS6above;
+@property(nonatomic,readonly) BOOL isIOS7AndAbove;
 
 @property(readonly) NSString* currentVersion;
 @property(readonly) NSString* currentBuild;
@@ -29,8 +30,9 @@
 @property(readonly) BOOL isIAPcrack;
 @end
 
+// ios7 beforel
 @interface UIDevice (IdentifierAddition)
-
+- (NSString *) macaddress;
 /*
  * @method uniqueDeviceIdentifier
  * @description use this method when you need a unique identifier in one app.
@@ -54,9 +56,20 @@
 
 
 
-
-
 @interface UIDevice (Process)
 + (NSArray *)runningProcesses;
 + (NSArray *)runningProcesses:(BOOL)isMoreInfo; //default is true -> dict with process name and PID
 @end
+
+
+@interface UIDevice (NetDetect)
+- (NSNumber *) dataNetworkTypeFromStatusBar;
+@end
+
+
+// ios7 and later
+@interface UIDevice (UUID)
+- (NSString *) adUUID;
+@end
+
+extern UIDevice* MyDevice();
