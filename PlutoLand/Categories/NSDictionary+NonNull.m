@@ -28,7 +28,7 @@
 @implementation NSArray (NonNull)
 - (id)objectAtIndexPL:(NSUInteger)index
 {
-    id obj = [self objectAtIndexPL:index];
+    id obj = [self objectAtIndex:index];
     if (obj == [NSNull null]) {
         return nil;
     }
