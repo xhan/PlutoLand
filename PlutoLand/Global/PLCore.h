@@ -37,3 +37,5 @@
 #define weak(value) __block id wself = value
 
 #define I(value) [value intValue]
+
+#define IsStringEmpty(str) (![(str) isNonEmpty])

@@ -361,12 +361,11 @@
 
 @implementation UIDevice (NetDetect)
 
-- (NSNumber *) dataNetworkTypeFromStatusBar
+- (int) dataNetworkTypeFromStatusBar
 {
     /*
      Make sure that the Status bar is not hidden in your application. if it's not visible it will always return No wifi or cellular because your code reads the text in the Status bar thats all.
      
-    //statusBarHidden
      
      0 = No wifi or cellular  - gprs return 0
      1 = 2G and earlier? (not confirmed)
@@ -376,19 +375,23 @@
      5 = Wifi
      
      */
-    
-    
+    static int networkType = 0;
     UIApplication *app = [UIApplication sharedApplication];
-    NSArray *subviews = [[[app valueForKey:@"statusBar"] valueForKey:@"foregroundView"]    subviews];
-    NSNumber *dataNetworkItemView = nil;
-    
-    for (id subview in subviews) {
-        if([subview isKindOfClass:[NSClassFromString(@"UIStatusBarDataNetworkItemView") class]]) {
-            dataNetworkItemView = subview;
-            break;
+    if (!app.statusBarHidden) {
+        NSArray *subviews = [[[app valueForKey:@"statusBar"] valueForKey:@"foregroundView"]    subviews];
+        NSNumber *dataNetworkItemView = nil;
+        
+        for (id subview in subviews) {
+            if([subview isKindOfClass:[NSClassFromString(@"UIStatusBarDataNetworkItemView") class]]) {
+                dataNetworkItemView = subview;
+                break;
+            }
         }
+        int value =  [[dataNetworkItemView valueForKey:@"dataNetworkType"] intValue];
+        networkType = value;
     }
-    return [dataNetworkItemView valueForKey:@"dataNetworkType"];
+    return networkType;
+
 }
 
 @end

@@ -63,7 +63,15 @@
 
 
 @interface UIDevice (NetDetect)
-- (NSNumber *) dataNetworkTypeFromStatusBar;
+/*
+ 0 = No wifi or cellular  - gprs return 0
+ 1 = 2G and earlier? (not confirmed)
+ 2 = 3G? (not yet confirmed)
+ 3 = 4G
+ 4 = LTE
+ 5 = Wifi
+ */
+- (int) dataNetworkTypeFromStatusBar;
 @end
 
 
