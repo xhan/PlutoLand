@@ -44,7 +44,7 @@
 @end
 
 
-@interface NSString(xor)
+@interface NSString(XOR)
 - (NSData*)xorWithKey:(NSString*)key;
 + (NSString*)xorFromData:(NSData*)data key:(NSString*)key;
 

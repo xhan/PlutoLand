@@ -92,7 +92,13 @@ NSString* const PLINFO_HC_IMAGE = @"PLINFO_HC_IMAGE";
 	}
 	
 	if (_isFreshOnSucceed && _imageView) {
-		_imageView.image = img;
+        @try {
+            _imageView.image = img;
+        }
+        @catch (NSException *exception) {
+            
+        }
+		
 	}
 	
 	if(_isCacheEnable)
