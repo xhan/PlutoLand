@@ -69,7 +69,7 @@ UIImage* ImageStretchable(UIImage*image)
 	int r = (color & 0xFF0000) >> 16;
 	int g = (color & 0xFF00) >> 8;
 	int b = color & 0xFF;
-//	return [UIColor colorWithRed:r*1.0/255 green:g*1.0/255 blue:b*1.0/255 alpha:1.0];
+
     return [self colorR:r g:g b:b];
 }
 
@@ -101,7 +101,13 @@ UIImage* ImageStretchable(UIImage*image)
 
 + (NSURL*)urlForAppReview:(NSString*)appID
 {
-    NSString* str = [NSString stringWithFormat:@"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%@",appID];
+    NSString* str;
+    if (MyDevice().isIOS7AndAbove) {
+        str =[NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id%@?at=10l6dK",appID];
+    }else{
+        str = [NSString stringWithFormat:@"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%@",appID];
+    }
+    
     return [NSURL URLWithString:str];
 }
 
