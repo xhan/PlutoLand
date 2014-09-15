@@ -137,6 +137,15 @@
     return __isIOS7above ;
 }
 
+- (BOOL)isIOS8AndAbove
+{
+    static int __isIOS8above = -1;
+    if (__isIOS8above == -1) {
+        __isIOS8above = (int)([[self systemVersion] floatValue]) >= 8;
+    }
+    return __isIOS8above ;
+}
+
 - (NSString*)currentBuild
 {
     return [[NSBundle mainBundle] infoDictionary][@"CFBundleVersion"]; 
