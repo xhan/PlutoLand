@@ -22,6 +22,7 @@
 @property(nonatomic,readonly) BOOL isIOS5above;
 @property(nonatomic,readonly) BOOL isIOS6above;
 @property(nonatomic,readonly) BOOL isIOS7AndAbove;
+@property(nonatomic,readonly) BOOL isIOS8AndAbove;
 
 @property(readonly) NSString* currentVersion;
 @property(readonly) NSString* currentBuild;
