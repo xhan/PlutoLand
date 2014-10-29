@@ -27,6 +27,7 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+    [[[UIApplication sharedApplication].delegate window] makeKeyAndVisible];
     _blockDelegate(buttonIndex,actionSheet.cancelButtonIndex == buttonIndex);
 }
 @end
