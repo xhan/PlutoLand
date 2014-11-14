@@ -61,7 +61,7 @@
 #define KOSStatusBarHeight 20
 #define KOSNavigationBarHeight 44
 #define KOSTabBarHeight    49
-#define KOSWidth 320
+#define KOSWidth [UIScreen mainScreen].bounds.size.width
 #define KOSHeight [UIScreen mainScreen].bounds.size.height
 #define KOSPadWidth 768
 #define KOSPadHeight 1024
