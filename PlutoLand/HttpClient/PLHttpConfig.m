@@ -7,6 +7,8 @@
 //
 
 #import "PLHttpConfig.h"
+#import "ReachabilityO.h"
+#import "QBAppDelegate.h"
 
 @implementation PLHttpConfig
 
@@ -19,6 +21,7 @@ static pthread_mutex_t  _connectionMutex = PTHREAD_MUTEX_INITIALIZER;
         _connections = 0;
     //_connectionMutex = PTHREAD_MUTEX_INITIALIZER;
 //        pthread_mutex_t
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
     }
     
     return self;
@@ -113,7 +116,28 @@ static pthread_mutex_t  _connectionMutex = PTHREAD_MUTEX_INITIALIZER;
         _userAgent = [[NSString stringWithFormat:@"%@/%@ (%@; %@ %@; %@) PLHttpClient/1", app, appVersion, deviceName, OSName, OSVersion, locale] copy];
 
     }
-    return _userAgent;
+    if (!_networkStr)
+    {
+        _networkStr = @"_WIFI";
+        if ([[QBAppDelegate s].reacher isReachableViaWWAN])
+        {
+            _networkStr = @"_WAN";
+        }
+    }
+    NSString *relAgent = [_userAgent stringByAppendingString:_networkStr];
+    return relAgent;
+}
+
+- (void)reachabilityChanged:(NSNotification*)notification
+{
+    if([[QBAppDelegate s].reacher currentReachabilityStatus] == ReachableViaWiFi)
+    {
+        _networkStr = @"_WIFI";
+    }
+    else if([[QBAppDelegate s].reacher currentReachabilityStatus] == ReachableViaWWAN)
+    {
+        _networkStr = @"_WAN";
+    }
 }
 
 @end
