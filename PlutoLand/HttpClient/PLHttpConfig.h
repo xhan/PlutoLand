@@ -19,6 +19,7 @@
     
     int _connections;
     NSString* _userAgent;
+    NSString *_networkStr;
 }
 
 + (PLHttpConfig*)s;
